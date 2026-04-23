@@ -591,6 +591,12 @@ section{padding:140px 0;position:relative}
 .reveal{opacity:0;transform:translateY(40px);transition:all 1s cubic-bezier(.2,.8,.2,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+@media (max-width:768px){
+  .reveal{opacity:1;transform:none;transition:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
 </style>
 </head>
 <body>
@@ -945,13 +951,23 @@ section{padding:140px 0;position:relative}
 </footer>
 
 <script>
-// Reveal on scroll
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
-  });
-},{threshold:.14,rootMargin:'0px 0px -60px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// Reveal on scroll — with safety fallback so images never stay hidden
+(function(){
+  const nodes = document.querySelectorAll('.reveal');
+  const revealAll = () => nodes.forEach(el => el.classList.add('visible'));
+  if (!('IntersectionObserver' in window) || window.matchMedia('(max-width:768px)').matches){
+    revealAll();
+    return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+    });
+  },{threshold:.14,rootMargin:'0px 0px -60px 0px'});
+  nodes.forEach(el=>io.observe(el));
+  // Fallback: reveal anything still hidden after 2s (slow networks, missed intersections)
+  setTimeout(revealAll, 2000);
+})();
 
 // Subtle header elevation on scroll
 const header = document.querySelector('.site-header');
