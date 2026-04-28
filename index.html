@@ -194,6 +194,20 @@ section{padding:140px 0;position:relative}
   .hero-image-full::after{inset:10px}
 }
 
+.hero-image-full img.hero-logo-overlay{
+  position:absolute;z-index:3;
+  left:5%;
+  top:13%;
+  width:26%;
+  height:auto;
+  pointer-events:none;
+  filter:drop-shadow(0 6px 24px rgba(0,0,0,.45));
+  object-fit:contain;
+}
+@media (max-width:760px){
+  .hero-image-full img.hero-logo-overlay{left:50%;transform:translateX(-50%);top:8%;width:55%}
+}
+
 .hero-overlay-bar{
   position:absolute;left:0;right:0;bottom:0;z-index:4;
   padding:26px 40px;
@@ -641,7 +655,9 @@ section{padding:140px 0;position:relative}
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-image-full">
-    <img src="fischmann.webp" alt="Juwelier Weidmann – Timeless Elegance · Smaragd-Collier und passende Schmuckstücke" width="3168" height="1344" fetchpriority="high" decoding="async" />
+    <img src="fischmann.webp" alt="Juwelier Weidmann – Timeless Elegance · Smaragd-Collier und passende Schmuckstücke" width="1536" height="672" fetchpriority="high" decoding="async" />
+
+    <img src="zoo.webp" alt="Juwelier Weidmann" class="hero-logo-overlay" width="600" height="400" decoding="async" />
 
     <a href="#halsketten" class="hero-discover-hotspot" aria-label="Kollektion entdecken"></a>
 
