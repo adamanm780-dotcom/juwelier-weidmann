@@ -66,7 +66,7 @@
   }
   main {
     position: relative;
-    margin-left: 130px;
+    margin-left: 0;
     z-index: 1;
   }
 
@@ -153,9 +153,11 @@
     margin: 8px 32px 28px 24px;
     border-radius: 4px;
     background-image: url('assets/hero-jewelry.webp');
-    background-size: cover;
-    background-position: center right;
-    height: 480px;
+    background-size: contain;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-color: var(--cream);
+    height: clamp(420px, 22vw, 720px);
     position: relative;
     overflow: hidden;
   }
@@ -764,7 +766,13 @@
     .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
     .nav-icons { gap: 14px; }
     .brand-logo { height: 36px; }
-    .hero { margin: 8px 14px 16px; height: auto; min-height: 320px; }
+    .hero {
+      margin: 8px 14px 16px;
+      height: auto;
+      min-height: 320px;
+      background-size: cover;
+      background-position: center right;
+    }
     .hero::before { background: linear-gradient(180deg, rgba(246,239,226,0.94) 0%, rgba(246,239,226,0.55) 55%, rgba(246,239,226,0) 100%); }
     .hero-content { padding: 32px 22px; max-width: 100%; }
     .hero p { font-size: 14px; }
