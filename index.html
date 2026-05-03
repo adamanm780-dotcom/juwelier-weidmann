@@ -3,994 +3,1269 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Juwelier Weidmann – Timeless Elegance · Wiesbaden</title>
-<meta name="description" content="Juwelier Weidmann in Wiesbaden. Exquisiter Schmuck, Diamanten, Perlen und Farbsteine. Burgstraße 3, 65183 Wiesbaden." />
-
+<title>Juwelier Weidmann — Klassischer Schmuck mit Charakter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link rel="preload" as="image" href="fischmann.webp" fetchpriority="high" />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Italiana&display=swap" onload="this.rel='stylesheet'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Italiana&display=swap" /></noscript>
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============ RESET ============ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-body{
-  font-family:'Inter',sans-serif;
-  background:
-    radial-gradient(1200px 800px at 85% -10%, rgba(94,234,212,.35), transparent 60%),
-    radial-gradient(900px 700px at 10% 10%, rgba(165,243,252,.45), transparent 55%),
-    linear-gradient(180deg, #f5fdfd 0%, #e6f9f9 35%, #d3f1f2 100%);
-  background-attachment:fixed;
-  color:#1d5b61;
-  overflow-x:hidden;
-  font-weight:300;
-  line-height:1.7;
-  letter-spacing:.01em;
-}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-button{font:inherit;border:none;background:none;cursor:pointer;color:inherit}
+  :root {
+    --cream: #f6efe2;
+    --cream-2: #f1e9d8;
+    --paper: #fbf6ec;
+    --ink: #1f1a14;
+    --ink-2: #3a342a;
+    --muted: #786e5e;
+    --gold: #b08a3e;
+    --gold-soft: #c9a25b;
+    --jade: #4f6b54;
+    --jade-dark: #3a5340;
+    --jade-deep: #2d3f33;
+    --line: #e6dcc6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; letter-spacing: 0.005em; }
 
-/* ============ TOKENS ============ */
-:root{
-  --emerald-950:#ffffff;
-  --emerald-900:#f5fcfc;
-  --emerald-800:#eaf7f7;
-  --emerald-700:#d9f1f2;
-  --emerald-600:#bfe8ea;
-  --gold:#0d9488;
-  --gold-light:#14b8a6;
-  --gold-dark:#0a6e73;
-  --gradient-teal:linear-gradient(135deg,#22d3ee 0%,#14b8a6 50%,#0d9488 100%);
-  --ivory:#0a3c40;
-  --cream:#1d5b61;
-  --muted:#5d8287;
-  --line:rgba(13,148,136,.28);
-  --line-soft:rgba(13,148,136,.14);
-  --shadow-lg:0 40px 80px -30px rgba(10,60,64,.28);
-  --r-sm:6px;
-  --r-md:12px;
-  --r-lg:18px;
-  --r-xl:24px;
-}
+  /* ====== Page frame with watercolor side ====== */
+  .page {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--paper);
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .side-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 100%;
+    background-image: url('assets/watercolor-side.webp');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: repeat-y;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .side-decor::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, transparent 70%, var(--paper) 100%);
+  }
+  .side-bonsai {
+    display: none;
+  }
+  main {
+    position: relative;
+    margin-left: 130px;
+    z-index: 1;
+  }
 
-/* ============ TYPOGRAPHY ============ */
-.serif{font-family:'Cormorant Garamond',serif;font-weight:400;letter-spacing:.02em}
-.display{font-family:'Italiana',serif;letter-spacing:.08em}
-.overline{
-  font-family:'Inter',sans-serif;
-  font-size:11px;
-  letter-spacing:.32em;
-  text-transform:uppercase;
-  color:var(--gold);
-  font-weight:500;
-}
-h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;color:var(--ivory);line-height:1.12}
+  /* ====== Top nav ====== */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 56px 22px 40px;
+    border-bottom: 1px solid transparent;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-soft);
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    background: rgba(255,255,255,0.4);
+  }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .brand-logo {
+    height: 44px;
+    width: auto;
+    display: block;
+  }
+  .footer-brand .brand-logo {
+    height: 56px;
+    margin-bottom: 14px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: inherit;
+    padding-bottom: 4px;
+    position: relative;
+    transition: color .2s;
+  }
+  .nav-links a.active { color: var(--jade); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 1.5px;
+    background: var(--jade);
+  }
+  .nav-links a:hover { color: var(--jade); }
+  .nav-icons {
+    display: flex;
+    gap: 18px;
+    color: var(--ink-2);
+  }
+  .nav-icons button {
+    background: none; border: 0; padding: 6px; cursor: pointer; color: inherit;
+    display: grid; place-items: center;
+  }
+  .nav-icons button:hover { color: var(--jade); }
 
-/* ============ LAYOUT ============ */
-.container{width:min(1320px,92vw);margin:0 auto}
-section{padding:140px 0;position:relative}
-@media (max-width:768px){section{padding:90px 0}}
+  /* ====== Hero ====== */
+  .hero {
+    margin: 8px 32px 28px 24px;
+    border-radius: 4px;
+    background-image: url('assets/hero-jewelry.webp');
+    background-size: cover;
+    background-position: center right;
+    height: 480px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(246,239,226,0.92) 0%, rgba(246,239,226,0.7) 38%, rgba(246,239,226,0) 60%);
+  }
+  .hero-content {
+    position: relative;
+    padding: 60px 60px;
+    max-width: 560px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(30px, 5vw, 56px);
+    line-height: 1.05;
+    margin: 0 0 18px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .section-title { font-size: clamp(22px, 3vw, 30px); }
+  .craft-left h2, .jade-intro h2, .tradition-right h2 { font-size: clamp(24px, 3.2vw, 34px); }
+  img { max-width: 100%; height: auto; }
+  .hero p {
+    color: var(--ink-2);
+    margin: 0 0 30px;
+    max-width: 420px;
+    font-size: 15px;
+  }
+  .cta-row { display: flex; gap: 12px; margin-bottom: 26px; }
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 13px 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all .2s;
+    border: 1px solid transparent;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--jade-dark);
+    color: #f5efdb;
+    border-color: var(--jade-dark);
+  }
+  .btn-primary:hover { background: var(--jade-deep); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink-2);
+  }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .hero-meta {
+    display: flex;
+    gap: 18px;
+    font-size: 12.5px;
+    color: var(--muted);
+    align-items: center;
+  }
+  .hero-meta svg { color: var(--gold); }
 
-/* ============ GOLD LINE DIVIDERS ============ */
-.gold-line{
-  display:inline-flex;align-items:center;gap:14px;
-  color:var(--gold);font-size:11px;letter-spacing:.4em;text-transform:uppercase
-}
-.gold-line::before,.gold-line::after{
-  content:"";display:inline-block;width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)
-}
+  /* ====== Categories ====== */
+  .cats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 0 32px 28px 24px;
+  }
+  .cat {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 22px 22px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: all .25s;
+    cursor: pointer;
+    position: relative;
+  }
+  .cat:hover {
+    border-color: var(--gold-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -10px rgba(0,0,0,0.12);
+  }
+  .cat-text { flex: 1; }
+  .cat-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .cat-text p {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 12px;
+    line-height: 1.45;
+  }
+  .cat-link {
+    font-size: 12px;
+    color: var(--jade);
+    text-decoration: none;
+    border-bottom: 1px solid var(--jade);
+    padding-bottom: 1px;
+  }
+  .cat-img {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+  }
+  .cat-img svg { width: 100%; height: 100%; }
 
-/* ============ TOP BAR ============ */
-.topbar{
-  background:linear-gradient(90deg,#0a3c40,#0d9488,#0a3c40);
-  border-bottom:1px solid rgba(94,234,212,.25);
-  font-size:11px;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:#c5e9ea;
-}
-.topbar a{color:#e6f9f9}
-.topbar a:hover{color:#5eead4 !important}
-.topbar .inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
-.topbar a:hover{color:var(--gold)}
-.topbar .right{display:flex;gap:22px}
-@media (max-width:768px){.topbar .hide-mobile{display:none}}
+  /* ====== Handwerk ====== */
+  .craft {
+    margin: 0 32px 28px 24px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    overflow: hidden;
+    min-height: 640px;
+  }
+  .craft-left { padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .craft-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .craft-left p {
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 0 0 12px;
+  }
+  .craft-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .craft-feature {
+    text-align: center;
+  }
+  .craft-feature .ico {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 10px;
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+  }
+  .craft-feature span {
+    font-size: 11.5px;
+    color: var(--ink-2);
+    line-height: 1.3;
+    display: block;
+  }
+  .craft-img {
+    background: #fff;
+    min-height: 640px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+  .craft-frame {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 
-/* ============ HEADER ============ */
-.site-header{
-  position:sticky;top:0;z-index:50;
-  background-image:
-    linear-gradient(rgba(255,255,255,.78),rgba(240,253,253,.82)),
-    url('marmor1.webp');
-  background-size:cover;
-  background-position:center;
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(10px);
-}
-.header-inner{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  padding:22px 0;
-  gap:30px;
-}
-.header-logo{justify-self:center;display:flex;align-items:center}
-.header-logo img{height:62px;width:auto;filter:drop-shadow(0 2px 10px rgba(10,60,64,.18))}
+  /* ====== Jade Kollektion ====== */
+  .jade-section {
+    margin: 0 32px 28px 24px;
+    background-image: url('assets/watercolor-wide.webp'), linear-gradient(#f7f0e0, #f7f0e0);
+    background-size: cover;
+    background-position: center;
+    border-radius: 3px;
+    padding: 38px 40px 44px;
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: 30px;
+    align-items: center;
+    border: 1px solid var(--line);
+  }
+  .jade-intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .jade-intro p {
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 0 0 20px;
+    max-width: 280px;
+  }
+  .jade-link {
+    font-size: 13px;
+    color: var(--jade);
+    text-decoration: none;
+    border-bottom: 1px solid var(--jade);
+    padding-bottom: 2px;
+    font-weight: 500;
+  }
+  .jade-products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .jade-card {
+    background: #fff;
+    border-radius: 3px;
+    padding: 18px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--line);
+    transition: all .25s;
+    cursor: pointer;
+  }
+  .jade-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -12px rgba(0,0,0,0.18);
+  }
+  .jade-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--jade-dark);
+    color: #f5efdb;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .jade-card-img {
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #faf5e8, #f1e8d2);
+    border-radius: 2px;
+  }
+  .jade-card-img svg { width: 75%; height: 75%; }
+  .jade-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .jade-card .price {
+    font-size: 14px;
+    color: var(--ink-2);
+  }
 
-.nav{display:flex;gap:38px;align-items:center}
-.nav.left{justify-self:start}
-.nav.right{justify-self:end}
-.nav a{
-  font-size:12px;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--cream);font-weight:400;
-  position:relative;padding:10px 0;
-  transition:color .3s ease;
-}
-.nav a::after{
-  content:"";position:absolute;left:50%;bottom:4px;transform:translateX(-50%);
-  width:0;height:1px;background:var(--gold);transition:width .4s ease;
-}
-.nav a:hover{color:var(--gold-light)}
-.nav a:hover::after{width:100%}
+  /* ====== Favoriten ====== */
+  .favs {
+    margin: 0 32px 28px 24px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 30px;
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+  .favs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .fav {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .25s;
+  }
+  .fav:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px -12px rgba(0,0,0,0.18);
+    border-color: var(--gold-soft);
+  }
+  .fav-img {
+    aspect-ratio: 1;
+    margin-bottom: 14px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #faf5e8, #efe5cc);
+    border-radius: 2px;
+  }
+  .fav-img svg { width: 70%; height: 70%; }
+  .fav h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 17px;
+    margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .fav .price {
+    font-size: 14px;
+    color: var(--muted);
+  }
 
-.icon-btn{
-  width:42px;height:42px;border-radius:50%;
-  display:grid;place-items:center;
-  border:1px solid var(--line);
-  transition:all .35s ease;
-  background:transparent;
-}
-.icon-btn:hover{border-color:var(--gold);color:var(--gold)}
-.icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.4}
+  /* ====== Testimonials ====== */
+  .testi {
+    margin: 0 32px 28px 24px;
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .testi-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 24px 22px;
+  }
+  .testi-quote-mark {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    line-height: 0.6;
+    margin-bottom: 8px;
+  }
+  .testi-card p {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 0 0 14px;
+    line-height: 1.6;
+  }
+  .stars {
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .testi-author {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
 
-.mobile-toggle{display:none}
-@media (max-width:900px){
-  .nav.left,.nav.right{display:none}
-  .header-inner{grid-template-columns:auto 1fr auto}
-  .header-logo{justify-self:start}
-  .mobile-toggle{display:grid}
-}
+  /* ====== Tradition ====== */
+  .tradition {
+    margin: 0 32px 28px 24px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+  .tradition-img {
+    background: url('assets/store-entrance.webp') center/cover;
+    min-height: 320px;
+    position: relative;
+  }
+  .tradition-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(31,26,20,0.05), rgba(31,26,20,0.25));
+  }
+  .tradition-right { padding: 42px 44px; }
+  .tradition-right h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0 0 14px;
+    color: var(--ink);
+  }
+  .tradition-right p {
+    color: var(--ink-2);
+    font-size: 14px;
+    margin: 0 0 28px;
+  }
+  .tradition-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .tradition-features .craft-feature .ico { color: var(--jade); }
 
-/* ============ HERO ============ */
-.hero{
-  padding:0;
-  background:linear-gradient(180deg,#f5fdfd,#e6f9f9);
-  position:relative;
-  overflow:hidden;
-  border-bottom:1px solid var(--line);
-  display:block;
-}
-.hero-image-full{
-  position:relative;
-  width:100%;
-  display:block;
-  background:#0b3a3e;
-  overflow:hidden;
-  border-radius:var(--r-md);
-}
-.hero-image-full img{
-  width:100%;
-  height:auto;
-  display:block;
-  object-fit:cover;
-}
-.hero-image-full::before{
-  content:"";position:absolute;inset:0;z-index:2;
-  background:
-    linear-gradient(180deg, rgba(10,60,64,.18) 0%, transparent 30%, transparent 65%, rgba(10,60,64,.55) 100%);
-  pointer-events:none;
-}
-.hero-image-full::after{
-  content:"";position:absolute;inset:18px;z-index:3;
-  border:1px solid rgba(94,234,212,.45);
-  pointer-events:none;
-  border-radius:var(--r-sm);
-}
-@media (max-width:900px){
-  .hero-image-full::after{inset:10px}
-}
+  /* ====== Newsletter ====== */
+  .newsletter {
+    margin: 0 32px 28px 24px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    gap: 30px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter-stones {
+    height: 130px;
+    background: url('assets/jade-stones.webp') center/contain no-repeat;
+  }
+  .newsletter-bracelet {
+    height: 130px;
+    display: grid;
+    place-items: center;
+  }
+  .newsletter-bracelet svg { width: 100%; height: 100%; }
+  .newsletter-mid { text-align: center; }
+  .newsletter-mid h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 28px;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .newsletter-mid p {
+    color: var(--ink-2);
+    font-size: 13px;
+    margin: 0 0 18px;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 8px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+  }
+  .newsletter-form input:focus { border-color: var(--jade); }
+  .newsletter-consent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .newsletter-consent input { accent-color: var(--jade); }
 
-.hero-image-full img.hero-logo-overlay{
-  position:absolute;z-index:3;
-  left:5%;
-  top:13%;
-  width:26%;
-  height:auto;
-  pointer-events:none;
-  filter:drop-shadow(0 6px 24px rgba(0,0,0,.45));
-  object-fit:contain;
-}
-@media (max-width:760px){
-  .hero-image-full img.hero-logo-overlay{left:50%;transform:translateX(-50%);top:8%;width:55%}
-}
+  /* ====== Bottom Bonsai (removed - moved to footer) ====== */
 
-.hero-overlay-bar{
-  position:absolute;left:0;right:0;bottom:0;z-index:4;
-  padding:26px 40px;
-  display:flex;justify-content:space-between;align-items:center;
-  gap:30px;flex-wrap:wrap;
-  background:linear-gradient(180deg, transparent, rgba(10,60,64,.75));
-}
-.hero-overlay-bar .tags{
-  display:flex;gap:30px;flex-wrap:wrap;
-  color:#f5fdfd;font-size:11px;letter-spacing:.35em;text-transform:uppercase;
-}
-.hero-overlay-bar .tags span{display:inline-flex;align-items:center;gap:10px}
-.hero-overlay-bar .tags span::before{content:"◆";color:#5eead4;font-size:8px}
-.hero-overlay-bar .actions{display:flex;gap:14px;flex-wrap:wrap}
+  /* ====== Footer ====== */
+  footer {
+    background: var(--paper);
+    padding: 36px 40px 32px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 30px;
+    color: var(--ink-2);
+    font-size: 13px;
+    align-items: start;
+    position: relative;
+  }
+  .footer-bonsai {
+    position: relative;
+    display: grid;
+    place-items: center;
+    justify-self: start;
+    margin-left: -40px;
+    align-self: center;
+    width: 320px;
+    height: 200px;
+    overflow: hidden;
+  }
+  .footer-bonsai::before {
+    content: '';
+    position: absolute;
+    left: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 60% 40%, #e9dcb6 0%, #c9b884 70%, #b09f6c 100%);
+    box-shadow: inset 0 0 60px rgba(31,26,20,0.08);
+  }
+  .footer-bonsai img {
+    position: relative;
+    width: 280px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 16px rgba(31,26,20,0.18));
+  }
+  .footer-brand .brand-name { display: block; margin-bottom: 10px; }
+  .footer-brand-info {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 12.5px;
+  }
+  .footer-mark {
+    text-align: center;
+  }
+  .footer-mark .seal {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-soft);
+    margin: 0 auto 8px;
+    display: grid;
+    place-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold);
+    font-size: 22px;
+  }
+  .footer-mark .est {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-links a {
+    color: var(--ink-2);
+    text-decoration: none;
+    font-size: 12.5px;
+  }
+  .footer-links a:hover { color: var(--jade); }
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+  }
+  .socials { display: flex; gap: 10px; }
+  .socials a {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--cream-2);
+    display: grid; place-items: center;
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .socials a:hover { background: var(--jade); color: #f5efdb; }
 
-/* Invisible clickable hotspot locked to the baked-in DISCOVER COLLECTION
-   text. Positioned as a percentage of .hero-image-full, which scales
-   proportionally with the image (width:100%, height:auto), so the
-   hotspot stays glued to the text at every viewport size. */
-.hero-discover-hotspot{
-  position:absolute;z-index:5;
-  left:17.5%;
-  top:63.3%;
-  width:20%;
-  height:10%;
-  cursor:pointer;
-  border-radius:2px;
-  transition:background .35s ease, box-shadow .35s ease;
-}
-.hero-discover-hotspot:hover{
-  background:rgba(94,234,212,.18);
-  box-shadow:0 0 0 1px rgba(94,234,212,.45), 0 10px 30px -10px rgba(20,184,166,.5);
-}
-@media (max-width:760px){
-  .hero-overlay-bar{padding:18px 20px;justify-content:center;text-align:center}
-  .hero-overlay-bar .tags{display:none}
-}
+  /* ====== Responsive ====== */
+  /* Laptop / tablet landscape */
+  @media (max-width: 1100px) {
+    .side-decor, .side-bonsai { display: none; }
+    main { margin-left: 0; }
+    .nav { padding: 18px 28px; }
+    .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
+    .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
+    .craft { min-height: auto; }
+    .craft-left { padding: 40px 32px; }
+    .craft-img { min-height: 480px; padding: 16px; }
+    .craft-frame { max-width: 380px; }
+    .testi-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .footer-bonsai { grid-column: 1 / -1; justify-self: center; margin-left: 0; }
+    .footer-bonsai::before { left: 50%; transform: translate(-50%, -50%); }
+    .footer-right { align-items: flex-start; }
+  }
 
-/* ============ BUTTONS ============ */
-.btn{
-  display:inline-flex;align-items:center;gap:12px;
-  padding:16px 34px;font-size:11px;letter-spacing:.35em;text-transform:uppercase;
-  font-weight:500;position:relative;overflow:hidden;
-  transition:all .4s ease;
-  border-radius:var(--r-sm);
-}
-.btn-primary{
-  color:#ffffff;
-  background:linear-gradient(135deg, #22d3ee 0%, #14b8a6 50%, #0d9488 100%);
-  box-shadow:0 10px 30px -10px rgba(20,184,166,.55), inset 0 1px 0 rgba(255,255,255,.4);
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 44px -10px rgba(20,184,166,.7), inset 0 1px 0 rgba(255,255,255,.5)}
-.btn-primary::after{
-  content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
-  transition:left .7s ease;
-}
-.btn-primary:hover::after{left:130%}
+  /* Tablet portrait / large phone */
+  @media (max-width: 768px) {
+    .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
+    .nav-icons { gap: 14px; }
+    .brand-logo { height: 36px; }
+    .hero { margin: 8px 14px 16px; height: auto; min-height: 320px; }
+    .hero::before { background: linear-gradient(180deg, rgba(246,239,226,0.94) 0%, rgba(246,239,226,0.55) 55%, rgba(246,239,226,0) 100%); }
+    .hero-content { padding: 32px 22px; max-width: 100%; }
+    .hero p { font-size: 14px; }
+    .cta-row { flex-wrap: wrap; }
+    .btn { padding: 12px 20px; }
+    .cats, .craft, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 14px 16px; }
+    .cats { gap: 12px; }
+    .cat { padding: 18px; }
+    .craft-left, .tradition-right { padding: 28px 22px; }
+    .craft-features, .tradition-features { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .craft-img { min-height: 380px; padding: 12px; }
+    .craft-frame { max-width: 320px; }
+    .tradition-img { min-height: 220px; }
+    .jade-section { padding: 28px 20px; gap: 20px; }
+    .jade-products { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .jade-card { padding: 14px; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .testi-card { padding: 22px 20px; }
+    .newsletter { padding: 26px 20px; gap: 18px; }
+    .newsletter-stones, .newsletter-bracelet { display: none; }
+    .newsletter-form { flex-direction: column; }
+    footer {
+      padding: 28px 20px;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      text-align: left;
+    }
+    .footer-bonsai { width: 280px; height: 180px; }
+    .footer-bonsai img { width: 240px; }
+    .footer-bonsai::before { width: 320px; height: 320px; }
+    .footer-links { text-align: left !important; }
+    .footer-right { align-items: flex-start; }
+  }
 
-.btn-ghost{
-  color:var(--gold-dark);
-  border:1px solid var(--line);
-  background:transparent;
-}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold);background:rgba(13,148,136,.08)}
-.hero-overlay-bar .btn-ghost{
-  color:#f5fdfd;
-  border-color:rgba(245,253,253,.6);
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(6px);
-}
-.hero-overlay-bar .btn-ghost:hover{border-color:#5eead4;color:#5eead4;background:rgba(94,234,212,.12)}
+  /* Phones — 2-spaltige Compact-Karten statt endlose 1-Spalter */
+  @media (max-width: 480px) {
+    .nav { padding: 12px 14px; }
+    .nav-icons { gap: 10px; }
+    .brand-logo { height: 30px; }
 
-/* ============ KATEGORIEN ============ */
-.kollektionen{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.78), rgba(230,249,249,.8)),
-    url('marmor1.webp');
-  background-size:cover;
-  background-position:top center;
-  border-bottom:1px solid var(--line);
-}
-.section-head{text-align:center;max-width:680px;margin:0 auto 80px}
-.section-head h2{font-size:clamp(2.4rem,4.6vw,4rem);margin:18px 0 20px;font-weight:300;letter-spacing:.02em}
-.section-head p{color:var(--muted);font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic}
+    .hero { min-height: 280px; margin: 6px 10px 12px; }
+    .hero-content { padding: 24px 16px; }
+    .hero p { font-size: 13.5px; margin-bottom: 22px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.22em; margin-bottom: 12px; }
 
-.kollektion-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:26px;
-}
-@media (max-width:1000px){.kollektion-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.kollektion-grid{grid-template-columns:1fr}}
+    .cats, .craft, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 10px 12px; }
 
-.kollektion-card{
-  position:relative;overflow:hidden;border-radius:var(--r-md);
-  aspect-ratio:3/4;
-  background:var(--emerald-800);
-  border:1px solid var(--line-soft);
-  transition:transform .6s cubic-bezier(.2,.8,.2,1), border-color .4s, box-shadow .4s;
-  cursor:pointer;
-}
-.kollektion-card:hover{box-shadow:0 24px 60px -20px rgba(10,60,64,.28)}
-.kollektion-card:hover{transform:translateY(-6px);border-color:var(--gold)}
-.kollektion-card img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform 1.1s ease, filter .6s ease;
-  filter:brightness(1) saturate(1);
-}
-.kollektion-card:hover img{transform:scale(1.08);filter:brightness(1.04) saturate(1.06)}
-.kollektion-card::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, transparent 40%, rgba(10,60,64,.78));
-  pointer-events:none;
-}
-.kollektion-meta{
-  position:absolute;left:0;right:0;bottom:0;z-index:2;
-  padding:30px 28px;
-}
-.kollektion-meta .overline{display:block;margin-bottom:8px;color:#5eead4}
-.kollektion-meta h3{font-size:1.8rem;letter-spacing:.03em;font-weight:400;color:#f5fdfd}
-.kollektion-meta .link{
-  display:inline-flex;align-items:center;gap:8px;margin-top:14px;
-  color:#a5f3fc;font-size:11px;letter-spacing:.3em;text-transform:uppercase;
-  opacity:.9;transition:all .4s;
-}
-.kollektion-card:hover .kollektion-meta .link{opacity:1;gap:14px;color:#5eead4}
+    /* Compact 2-col category cards: icon oben, text drunter */
+    .cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 14px 10px;
+      gap: 6px;
+    }
+    .cat-img { width: 46px; height: 46px; }
+    .cat-text h3 { font-size: 17px; }
+    .cat-text p { font-size: 11px; line-height: 1.35; margin-bottom: 6px; }
+    .cat-link { font-size: 11px; }
 
-/* ============ NEU EINGETROFFEN ============ */
-.featured{
-  background:
-    linear-gradient(180deg, rgba(230,249,249,.82) 0%, rgba(211,241,242,.86) 100%),
-    url('marmor1.webp');
-  background-size:cover;
-  background-position:center bottom;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-.product-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:30px;
-}
-@media (max-width:1000px){.product-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.product-grid{grid-template-columns:1fr}}
+    /* 2-col jade + favs */
+    .jade-section { padding: 22px 14px; gap: 16px; }
+    .jade-intro p { max-width: none; }
+    .jade-products { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .jade-card { padding: 12px; }
+    .jade-card h4 { font-size: 14px; }
+    .jade-card .price { font-size: 13px; }
 
-.product{
-  background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(240,253,253,.85));
-  border:1px solid var(--line-soft);
-  padding:22px;
-  position:relative;
-  overflow:hidden;
-  transition:all .5s ease;
-  border-radius:var(--r-md);
-  backdrop-filter:blur(4px);
-}
-.product:hover{border-color:var(--gold);background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(224,247,247,.9));box-shadow:0 20px 50px -20px rgba(10,60,64,.25)}
-.product::before{
-  content:"";position:absolute;top:12px;left:12px;right:12px;bottom:12px;
-  border:1px solid transparent;pointer-events:none;transition:border-color .5s;
-  border-radius:calc(var(--r-md) - 4px);
-}
-.product:hover::before{border-color:rgba(13,148,136,.22)}
+    .favs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .fav { padding: 12px; }
+    .fav h4 { font-size: 14px; }
+    .fav .price { font-size: 13px; }
 
-.product-media{
-  aspect-ratio:1/1;overflow:hidden;margin-bottom:22px;
-  background:#eaf7f7;position:relative;
-  border-radius:var(--r-sm);
-}
-.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .9s ease}
-.product:hover .product-media img{transform:scale(1.06)}
-.product-badge{
-  position:absolute;top:14px;left:14px;z-index:2;
-  background:rgba(255,255,255,.9);backdrop-filter:blur(4px);
-  padding:6px 12px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--gold-dark);border:1px solid var(--line);
-  border-radius:999px;
-}
-.product h4{font-size:1.4rem;font-weight:400;margin-bottom:6px}
-.product .category{color:var(--muted);font-size:11px;letter-spacing:.28em;text-transform:uppercase;margin-bottom:14px}
-.product-footer{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--line-soft)}
-.product-price{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1.3rem;letter-spacing:.04em}
-.product-cta{
-  font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);
-  display:inline-flex;align-items:center;gap:6px;transition:color .3s,gap .3s;
-}
-.product:hover .product-cta{color:var(--gold);gap:12px}
+    .craft-left, .tradition-right { padding: 22px 18px; }
+    .craft-features, .tradition-features { gap: 14px; }
+    .craft-img { min-height: 320px; padding: 10px; }
+    .craft-frame { max-width: 260px; }
+    .tradition-img { min-height: 180px; }
 
-/* ============ EDITORIAL / HERITAGE ============ */
-.editorial{
-  background:
-    linear-gradient(180deg, rgba(245,253,253,.84), rgba(224,247,247,.86)),
-    url('marmor1.webp');
-  background-size:cover;
-  background-position:center;
-  position:relative;
-  border-top:1px solid var(--line);
-}
-.editorial-grid{
-  display:grid;grid-template-columns:1.05fr 1fr;gap:90px;align-items:center;
-}
-@media (max-width:900px){.editorial-grid{grid-template-columns:1fr;gap:50px}}
-.editorial-media{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:var(--r-md)}
-.editorial-media img{width:100%;height:100%;object-fit:cover}
-.editorial-media::before{
-  content:"";position:absolute;inset:20px;
-  border:1px solid rgba(13,148,136,.45);
-  pointer-events:none;z-index:2;
-  border-radius:var(--r-sm);
-}
-.editorial-media::after{
-  content:"EST. WIESBADEN";position:absolute;bottom:44px;right:-70px;z-index:3;
-  color:var(--gold);font-family:'Italiana',serif;font-size:14px;letter-spacing:.5em;
-  transform:rotate(-90deg);transform-origin:right center;
-}
-.editorial-text h2{font-size:clamp(2.4rem,4.4vw,3.8rem);font-weight:300;margin:18px 0 26px;letter-spacing:.02em}
-.editorial-text .lead{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.35rem;color:var(--ivory);font-style:italic;
-  line-height:1.6;margin-bottom:26px;
-  padding-left:22px;border-left:2px solid var(--gold);
-}
-.editorial-text p{color:var(--muted);margin-bottom:18px;max-width:560px}
-.editorial-stats{display:flex;gap:40px;margin:40px 0 32px;flex-wrap:wrap}
-.stat{flex:0 0 auto}
-.stat .num{font-family:'Italiana',serif;font-size:2.6rem;color:var(--gold-light);display:block;line-height:1}
-.stat .label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+    .testi-card { padding: 18px 16px; }
+    .testi-card p { font-size: 12.5px; }
 
-/* ============ FARBSTEINE FEATURE ============ */
-.farbsteine{
-  background:
-    radial-gradient(1000px 700px at 20% 10%, rgba(94,234,212,.22), transparent 60%),
-    radial-gradient(800px 600px at 85% 90%, rgba(34,211,238,.25), transparent 55%),
-    linear-gradient(135deg, #083236 0%, #0a4e54 45%, #0d9488 100%);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  position:relative;
-  overflow:hidden;
-}
-.farbsteine::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:url('marmor1.webp') center/cover;
-  opacity:.07;mix-blend-mode:screen;
-}
-.farbsteine > *{position:relative;z-index:1}
-.farbsteine .section-head h2,
-.farbsteine .stone-card h3{color:#f5fdfd}
-.farbsteine .section-head p{color:#a5e3e6;font-style:italic}
-.farbsteine .overline,
-.farbsteine .gold-line{color:#5eead4}
-.farbsteine .gold-line::before,
-.farbsteine .gold-line::after{background:linear-gradient(90deg,transparent,#5eead4,transparent)}
-.farbsteine-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:30px;
-}
-@media (max-width:900px){.farbsteine-grid{grid-template-columns:1fr}}
-.stone-card{
-  position:relative;padding:50px 40px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(94,234,212,.22);
-  backdrop-filter:blur(10px);
-  transition:all .5s;
-  border-radius:var(--r-md);
-}
-.stone-card:hover{border-color:rgba(94,234,212,.6);transform:translateY(-4px);background:rgba(255,255,255,.1);box-shadow:0 24px 60px -20px rgba(0,0,0,.35)}
-.stone-card p{color:#a5e3e6}
-.stone-card .icon{
-  width:60px;height:60px;margin-bottom:28px;
-  display:grid;place-items:center;
-  border:1px solid #5eead4;border-radius:50%;
-  color:#5eead4;
-}
-.stone-card .icon svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.2}
-.stone-card h3{font-size:1.6rem;font-weight:400;margin-bottom:14px}
-.stone-card p{color:var(--muted);font-size:.95rem;line-height:1.7}
+    .newsletter { padding: 22px 16px; }
+    .newsletter-mid h3 { font-size: 22px; }
 
-/* ============ VISIT / KONTAKT ============ */
-.visit{
-  background:
-    linear-gradient(180deg, rgba(245,253,253,.8), rgba(224,247,247,.86)),
-    url('marmor1.webp');
-  background-size:cover;
-  background-position:top center;
-  border-top:1px solid var(--line);
-}
-.visit-inner{
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-}
-@media (max-width:900px){.visit-inner{grid-template-columns:1fr;gap:50px}}
-.visit-text h2{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;margin:16px 0 24px}
-.visit-details{margin-top:34px;display:flex;flex-direction:column;gap:18px}
-.visit-details .row{
-  display:grid;grid-template-columns:130px 1fr;gap:28px;align-items:baseline;
-  padding:18px 0;border-bottom:1px solid var(--line-soft);
-}
-.visit-details .row:last-child{border-bottom:none}
-.visit-details .key{color:var(--gold);font-size:10px;letter-spacing:.32em;text-transform:uppercase}
-.visit-details .val{color:var(--ivory);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
-.visit-details .val .big{display:block;font-size:1.5rem;color:var(--gold-dark);letter-spacing:.04em}
+    footer { padding: 22px 16px; gap: 18px; }
+    .footer-bonsai { width: 220px; height: 140px; }
+    .footer-bonsai img { width: 180px; }
+    .footer-bonsai::before { width: 240px; height: 240px; }
 
-.hours-card{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.92), rgba(230,249,249,.9)),
-    url('marmor1.webp');
-  background-size:cover;
-  border:1px solid var(--line);
-  padding:60px 50px;
-  position:relative;
-  border-radius:var(--r-lg);
-  overflow:hidden;
-  box-shadow:0 30px 60px -30px rgba(10,60,64,.2);
-}
-.hours-card::before{
-  content:"";position:absolute;inset:12px;border:1px solid rgba(13,148,136,.35);pointer-events:none;
-  border-radius:calc(var(--r-lg) - 6px);
-}
-.hours-card h3{font-size:1.8rem;font-weight:300;margin-bottom:28px;text-align:center}
-.hours-card .row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:16px 0;border-bottom:1px solid var(--line-soft);
-  font-family:'Cormorant Garamond',serif;font-size:1.15rem;
-}
-.hours-card .row:last-child{border-bottom:none}
-.hours-card .day{color:var(--ivory);letter-spacing:.08em}
-.hours-card .time{color:var(--gold-dark);letter-spacing:.06em;font-weight:500}
-.hours-card .row.closed .time{color:var(--muted);font-style:italic}
-
-/* ============ FOOTER ============ */
-.site-footer{
-  background:
-    linear-gradient(180deg, #0a3c40 0%, #0b4348 60%, #083236 100%);
-  color:#c5e9ea;
-  border-top:1px solid var(--line);
-  padding:100px 0 40px;
-  position:relative;
-}
-.site-footer::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(1000px 500px at 80% 0%, rgba(20,184,166,.18), transparent 60%);
-}
-.site-footer > *{position:relative}
-.footer-top{
-  text-align:center;padding-bottom:60px;border-bottom:1px solid var(--line);
-  margin-bottom:60px;
-}
-.footer-logo{height:72px;width:auto;display:block;margin:0 auto 28px;filter:drop-shadow(0 4px 18px rgba(0,0,0,.35)) brightness(1.15)}
-.footer-tagline{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;
-  color:#e6f9f9;max-width:560px;margin:0 auto;
-}
-
-.footer-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:50px;
-  margin-bottom:60px;
-}
-@media (max-width:900px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:520px){.footer-grid{grid-template-columns:1fr}}
-
-.footer-col h4{
-  font-family:'Inter',sans-serif;font-weight:500;font-size:11px;
-  letter-spacing:.32em;text-transform:uppercase;color:#5eead4;
-  margin-bottom:24px;
-}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-.footer-col a,.footer-col li{color:#c5e9ea;opacity:.82;font-size:.95rem;transition:all .3s}
-.footer-col a:hover{opacity:1;color:#5eead4;padding-left:6px}
-
-.newsletter input{
-  width:100%;padding:14px 16px;background:rgba(255,255,255,.08);
-  border:1px solid rgba(94,234,212,.3);color:#f5fdfd;
-  font:inherit;font-size:.9rem;margin-bottom:12px;
-  border-radius:var(--r-sm);
-  transition:border-color .3s ease, background .3s ease;
-  backdrop-filter:blur(4px);
-}
-.newsletter input:focus{outline:none;border-color:#5eead4;background:rgba(255,255,255,.12)}
-.newsletter input::placeholder{color:rgba(197,233,234,.55)}
-.newsletter .btn{width:100%;justify-content:center}
-
-.footer-bottom{
-  padding-top:40px;border-top:1px solid rgba(94,234,212,.18);
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(197,233,234,.7);
-  gap:20px;flex-wrap:wrap;
-}
-.footer-bottom a{color:rgba(197,233,234,.8)}
-.footer-bottom a:hover{color:#5eead4}
-.socials{display:flex;gap:14px}
-.socials a{
-  width:36px;height:36px;border-radius:50%;border:1px solid rgba(94,234,212,.28);
-  display:grid;place-items:center;transition:all .3s;color:#c5e9ea;
-}
-.socials a:hover{border-color:#5eead4;color:#5eead4;transform:translateY(-2px)}
-.socials svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.4}
-
-/* ============ ANIMATIONS ============ */
-.reveal{opacity:0;transform:translateY(40px);transition:all 1s cubic-bezier(.2,.8,.2,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
-@media (max-width:768px){
-  .reveal{opacity:1;transform:none;transition:none}
-}
-@media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-}
+    .cta-row { flex-direction: column; gap: 8px; }
+    .btn { width: 100%; padding: 12px 20px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
+<div class="page">
+  <div class="side-decor" aria-hidden="true"></div>
+  <img src="assets/bonsai.webp" class="side-bonsai" alt="" aria-hidden="true" />
 
-<!-- ============ TOP BAR ============ -->
-<div class="topbar">
-  <div class="container inner">
-    <div class="left hide-mobile">Burgstraße 3 · 65183 Wiesbaden</div>
-    <div class="right">
-      <a href="tel:061137428">0611 37 42 80</a>
-      <a href="#visit" class="hide-mobile">Termin vereinbaren</a>
-    </div>
-  </div>
-</div>
-
-<!-- ============ HEADER ============ -->
-<header class="site-header">
-  <div class="container header-inner">
-    <nav class="nav left">
-      <a href="#halsketten">Halsketten</a>
-      <a href="#ringe">Ringe</a>
-      <a href="#ohrringe">Ohrringe</a>
-      <a href="#armbander">Armbänder</a>
+  <main>
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="brand">
+        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="brand-logo" />
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Startseite</a></li>
+        <li><a href="#">Kollektionen</a></li>
+        <li><a href="#">Verlobung</a></li>
+        <li><a href="#">Über uns</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+      <div class="nav-icons">
+        <button aria-label="Suche"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button aria-label="Wunschliste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        <button aria-label="Konto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+        <button aria-label="Tasche"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
+      </div>
     </nav>
-    <a href="#" class="header-logo" aria-label="Juwelier Weidmann">
-      <img src="zoo.webp" alt="Juwelier Weidmann" width="600" height="400" decoding="async" />
-    </a>
-    <nav class="nav right">
-      <a href="#farbsteine">Farbsteine</a>
-      <a href="#heritage">Atelier</a>
-      <a href="#visit">Kontakt</a>
-      <button class="icon-btn" aria-label="Suche">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      </button>
-    </nav>
-    <button class="mobile-toggle icon-btn" aria-label="Menü">
-      <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-  </div>
-</header>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-image-full">
-    <img src="fischmann.webp" alt="Juwelier Weidmann – Timeless Elegance · Smaragd-Collier und passende Schmuckstücke" width="1536" height="672" fetchpriority="high" decoding="async" />
-
-    <img src="zoo.webp" alt="Juwelier Weidmann" class="hero-logo-overlay" width="600" height="400" decoding="async" />
-
-    <a href="#halsketten" class="hero-discover-hotspot" aria-label="Kollektion entdecken"></a>
-
-    <div class="hero-overlay-bar">
-      <div class="tags">
-        <span>Farbsteine</span>
-        <span>Diamanten</span>
-        <span>Perlen</span>
-        <span>Goldschmuck</span>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Zeitlose Vollkommenheit</div>
+        <h1>Klassischer Schmuck<br/>mit Charakter</h1>
+        <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary">Kollektion entdecken</button>
+          <button class="btn btn-ghost">Über uns erfahren</button>
+        </div>
+        <div class="hero-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+          Jade. Zeitlos. Versandkostenpräzision.
+        </div>
       </div>
-      <div class="actions">
-        <a href="#visit" class="btn btn-ghost">Private Beratung</a>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="cats">
+      <div class="cat">
+        <div class="cat-text">
+          <h3>Ringe</h3>
+          <p>Zeitlose Eleganz, für besondere Momente.</p>
+          <a href="#" class="cat-link">Entdecken →</a>
+        </div>
+        <div class="cat-img">
+          <!-- Ring -->
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#e6c879"/>
+                <stop offset="1" stop-color="#a87f30"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="50" cy="62" rx="28" ry="26" fill="none" stroke="url(#g1)" stroke-width="6"/>
+            <polygon points="50,28 56,38 50,48 44,38" fill="#e9e3d2" stroke="#b8b1a0" stroke-width="0.5"/>
+            <polygon points="50,28 56,38 50,38" fill="#fff8e3" opacity="0.7"/>
+          </svg>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ KOLLEKTIONEN ============ -->
-<section id="halsketten" class="kollektionen">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="gold-line">Unsere Kollektionen</span>
-      <h2>Meisterstücke aus der Burgstraße</h2>
-      <p>Vier Welten, eine Handschrift. Jedes Schmuckstück aus unserem Hause folgt dem gleichen Maßstab – der zeitlosen Eleganz.</p>
-    </div>
-
-    <div class="kollektion-grid">
-      <a href="#" class="kollektion-card reveal delay-1">
-        <img src="https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=700&q=72" alt="Halsketten"  loading="lazy" decoding="async" width="700" height="933" />
-        <div class="kollektion-meta">
-          <span class="overline">I · Collier</span>
-          <h3 class="serif">Halsketten</h3>
-          <span class="link">Entdecken →</span>
+      <div class="cat">
+        <div class="cat-text">
+          <h3>Ketten</h3>
+          <p>Feine Linien, klare Geschichten.</p>
+          <a href="#" class="cat-link">Entdecken →</a>
         </div>
-      </a>
-
-      <a href="#ringe" class="kollektion-card reveal delay-2">
-        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=72" alt="Ringe"  loading="lazy" decoding="async" width="700" height="933" />
-        <div class="kollektion-meta">
-          <span class="overline">II · Solitär</span>
-          <h3 class="serif">Ringe</h3>
-          <span class="link">Entdecken →</span>
+        <div class="cat-img">
+          <svg viewBox="0 0 100 100">
+            <path d="M20 20 Q50 32 80 20" fill="none" stroke="#cfa554" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <path d="M50 32 L50 60" stroke="#cfa554" stroke-width="1.2"/>
+            <circle cx="50" cy="68" r="10" fill="#fff" stroke="#bca56b" stroke-width="1"/>
+            <circle cx="50" cy="68" r="5" fill="#e8e3d3" stroke="#a89c80" stroke-width="0.5"/>
+          </svg>
         </div>
-      </a>
-
-      <a href="#ohrringe" class="kollektion-card reveal delay-3">
-        <img src="https://images.unsplash.com/photo-1635767798638-3665a0a107fb?auto=format&fit=crop&w=700&q=72" alt="Ohrringe"  loading="lazy" decoding="async" width="700" height="933" />
-        <div class="kollektion-meta">
-          <span class="overline">III · Pendant</span>
-          <h3 class="serif">Ohrringe</h3>
-          <span class="link">Entdecken →</span>
-        </div>
-      </a>
-
-      <a href="#armbander" class="kollektion-card reveal delay-4">
-        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=700&q=72" alt="Armbänder"  loading="lazy" decoding="async" width="700" height="933" />
-        <div class="kollektion-meta">
-          <span class="overline">IV · Bracelet</span>
-          <h3 class="serif">Armbänder</h3>
-          <span class="link">Entdecken →</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ NEU EINGETROFFEN ============ -->
-<section class="featured" id="ringe">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="gold-line">Neu eingetroffen</span>
-      <h2>Signatures der Saison</h2>
-      <p>Handverlesen von unseren Meisterjuwelieren – jedes Stück ein Unikat, jedes Detail eine Entscheidung.</p>
-    </div>
-
-    <div class="product-grid">
-      <article class="product reveal delay-1">
-        <div class="product-media">
-          <span class="product-badge">Neu</span>
-          <img src="https://images.unsplash.com/photo-1603974372039-adc49044b6bd?auto=format&fit=crop&w=600&q=72" alt="Smaragd Solitärring"  loading="lazy" decoding="async" width="600" height="600" />
-        </div>
-        <span class="category">Ring · Solitär</span>
-        <h4>Smaragd Essence</h4>
-        <div class="product-footer">
-          <span class="product-price">Auf Anfrage</span>
-          <span class="product-cta">Details →</span>
-        </div>
-      </article>
-
-      <article class="product reveal delay-2" id="ohrringe">
-        <div class="product-media">
-          <span class="product-badge">Signature</span>
-          <img src="https://images.unsplash.com/photo-1629224316810-9d8805b95e76?auto=format&fit=crop&w=600&q=72" alt="Diamant Ohrringe"  loading="lazy" decoding="async" width="600" height="600" />
-        </div>
-        <span class="category">Ohrringe · Pendant</span>
-        <h4>Royale Drops</h4>
-        <div class="product-footer">
-          <span class="product-price">Auf Anfrage</span>
-          <span class="product-cta">Details →</span>
-        </div>
-      </article>
-
-      <article class="product reveal delay-3" id="armbander">
-        <div class="product-media">
-          <span class="product-badge">Limited</span>
-          <img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?auto=format&fit=crop&w=600&q=72" alt="Goldarmband"  loading="lazy" decoding="async" width="600" height="600" />
-        </div>
-        <span class="category">Armband · 750er Gold</span>
-        <h4>Aurea Bracelet</h4>
-        <div class="product-footer">
-          <span class="product-price">Auf Anfrage</span>
-          <span class="product-cta">Details →</span>
-        </div>
-      </article>
-
-      <article class="product reveal delay-4">
-        <div class="product-media">
-          <span class="product-badge">Rarität</span>
-          <img src="https://images.unsplash.com/photo-1599459183200-59c7687a1a24?auto=format&fit=crop&w=600&q=72" alt="Perlenkette"  loading="lazy" decoding="async" width="600" height="600" />
-        </div>
-        <span class="category">Collier · Südsee-Perlen</span>
-        <h4>Perle du Sud</h4>
-        <div class="product-footer">
-          <span class="product-price">Auf Anfrage</span>
-          <span class="product-cta">Details →</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ EDITORIAL / HERITAGE ============ -->
-<section class="editorial" id="heritage">
-  <div class="container">
-    <div class="editorial-grid">
-      <div class="editorial-media reveal">
-        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&w=900&q=76" alt="Juweliermeister an der Werkbank"  loading="lazy" decoding="async" width="900" height="1125" />
       </div>
-
-      <div class="editorial-text reveal delay-1">
-        <span class="gold-line">Das Atelier · Burgstraße 3</span>
-        <h2>Handwerkskunst, die<br/>eine Handschrift trägt.</h2>
-        <p class="lead">„Ein Schmuckstück soll nicht nur glänzen. Es soll eine Geschichte tragen – und sie weitertragen, über Generationen."</p>
-        <p>Juwelier Weidmann ist Ihr Fachgeschäft für Schmuck und Juwelen in der Wiesbadener Innenstadt. Unser Sortiment umfasst Schmuck, Goldschmuck, Perlen, Diamanten und Farbsteine – mit einem besonderen Schwerpunkt auf erlesenem Farbsteinschmuck.</p>
-        <p>In unserem Haus an der Burgstraße begegnen Sie keiner Massenware, sondern kuratierten Unikaten und der persönlichen Beratung, die man heute nur noch selten findet.</p>
-
-        <div class="editorial-stats">
-          <div class="stat"><span class="num">50+</span><span class="label">Jahre Erfahrung</span></div>
-          <div class="stat"><span class="num">∞</span><span class="label">Unikate</span></div>
-          <div class="stat"><span class="num">1:1</span><span class="label">Beratung</span></div>
+      <div class="cat">
+        <div class="cat-text">
+          <h3>Ohrringe</h3>
+          <p>Eleganz, die jedes Detail betont.</p>
+          <a href="#" class="cat-link">Entdecken →</a>
         </div>
-
-        <a href="#visit" class="btn btn-primary">Persönliche Beratung</a>
+        <div class="cat-img">
+          <svg viewBox="0 0 100 100">
+            <circle cx="36" cy="38" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
+            <ellipse cx="36" cy="58" rx="6" ry="9" fill="#e9e3d2" stroke="#a89c80" stroke-width="0.6"/>
+            <circle cx="64" cy="38" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
+            <ellipse cx="64" cy="58" rx="6" ry="9" fill="#e9e3d2" stroke="#a89c80" stroke-width="0.6"/>
+          </svg>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FARBSTEINE FEATURE ============ -->
-<section class="farbsteine" id="farbsteine">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="gold-line">Unsere Spezialität</span>
-      <h2>Farbsteine von seltener Tiefe</h2>
-      <p>Der Schwerpunkt unseres Hauses – Edelsteine, die nicht nur funkeln, sondern erzählen. Ausgesucht, gefasst und dokumentiert.</p>
-    </div>
-
-    <div class="farbsteine-grid">
-      <article class="stone-card reveal delay-1">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2 3 9l9 13 9-13-9-7z"/><path d="M3 9h18M12 2v20"/></svg>
+      <div class="cat">
+        <div class="cat-text">
+          <h3>Armbänder</h3>
+          <p>Subtile Schönheit in den feinsten Formen.</p>
+          <a href="#" class="cat-link">Entdecken →</a>
         </div>
-        <h3>Smaragd</h3>
-        <p>Das tiefe Grün Kolumbiens – Königsstein seit der Antike. Wir führen ausschließlich Steine mit nachvollziehbarer Herkunft und ausgezeichneter Farbintensität.</p>
-      </article>
-
-      <article class="stone-card reveal delay-2">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9l3-6z"/><path d="M6 3l6 6 6-6M3 9h18"/></svg>
+        <div class="cat-img">
+          <svg viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="36" ry="28" fill="none" stroke="#d2a85c" stroke-width="3"/>
+            <circle cx="22" cy="44" r="2.5" fill="#fff" stroke="#a89c80" stroke-width="0.5"/>
+            <circle cx="78" cy="44" r="2.5" fill="#fff" stroke="#a89c80" stroke-width="0.5"/>
+            <circle cx="50" cy="22" r="2.5" fill="#fff" stroke="#a89c80" stroke-width="0.5"/>
+          </svg>
         </div>
-        <h3>Saphir & Rubin</h3>
-        <p>Von taubenblut­rot bis kornblumen­blau. Unsere Saphire und Rubine stammen aus traditionellen Vorkommen – Ceylon, Burma, Kaschmir.</p>
-      </article>
+      </div>
+    </section>
 
-      <article class="stone-card reveal delay-3">
-        <div class="icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 0 1 8 0 4 4 0 0 1-8 0z"/></svg>
-        </div>
-        <h3>Diamant</h3>
-        <p>Zertifiziert, transparent, kompromisslos. Jeder Diamant wird von uns persönlich ausgewählt – nach den 4C und nach Gefühl für Feuer und Brillanz.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ VISIT / KONTAKT ============ -->
-<section class="visit" id="visit">
-  <div class="container">
-    <div class="visit-inner">
-      <div class="visit-text reveal">
-        <span class="gold-line">Besuchen Sie uns</span>
-        <h2>Zwischen Burgstraße und Boutique-Herz.</h2>
-        <p style="color:var(--muted);max-width:520px">Schmuck will erlebt werden – getragen, gespiegelt, im Licht betrachtet. Wir laden Sie ein, unser Haus im Herzen Wiesbadens persönlich zu entdecken.</p>
-
-        <div class="visit-details">
-          <div class="row">
-            <span class="key">Adresse</span>
-            <span class="val"><span class="big">Burgstraße 3</span>65183 Wiesbaden</span>
+    <!-- HANDWERK -->
+    <section class="craft">
+      <div class="craft-left">
+        <h2>Handwerk, das bleibt</h2>
+        <p>Vom Meisterhand vollendet — bei jeder Erfahrung, Sorgfalt und Liebe zum Detail nummeriert.</p>
+        <p>Für Schmuck, der ein Leben lang begleitet.</p>
+        <div class="craft-features">
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
+            <span>Seit 1875</span>
           </div>
-          <div class="row">
-            <span class="key">Telefon</span>
-            <span class="val"><a href="tel:061137428" class="big">0611 37 42 80</a></span>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="6"/><path d="m9 14-1.5 8L12 19l4.5 3L15 14"/></svg></div>
+            <span>Meisterliche<br/>Handarbeit</span>
           </div>
-          <div class="row">
-            <span class="key">Termin</span>
-            <span class="val">Private Beratung<br/>nach Vereinbarung</span>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg></div>
+            <span>Bewusste<br/>Materialien</span>
+          </div>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></div>
+            <span>Für die<br/>Ewigkeit</span>
           </div>
         </div>
+      </div>
+      <div class="craft-img" id="craft-img">
+        <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
+      </div>
+    </section>
 
-        <div style="margin-top:36px;display:flex;gap:14px;flex-wrap:wrap">
-          <a href="tel:061137428" class="btn btn-primary">Jetzt anrufen</a>
-          <a href="https://maps.google.com/?q=Burgstraße+3+65183+Wiesbaden" target="_blank" rel="noopener" class="btn btn-ghost">Route planen</a>
+    <!-- JADE KOLLEKTION -->
+    <section class="jade-section">
+      <div class="jade-intro">
+        <h2>Ausgewählte Stücke</h2>
+        <p>Sorgfältig kuratierte Lieblingsstücke aus unserem Atelier — meisterliche Handwerkskunst für besondere Momente.</p>
+        <a href="#" class="jade-link">Alle Stücke ansehen →</a>
+      </div>
+      <div class="jade-products">
+        <div class="jade-card">
+          <div class="jade-badge">Neu</div>
+          <div class="jade-card-img">
+            <svg viewBox="0 0 100 120">
+              <path d="M20 18 Q50 28 80 18" fill="none" stroke="#cfa554" stroke-width="1" stroke-dasharray="1.5 1.5"/>
+              <path d="M50 28 L50 56" stroke="#cfa554" stroke-width="1"/>
+              <ellipse cx="50" cy="76" rx="14" ry="18" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
+              <ellipse cx="46" cy="68" rx="4" ry="5" fill="#a8c0a3" opacity="0.6"/>
+              <circle cx="50" cy="58" r="3" fill="#cfa554"/>
+            </svg>
+          </div>
+          <h4>Jade Anhänger „Harmonie"</h4>
+          <div class="price">865 €</div>
+        </div>
+        <div class="jade-card">
+          <div class="jade-badge">Bestseller</div>
+          <div class="jade-card-img">
+            <svg viewBox="0 0 100 120">
+              <ellipse cx="50" cy="78" rx="26" ry="22" fill="none" stroke="#cfa554" stroke-width="5"/>
+              <ellipse cx="50" cy="48" rx="14" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.5"/>
+              <ellipse cx="46" cy="44" rx="4" ry="3" fill="#a8c0a3" opacity="0.6"/>
+            </svg>
+          </div>
+          <h4>Jade Ring „Balance"</h4>
+          <div class="price">890 €</div>
+        </div>
+        <div class="jade-card">
+          <div class="jade-badge">Neu</div>
+          <div class="jade-card-img">
+            <svg viewBox="0 0 100 120">
+              <circle cx="32" cy="42" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
+              <ellipse cx="32" cy="68" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
+              <circle cx="68" cy="42" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
+              <ellipse cx="68" cy="68" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <h4>Jade Tropfen Ohrringe</h4>
+          <div class="price">549 €</div>
         </div>
       </div>
+    </section>
 
-      <aside class="hours-card reveal delay-1">
-        <h3 class="serif">Öffnungszeiten</h3>
-        <div class="row closed"><span class="day">Montag</span><span class="time">Geschlossen</span></div>
-        <div class="row"><span class="day">Dienstag</span><span class="time">10:00 – 18:30</span></div>
-        <div class="row"><span class="day">Mittwoch</span><span class="time">10:00 – 18:30</span></div>
-        <div class="row"><span class="day">Donnerstag</span><span class="time">10:00 – 18:30</span></div>
-        <div class="row"><span class="day">Freitag</span><span class="time">10:00 – 18:30</span></div>
-        <div class="row"><span class="day">Samstag</span><span class="time">10:00 – 16:00</span></div>
-        <div class="row closed"><span class="day">Sonntag</span><span class="time">Geschlossen</span></div>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-top">
-      <img src="zoo.webp" alt="Juwelier Weidmann" class="footer-logo" width="600" height="400" loading="lazy" decoding="async" />
-      <p class="footer-tagline">Seit Generationen in der Wiesbadener Innenstadt – das Haus für Schmuck, Juwelen und persönliche Beratung.</p>
-    </div>
-
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Kollektionen</h4>
-        <ul>
-          <li><a href="#halsketten">Halsketten</a></li>
-          <li><a href="#ringe">Ringe</a></li>
-          <li><a href="#ohrringe">Ohrringe</a></li>
-          <li><a href="#armbander">Armbänder</a></li>
-          <li><a href="#farbsteine">Farbsteinschmuck</a></li>
-        </ul>
+    <!-- FAVORITEN -->
+    <section class="favs">
+      <h2 class="section-title">Ausgewählte Favoriten</h2>
+      <div class="favs-grid">
+        <div class="fav">
+          <div class="fav-img">
+            <svg viewBox="0 0 100 100">
+              <ellipse cx="50" cy="62" rx="28" ry="26" fill="none" stroke="#cfa554" stroke-width="5"/>
+              <circle cx="50" cy="34" r="5" fill="#fff" stroke="#a89c80" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <h4>Zarter Goldring</h4>
+          <div class="price">545 €</div>
+        </div>
+        <div class="fav">
+          <div class="fav-img">
+            <svg viewBox="0 0 100 100">
+              <circle cx="34" cy="32" r="8" fill="none" stroke="#cfa554" stroke-width="2"/>
+              <ellipse cx="34" cy="56" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1"/>
+              <circle cx="66" cy="32" r="8" fill="none" stroke="#cfa554" stroke-width="2"/>
+              <ellipse cx="66" cy="56" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1"/>
+            </svg>
+          </div>
+          <h4>Jade Cocoon Ohrringe</h4>
+          <div class="price">290 €</div>
+        </div>
+        <div class="fav">
+          <div class="fav-img">
+            <svg viewBox="0 0 100 100">
+              <path d="M30 20 Q50 30 70 20" fill="none" stroke="#cfa554" stroke-width="1" stroke-dasharray="1.5 1.5"/>
+              <path d="M50 30 L50 56" stroke="#cfa554" stroke-width="1"/>
+              <circle cx="50" cy="68" r="14" fill="#fff" stroke="#bca56b" stroke-width="1.5"/>
+              <circle cx="50" cy="68" r="7" fill="#eee5cd" stroke="#a89c80" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <h4>Solitaire Collier Lume</h4>
+          <div class="price">895 €</div>
+        </div>
+        <div class="fav">
+          <div class="fav-img">
+            <svg viewBox="0 0 100 100">
+              <ellipse cx="50" cy="50" rx="38" ry="6" fill="none" stroke="#cfa554" stroke-width="3"/>
+              <circle cx="20" cy="50" r="3" fill="#cfa554"/>
+              <circle cx="80" cy="50" r="3" fill="#cfa554"/>
+              <circle cx="35" cy="50" r="2" fill="#cfa554"/>
+              <circle cx="65" cy="50" r="2" fill="#cfa554"/>
+              <circle cx="50" cy="50" r="2" fill="#cfa554"/>
+            </svg>
+          </div>
+          <h4>Goldarmband Echo</h4>
+          <div class="price">580 €</div>
+        </div>
       </div>
+    </section>
 
-      <div class="footer-col">
-        <h4>Haus Weidmann</h4>
-        <ul>
-          <li><a href="#heritage">Atelier</a></li>
-          <li><a href="#heritage">Handwerkskunst</a></li>
-          <li><a href="#visit">Private Beratung</a></li>
-          <li><a href="#">Service & Reparatur</a></li>
-        </ul>
+    <!-- TESTIMONIALS -->
+    <section class="testi">
+      <h2 class="section-title">Was unsere Kundinnen sagen</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-quote-mark">"</div>
+          <p>Für mich steht Juwelier Weidemann für edlen Wert, ehrliche Beratung und Schmuck, der Generationen verbindet.</p>
+          <div class="stars">★★★★★</div>
+          <div class="testi-author">– Anna K.</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote-mark">"</div>
+          <p>Die Jade Kollektion ist etwas ganz Besonderes. Wunderschön, elegant und von bester Qualität.</p>
+          <div class="stars">★★★★★</div>
+          <div class="testi-author">– Lisa M.</div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote-mark">"</div>
+          <p>Qualität, die man sieht und spürt. Hier kauft ich meinen Schmuck mit gutem Gefühl.</p>
+          <div class="stars">★★★★★</div>
+          <div class="testi-author">– Sabine T.</div>
+        </div>
       </div>
+    </section>
 
-      <div class="footer-col">
-        <h4>Kontakt</h4>
-        <ul>
-          <li>Burgstraße 3</li>
-          <li>65183 Wiesbaden</li>
-          <li><a href="tel:061137428">0611 37 42 80</a></li>
-          <li>Di–Fr · 10–18:30 Uhr</li>
-          <li>Sa · 10–16:00 Uhr</li>
-        </ul>
+    <!-- TRADITION -->
+    <section class="tradition">
+      <div class="tradition-img"></div>
+      <div class="tradition-right">
+        <h2>Tradition trifft Moderne</h2>
+        <p>Unser Haus steht für feinste Juwelierkunst, präzise Handarbeit und persönliche Beratung seit 1875.</p>
+        <div class="tradition-features">
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
+            <span>Familienunternehmen<br/>seit 1875</span>
+          </div>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 4 7v10l8 5 8-5V7z"/><path d="M12 12V7M12 12l-8-5M12 12l8-5"/></svg></div>
+            <span>Exklusive<br/>Kollektionen</span>
+          </div>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <span>Persönliche<br/>Fachberatung</span>
+          </div>
+          <div class="craft-feature">
+            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <span>Nachhaltige<br/>Verantwortung</span>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="footer-col newsletter">
-        <h4>Journal</h4>
-        <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px">Neuigkeiten, Raritäten, Saison-Highlights – dezent und selten.</p>
-        <form onsubmit="event.preventDefault();this.querySelector('input').value='';this.querySelector('button').textContent='Vielen Dank';">
-          <input type="email" placeholder="Ihre E-Mail" required />
-          <button type="submit" class="btn btn-primary">Abonnieren</button>
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+      <div class="newsletter-stones" aria-hidden="true"></div>
+      <div class="newsletter-mid">
+        <h3>Bleiben Sie inspiriert</h3>
+        <p>Exklusive Neuheiten, Einblicke und besondere Angebote – direkt in Ihr Postfach.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Vielen Dank für Ihre Anmeldung!');">
+          <input type="email" placeholder="E-Mail-Adresse eingeben" required />
+          <button type="submit" class="btn btn-primary">Anmelden</button>
         </form>
+        <label class="newsletter-consent">
+          <input type="checkbox" />
+          Ich akzeptiere die Datenschutzbestimmungen.
+        </label>
       </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div>© 2026 Juwelier Weidmann · Alle Rechte vorbehalten</div>
-      <div class="socials">
-        <a href="#" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
-        </a>
-        <a href="#" aria-label="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M14 9h3V6h-3a4 4 0 0 0-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2a1 1 0 0 1 1-1z"/></svg>
-        </a>
-        <a href="#" aria-label="Pinterest">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 20c-.5-1.2.5-3.8 1-5.5.4-1.3-1-5 .5-5.5s3 3 2 5-2 4.5-4 4.5"/></svg>
-        </a>
+      <div class="newsletter-bracelet" aria-hidden="true">
+        <svg viewBox="0 0 200 130">
+          <ellipse cx="100" cy="65" rx="80" ry="32" fill="none" stroke="#cfa554" stroke-width="6"/>
+          <circle cx="20" cy="65" r="4" fill="#fff" stroke="#a89c80"/>
+          <circle cx="180" cy="65" r="4" fill="#fff" stroke="#a89c80"/>
+          <circle cx="60" cy="38" r="3" fill="#fff" stroke="#a89c80"/>
+          <circle cx="140" cy="38" r="3" fill="#fff" stroke="#a89c80"/>
+          <circle cx="100" cy="33" r="3" fill="#fff" stroke="#a89c80"/>
+        </svg>
       </div>
-      <div><a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="#">AGB</a></div>
-    </div>
-  </div>
-</footer>
+    </section>
 
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-brand">
+        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="brand-logo" />
+        <div class="footer-brand-info">
+          Maximilian-Weiss-Str. 1875<br/>
+          40212 Düsseldorf<br/>
+          Deutschland
+        </div>
+      </div>
+      <div class="footer-mark">
+        <div class="seal">JW</div>
+        <div class="est">SEIT 1875</div>
+      </div>
+      <div class="footer-bonsai" aria-hidden="true">
+        <img src="assets/bonsai.webp" alt="" />
+      </div>
+      <div class="footer-right">
+        <div class="footer-links" style="text-align:right">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="#">AGB</a>
+          <a href="#">Widerruf</a>
+        </div>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M8 19s1-4 1.5-6c.5-2 1-4 2-4s2 1 2 3-1 4-3 4M11 9c0-1 1-2 2-2s2 1 2 2"/></svg></a>
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
 <script>
-// Reveal on scroll — with safety fallback so images never stay hidden
-(function(){
-  const nodes = document.querySelectorAll('.reveal');
-  const revealAll = () => nodes.forEach(el => el.classList.add('visible'));
-  if (!('IntersectionObserver' in window) || window.matchMedia('(max-width:768px)').matches){
-    revealAll();
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
-    });
-  },{threshold:.14,rootMargin:'0px 0px -60px 0px'});
-  nodes.forEach(el=>io.observe(el));
-  // Fallback: reveal anything still hidden after 2s (slow networks, missed intersections)
-  setTimeout(revealAll, 2000);
-})();
+(function () {
+  var TOTAL = 50;
+  var section = document.getElementById('craft-img');
+  var img = document.getElementById('craft-frame');
+  if (!section || !img) return;
 
-// Subtle header elevation on scroll
-const header = document.querySelector('.site-header');
-window.addEventListener('scroll',()=>{
-  if(window.scrollY>20) header.style.boxShadow='0 20px 40px -20px rgba(0,0,0,.6)';
-  else header.style.boxShadow='none';
-});
+  var frames = new Array(TOTAL);
+  var pad = function (n) { return ('00' + n).slice(-3); };
+  for (var i = 0; i < TOTAL; i++) {
+    var src = 'assets/jedeman/frame-' + pad(i + 1) + '.webp';
+    var preload = new Image();
+    preload.src = src;
+    frames[i] = src;
+  }
+
+  var current = 0;
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    var rect = section.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var travel = rect.height + vh;
+    var passed = vh - rect.top;
+    var p = passed / travel;
+    if (p < 0) p = 0; else if (p > 1) p = 1;
+    var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
+    if (idx !== current) {
+      current = idx;
+      img.src = frames[idx];
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
 </script>
 </body>
 </html>
