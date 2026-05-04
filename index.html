@@ -160,8 +160,8 @@
 
   /* ====== Hero ====== */
   .hero {
-    margin: 0 0 28px 0;
-    border-radius: 0;
+    margin: 12px 24px 28px 24px;
+    border-radius: 32px;
     background-image: url('assets/hero-jewelry.webp');
     background-size: cover;
     background-position: center right;
@@ -216,7 +216,7 @@
     font-size: 13.5px;
     font-weight: 500;
     padding: 13px 24px;
-    border-radius: 2px;
+    border-radius: 999px;
     cursor: pointer;
     transition: all .2s;
     border: 1px solid transparent;
@@ -253,7 +253,7 @@
   .cat {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 22px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -307,15 +307,30 @@
   }
 
   /* ====== Handwerk ====== */
-  .craft {
+  .craft-wrap {
+    position: relative;
     margin: 0 32px 28px 24px;
+    height: 280vh;
+  }
+  .craft-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .craft-sticky > * { pointer-events: auto; }
+  .craft {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 28px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     overflow: hidden;
-    min-height: 640px;
+    width: 100%;
+    height: min(640px, calc(100vh - 32px));
+    box-shadow: 0 24px 60px -32px rgba(31,26,20,0.18);
   }
   .craft-left { padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; }
   .craft-left h2 {
@@ -355,11 +370,12 @@
   }
   .craft-img {
     background: #fff;
-    min-height: 640px;
+    height: 100%;
     position: relative;
     display: grid;
     place-items: center;
     padding: 24px;
+    overflow: hidden;
   }
   .craft-frame {
     width: 100%;
@@ -376,7 +392,7 @@
     background-image: url('assets/watercolor-wide.webp'), linear-gradient(#f7f0e0, #f7f0e0);
     background-size: cover;
     background-position: center;
-    border-radius: 3px;
+    border-radius: 28px;
     padding: 38px 40px 44px;
     display: grid;
     grid-template-columns: 1fr 2.2fr;
@@ -412,13 +428,14 @@
   }
   .jade-card {
     background: #fff;
-    border-radius: 3px;
+    border-radius: 22px;
     padding: 18px;
     text-align: center;
     position: relative;
     border: 1px solid var(--line);
     transition: all .25s;
     cursor: pointer;
+    overflow: hidden;
   }
   .jade-card:hover {
     transform: translateY(-3px);
@@ -432,7 +449,7 @@
     color: #f5efdb;
     font-size: 10px;
     padding: 3px 10px;
-    border-radius: 2px;
+    border-radius: 999px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -443,7 +460,7 @@
     display: grid;
     place-items: center;
     background: linear-gradient(135deg, #faf5e8, #f1e8d2);
-    border-radius: 2px;
+    border-radius: 18px;
   }
   .jade-card-img svg { width: 75%; height: 75%; }
   .jade-card h4 {
@@ -478,11 +495,12 @@
   .fav {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 22px;
     padding: 18px;
     text-align: center;
     cursor: pointer;
     transition: all .25s;
+    overflow: hidden;
   }
   .fav:hover {
     transform: translateY(-3px);
@@ -495,7 +513,7 @@
     display: grid;
     place-items: center;
     background: linear-gradient(135deg, #faf5e8, #efe5cc);
-    border-radius: 2px;
+    border-radius: 18px;
   }
   .fav-img svg { width: 70%; height: 70%; }
   .fav h4 {
@@ -522,7 +540,7 @@
   .testi-card {
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 22px;
     padding: 24px 22px;
   }
   .testi-quote-mark {
@@ -555,7 +573,7 @@
     margin: 0 32px 28px 24px;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 28px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     overflow: hidden;
@@ -596,7 +614,7 @@
     margin: 0 32px 28px 24px;
     background: var(--cream);
     border: 1px solid var(--line);
-    border-radius: 3px;
+    border-radius: 28px;
     padding: 36px 40px;
     display: grid;
     grid-template-columns: 200px 1fr 200px;
@@ -636,10 +654,10 @@
   }
   .newsletter-form input {
     flex: 1;
-    padding: 11px 14px;
+    padding: 11px 18px;
     border: 1px solid var(--line);
     background: #fff;
-    border-radius: 2px;
+    border-radius: 999px;
     font-family: inherit;
     font-size: 13px;
     color: var(--ink);
@@ -763,7 +781,7 @@
   @media (min-width: 1700px) {
     .nav { padding: 22px max(40px, calc((100vw - 1600px) / 2)); }
     footer { padding: 36px max(40px, calc((100vw - 1600px) / 2)) 32px; }
-    .cats, .craft, .jade-section, .favs, .testi, .tradition, .newsletter {
+    .cats, .craft-wrap, .jade-section, .favs, .testi, .tradition, .newsletter {
       max-width: 1600px;
       margin-left: auto;
       margin-right: auto;
@@ -781,9 +799,11 @@
     .nav { padding: 18px 28px; }
     .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
     .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
-    .craft { min-height: auto; }
+    .craft-wrap { height: auto; margin: 0 14px 16px; }
+    .craft-sticky { position: static; height: auto; place-items: stretch; }
+    .craft { height: auto; min-height: auto; box-shadow: none; }
     .craft-left { padding: 40px 32px; }
-    .craft-img { min-height: 480px; padding: 16px; }
+    .craft-img { height: auto; min-height: 480px; padding: 16px; }
     .craft-frame { max-width: 380px; }
     .testi-grid { grid-template-columns: repeat(2, 1fr); }
     .nav-links { display: none; }
@@ -811,7 +831,7 @@
     .hero p { font-size: 14px; }
     .cta-row { flex-wrap: wrap; }
     .btn { padding: 12px 20px; }
-    .cats, .craft, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 14px 16px; }
+    .cats, .craft-wrap, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 14px 16px; }
     .cats { gap: 14px; }
     .cat-text { padding: 16px 18px 18px; }
     .cat-text h3 { font-size: 19px; }
@@ -852,7 +872,7 @@
     .hero p { font-size: 13.5px; margin-bottom: 22px; }
     .eyebrow { font-size: 10px; letter-spacing: 0.22em; margin-bottom: 12px; }
 
-    .cats, .craft, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 10px 12px; }
+    .cats, .craft-wrap, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 10px 12px; }
 
     /* 2-spaltige Produkt-Karten auf Phone */
     .cats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -976,7 +996,9 @@
     </section>
 
     <!-- HANDWERK -->
-    <section class="craft">
+    <section class="craft-wrap" id="craft-wrap">
+     <div class="craft-sticky">
+      <div class="craft">
       <div class="craft-left">
         <h2>Handwerk, das bleibt</h2>
         <p>Vom Meisterhand vollendet — bei jeder Erfahrung, Sorgfalt und Liebe zum Detail nummeriert.</p>
@@ -1003,6 +1025,8 @@
       <div class="craft-img" id="craft-img">
         <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
       </div>
+      </div>
+     </div>
     </section>
 
     <!-- JADE KOLLEKTION -->
@@ -1225,9 +1249,9 @@
 <script>
 (function () {
   var TOTAL = 50;
-  var section = document.getElementById('craft-img');
+  var wrap = document.getElementById('craft-wrap');
   var img = document.getElementById('craft-frame');
-  if (!section || !img) return;
+  if (!wrap || !img) return;
 
   var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
@@ -1243,11 +1267,19 @@
 
   function update() {
     ticking = false;
-    var rect = section.getBoundingClientRect();
+    var rect = wrap.getBoundingClientRect();
     var vh = window.innerHeight || document.documentElement.clientHeight;
-    var travel = rect.height + vh;
-    var passed = vh - rect.top;
-    var p = passed / travel;
+    var wrapH = wrap.offsetHeight;
+    var p;
+    if (wrapH > vh + 50) {
+      // sticky scroll-jacking mode (desktop): progress = 0 when wrap top hits viewport top, 1 when wrap bottom is one viewport above top
+      var stickyTotal = wrapH - vh;
+      p = -rect.top / stickyTotal;
+    } else {
+      // non-sticky / mobile fallback: classic in-out progress
+      var travel = wrapH + vh;
+      p = (vh - rect.top) / travel;
+    }
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
