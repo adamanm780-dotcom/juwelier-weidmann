@@ -162,13 +162,13 @@
   .hero-wrap {
     position: relative;
     margin: 12px 24px 28px 24px;
-    height: 220vh;
+    height: 180vh;
   }
   .hero {
     position: sticky;
     top: 0;
+    height: 100vh;
     border-radius: 32px;
-    aspect-ratio: 2206 / 946;
     width: auto;
     overflow: hidden;
     z-index: 1;
@@ -391,72 +391,34 @@
     z-index: 1;
     overflow: hidden;
   }
-  .wood-photo {
+  .wood-photo-frame {
     position: absolute;
     left: clamp(20px, 4vw, 80px);
     top: 50%;
     transform: translateY(-50%);
     height: 78%;
     width: auto;
+    aspect-ratio: 4 / 3;
     max-width: 42%;
-    object-fit: cover;
     border-radius: 14px;
+    overflow: hidden;
     box-shadow: 0 18px 40px -16px rgba(0,0,0,0.55);
     z-index: 1;
+    isolation: isolate;
   }
-  .wood-strip .gradual-blur {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .wood-strip .gradual-blur-inner {
-    position: relative;
+  .wood-photo {
     width: 100%;
     height: 100%;
-  }
-  .wood-strip .gb-layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  .wood-strip .gb-l1 {
-    backdrop-filter: blur(2.6px);
-    -webkit-backdrop-filter: blur(2.6px);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 20%, #000 40%, transparent 60%);
-            mask-image: linear-gradient(to right, transparent 0%, #000 20%, #000 40%, transparent 60%);
-  }
-  .wood-strip .gb-l2 {
-    backdrop-filter: blur(5.3px);
-    -webkit-backdrop-filter: blur(5.3px);
-    -webkit-mask-image: linear-gradient(to right, transparent 20%, #000 40%, #000 60%, transparent 80%);
-            mask-image: linear-gradient(to right, transparent 20%, #000 40%, #000 60%, transparent 80%);
-  }
-  .wood-strip .gb-l3 {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    -webkit-mask-image: linear-gradient(to right, transparent 40%, #000 60%, #000 80%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 40%, #000 60%, #000 80%, transparent 100%);
-  }
-  .wood-strip .gb-l4 {
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    -webkit-mask-image: linear-gradient(to right, transparent 60%, #000 80%, #000 100%);
-            mask-image: linear-gradient(to right, transparent 60%, #000 80%, #000 100%);
-  }
-  .wood-strip .gb-l5 {
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-    -webkit-mask-image: linear-gradient(to right, transparent 80%, #000 100%);
-            mask-image: linear-gradient(to right, transparent 80%, #000 100%);
+    object-fit: cover;
+    display: block;
   }
   @media (max-width: 768px) {
     .wood-strip { margin-top: 16px; margin-bottom: 16px; height: 240px; }
-    .wood-photo { height: 82%; max-width: 50%; left: 12px; border-radius: 10px; }
+    .wood-photo-frame { height: 82%; max-width: 50%; left: 12px; border-radius: 10px; }
   }
   @media (max-width: 480px) {
     .wood-strip { height: 180px; }
-    .wood-photo { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
+    .wood-photo-frame { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
   }
 
   /* ====== Handwerk ====== */
@@ -1150,15 +1112,8 @@
       </div>
      </div>
      <section class="wood-strip">
-       <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
-       <div class="gradual-blur gradual-blur-parent" aria-hidden="true">
-         <div class="gradual-blur-inner">
-           <div class="gb-layer gb-l1"></div>
-           <div class="gb-layer gb-l2"></div>
-           <div class="gb-layer gb-l3"></div>
-           <div class="gb-layer gb-l4"></div>
-           <div class="gb-layer gb-l5"></div>
-         </div>
+       <div class="wood-photo-frame">
+         <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
        </div>
      </section>
     </section>
@@ -1323,6 +1278,7 @@
   window.addEventListener('resize', onScroll);
   update();
 })();
+
 </script>
 </body>
 </html>
