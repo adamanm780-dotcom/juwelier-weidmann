@@ -159,13 +159,55 @@
   .nav-icons button:hover { color: var(--jade); }
 
   /* ====== Hero ====== */
-  .hero {
+  .hero-wrap {
+    position: relative;
     margin: 12px 24px 28px 24px;
+    height: 220vh;
+  }
+  .hero {
+    position: sticky;
+    top: 0;
     border-radius: 32px;
     aspect-ratio: 2206 / 946;
     width: auto;
-    position: relative;
     overflow: hidden;
+    z-index: 1;
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.92);
+    color: var(--ink);
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    box-shadow: 0 6px 18px -6px rgba(0,0,0,0.35);
+    z-index: 3;
+    transition: opacity .35s, transform .35s;
+    pointer-events: none;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .hero-scroll-hint .arrow {
+    display: inline-block;
+    font-size: 14px;
+    animation: hero-bounce 1.6s infinite ease-in-out;
+  }
+  @keyframes hero-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  .hero-wrap.is-done .hero-scroll-hint {
+    opacity: 0;
+    transform: translate(-50%, 8px);
   }
   .hero-frame {
     position: absolute;
@@ -347,12 +389,74 @@
     background-repeat: no-repeat;
     box-shadow: 0 6px 20px -10px rgba(31,26,20,0.25);
     z-index: 1;
+    overflow: hidden;
+  }
+  .wood-photo {
+    position: absolute;
+    left: clamp(20px, 4vw, 80px);
+    top: 50%;
+    transform: translateY(-50%);
+    height: 78%;
+    width: auto;
+    max-width: 42%;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 18px 40px -16px rgba(0,0,0,0.55);
+    z-index: 1;
+  }
+  .wood-strip .gradual-blur {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .wood-strip .gradual-blur-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .wood-strip .gb-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .wood-strip .gb-l1 {
+    backdrop-filter: blur(2.6px);
+    -webkit-backdrop-filter: blur(2.6px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 20%, #000 40%, transparent 60%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 20%, #000 40%, transparent 60%);
+  }
+  .wood-strip .gb-l2 {
+    backdrop-filter: blur(5.3px);
+    -webkit-backdrop-filter: blur(5.3px);
+    -webkit-mask-image: linear-gradient(to right, transparent 20%, #000 40%, #000 60%, transparent 80%);
+            mask-image: linear-gradient(to right, transparent 20%, #000 40%, #000 60%, transparent 80%);
+  }
+  .wood-strip .gb-l3 {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    -webkit-mask-image: linear-gradient(to right, transparent 40%, #000 60%, #000 80%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 40%, #000 60%, #000 80%, transparent 100%);
+  }
+  .wood-strip .gb-l4 {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    -webkit-mask-image: linear-gradient(to right, transparent 60%, #000 80%, #000 100%);
+            mask-image: linear-gradient(to right, transparent 60%, #000 80%, #000 100%);
+  }
+  .wood-strip .gb-l5 {
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    -webkit-mask-image: linear-gradient(to right, transparent 80%, #000 100%);
+            mask-image: linear-gradient(to right, transparent 80%, #000 100%);
   }
   @media (max-width: 768px) {
     .wood-strip { margin-top: 16px; margin-bottom: 16px; height: 240px; }
+    .wood-photo { height: 82%; max-width: 50%; left: 12px; border-radius: 10px; }
   }
   @media (max-width: 480px) {
     .wood-strip { height: 180px; }
+    .wood-photo { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
   }
 
   /* ====== Handwerk ====== */
@@ -860,6 +964,8 @@
     .nav { padding: 18px 28px; }
     .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
     .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
+    .hero-wrap { height: auto; }
+    .hero { position: static; }
     .craft-wrap { height: 280vh; margin: 0 14px 16px; }
     .craft-sticky { position: static; height: auto; place-items: stretch; }
     .craft { height: auto; min-height: auto; box-shadow: none; }
@@ -879,8 +985,8 @@
     .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
     .nav-icons { gap: 14px; }
     .brand-logo { height: 36px; }
+    .hero-wrap { margin: 8px 14px 16px; }
     .hero {
-      margin: 8px 14px 16px;
       aspect-ratio: auto;
       height: auto;
       min-height: 520px;
@@ -929,7 +1035,8 @@
     .nav-icons { gap: 10px; }
     .brand-logo { height: 30px; }
 
-    .hero { min-height: 460px; margin: 6px 10px 12px; border-radius: 18px; }
+    .hero-wrap { margin: 6px 10px 12px; }
+    .hero { min-height: 460px; border-radius: 18px; }
     .hero-content { padding: 24px 16px; }
     .hero h1 { font-size: clamp(26px, 9vw, 34px); }
     .hero p { font-size: 13.5px; margin-bottom: 22px; }
@@ -986,20 +1093,26 @@
   <main>
 
     <!-- HERO -->
-    <section class="hero">
-      <img id="hero-frame" class="hero-frame" src="assets/felix2/frame-001.webp" alt="" />
-      <div class="hero-content">
-        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="hero-logo" />
-        <div class="eyebrow">Zeitlose Vollkommenheit</div>
-        <h1>Klassischer Schmuck<br/>mit Charakter</h1>
-        <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
-        <div class="cta-row">
-          <button class="btn btn-primary">Kollektion entdecken</button>
-          <button class="btn btn-ghost">Über uns erfahren</button>
+    <section class="hero-wrap">
+      <div class="hero">
+        <img id="hero-frame" class="hero-frame" src="assets/felix2/frame-001.webp" alt="" />
+        <div class="hero-content">
+          <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="hero-logo" />
+          <div class="eyebrow">Zeitlose Vollkommenheit</div>
+          <h1>Klassischer Schmuck<br/>mit Charakter</h1>
+          <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
+          <div class="cta-row">
+            <button class="btn btn-primary">Kollektion entdecken</button>
+            <button class="btn btn-ghost">Über uns erfahren</button>
+          </div>
+          <div class="hero-meta">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+            Jade. Zeitlos. Versandkostenpräzision.
+          </div>
         </div>
-        <div class="hero-meta">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-          Jade. Zeitlos. Versandkostenpräzision.
+        <div class="hero-scroll-hint" aria-hidden="true">
+          <span>Scrollen</span>
+          <span class="arrow">↓</span>
         </div>
       </div>
     </section>
@@ -1036,7 +1149,18 @@
       </div>
       </div>
      </div>
-     <section class="wood-strip" aria-hidden="true"></section>
+     <section class="wood-strip">
+       <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
+       <div class="gradual-blur gradual-blur-parent" aria-hidden="true">
+         <div class="gradual-blur-inner">
+           <div class="gb-layer gb-l1"></div>
+           <div class="gb-layer gb-l2"></div>
+           <div class="gb-layer gb-l3"></div>
+           <div class="gb-layer gb-l4"></div>
+           <div class="gb-layer gb-l5"></div>
+         </div>
+       </div>
+     </section>
     </section>
 
     <!-- FOOTER -->
@@ -1142,9 +1266,10 @@
 
 (function () {
   var TOTAL = 30;
-  var hero = document.querySelector('.hero');
+  var heroWrap = document.querySelector('.hero-wrap');
+  var hero = heroWrap ? heroWrap.querySelector('.hero') : null;
   var img = document.getElementById('hero-frame');
-  if (!hero || !img) return;
+  if (!heroWrap || !hero || !img) return;
 
   var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
@@ -1157,18 +1282,33 @@
 
   var current = 0;
   var ticking = false;
+  var doneState = false;
 
   function update() {
     ticking = false;
-    var rect = hero.getBoundingClientRect();
+    var wrapRect = heroWrap.getBoundingClientRect();
+    var wrapH = heroWrap.offsetHeight;
     var heroH = hero.offsetHeight;
-    if (heroH <= 0) return;
-    var p = -rect.top / heroH;
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var stickyActive = window.getComputedStyle(hero).position === 'sticky';
+    var p;
+    if (stickyActive && wrapH > heroH + 50) {
+      var stickyTotal = wrapH - heroH;
+      p = -wrapRect.top / stickyTotal;
+    } else {
+      var travel = wrapH + vh;
+      p = (vh - wrapRect.top) / travel;
+    }
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
       current = idx;
       img.src = frames[idx];
+    }
+    var done = p > 0.85;
+    if (done !== doneState) {
+      doneState = done;
+      heroWrap.classList.toggle('is-done', done);
     }
   }
 
