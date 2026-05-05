@@ -162,18 +162,27 @@
   .hero {
     margin: 12px 24px 28px 24px;
     border-radius: 32px;
-    background-image: url('assets/hero-jewelry.webp');
-    background-size: cover;
-    background-position: center right;
-    height: clamp(440px, 32vw, 880px);
+    aspect-ratio: 2206 / 946;
+    width: auto;
     position: relative;
     overflow: hidden;
   }
+  .hero-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .hero-content { z-index: 1; }
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(246,239,226,0.92) 0%, rgba(246,239,226,0.7) 38%, rgba(246,239,226,0) 60%);
+    background: transparent;
   }
   .hero-content {
     position: relative;
@@ -184,6 +193,15 @@
     flex-direction: column;
     justify-content: center;
   }
+  .hero-logo {
+    width: 140px;
+    height: auto;
+    margin-bottom: 22px;
+    mix-blend-mode: multiply;
+  }
+  @media (max-width: 760px) {
+    .hero-logo { width: 110px; margin-bottom: 16px; }
+  }
   .eyebrow {
     font-size: 11px;
     letter-spacing: 0.28em;
@@ -192,23 +210,26 @@
     margin-bottom: 16px;
     font-weight: 500;
   }
+  .hero .eyebrow { color: #fff; }
   .hero h1 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-size: clamp(30px, 5vw, 56px);
     line-height: 1.05;
     margin: 0 0 18px;
-    color: var(--ink);
+    color: #fff;
     letter-spacing: -0.005em;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
   }
   .section-title { font-size: clamp(22px, 3vw, 30px); }
   .craft-left h2, .jade-intro h2, .tradition-right h2 { font-size: clamp(24px, 3.2vw, 34px); }
   img { max-width: 100%; height: auto; }
   .hero p {
-    color: var(--ink-2);
+    color: #fff;
     margin: 0 0 30px;
     max-width: 420px;
     font-size: 15px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
   }
   .cta-row { display: flex; gap: 12px; margin-bottom: 26px; }
   .btn {
@@ -238,10 +259,13 @@
     display: flex;
     gap: 18px;
     font-size: 12.5px;
-    color: var(--muted);
+    color: #fff;
     align-items: center;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
   }
   .hero-meta svg { color: var(--gold); }
+  .hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,0.6); }
+  .hero .btn-ghost:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
   /* ====== Categories ====== */
   .cats {
@@ -306,11 +330,36 @@
     align-self: flex-start;
   }
 
+  /* ====== Holz-Banner (schmal, breit) ====== */
+  .wood-strip {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    width: 100vw;
+    height: 800px;
+    background-image: url('assets/holzi.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 6px 20px -10px rgba(31,26,20,0.25);
+    z-index: 1;
+  }
+  @media (max-width: 768px) {
+    .wood-strip { margin-top: 16px; margin-bottom: 16px; height: 240px; }
+  }
+  @media (max-width: 480px) {
+    .wood-strip { height: 180px; }
+  }
+
   /* ====== Handwerk ====== */
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
-    height: 280vh;
+    height: 320vh;
   }
   .craft-sticky {
     position: sticky;
@@ -319,32 +368,43 @@
     display: grid;
     place-items: center;
     pointer-events: none;
+    z-index: 3;
   }
   .craft-sticky > * { pointer-events: auto; }
   .craft {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 28px;
+    background: transparent;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    overflow: hidden;
     width: 100%;
     height: min(640px, calc(100vh - 32px));
-    box-shadow: 0 24px 60px -32px rgba(31,26,20,0.18);
+    will-change: transform;
   }
-  .craft-left { padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .craft-left {
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('assets/holzi.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 18px;
+    color: #fff;
+  }
   .craft-left h2 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-size: 34px;
     margin: 0 0 14px;
-    color: var(--ink);
+    color: #fff;
   }
   .craft-left p {
-    color: var(--ink-2);
+    color: #fff;
     font-size: 14px;
     margin: 0 0 12px;
   }
+  .craft-left .craft-feature span,
+  .craft-left .craft-feature .ico { color: #fff; }
   .craft-features {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -369,7 +429,7 @@
     display: block;
   }
   .craft-img {
-    background: #fff;
+    background: transparent;
     height: 100%;
     position: relative;
     display: grid;
@@ -718,6 +778,7 @@
     width: 360px;
     height: auto;
     display: block;
+    transform: translate(-40px, -50px);
     filter: drop-shadow(0 10px 16px rgba(31,26,20,0.18));
   }
   .footer-brand .brand-name { display: block; margin-bottom: 10px; }
@@ -799,7 +860,7 @@
     .nav { padding: 18px 28px; }
     .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
     .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
-    .craft-wrap { height: auto; margin: 0 14px 16px; }
+    .craft-wrap { height: 280vh; margin: 0 14px 16px; }
     .craft-sticky { position: static; height: auto; place-items: stretch; }
     .craft { height: auto; min-height: auto; box-shadow: none; }
     .craft-left { padding: 40px 32px; }
@@ -820,14 +881,14 @@
     .brand-logo { height: 36px; }
     .hero {
       margin: 8px 14px 16px;
+      aspect-ratio: auto;
       height: auto;
       min-height: 520px;
-      background-image: url('assets/hero-mobile.webp');
-      background-size: cover;
-      background-position: center top;
+      border-radius: 22px;
     }
-    .hero::before { background: linear-gradient(180deg, rgba(246,239,226,0.94) 0%, rgba(246,239,226,0.55) 55%, rgba(246,239,226,0) 100%); }
+    .hero::before { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%); }
     .hero-content { padding: 32px 22px; max-width: 100%; }
+    .hero h1 { font-size: clamp(28px, 8vw, 38px); }
     .hero p { font-size: 14px; }
     .cta-row { flex-wrap: wrap; }
     .btn { padding: 12px 20px; }
@@ -835,10 +896,11 @@
     .cats { gap: 14px; }
     .cat-text { padding: 16px 18px 18px; }
     .cat-text h3 { font-size: 19px; }
-    .craft-left, .tradition-right { padding: 28px 22px; }
+    .craft-left, .tradition-right { padding: 28px 22px; border-radius: 14px; }
     .craft-features, .tradition-features { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .craft-img { min-height: 380px; padding: 12px; }
-    .craft-frame { max-width: 320px; }
+    .craft-img { min-height: 320px; padding: 12px; }
+    .craft-frame { max-width: 280px; }
+    .craft-left h2 { font-size: 26px; }
     .tradition-img { min-height: 220px; }
     .jade-section { padding: 28px 20px; gap: 20px; }
     .jade-products { grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -855,7 +917,7 @@
       text-align: left;
     }
     .footer-bonsai { width: 280px; height: 180px; }
-    .footer-bonsai img { width: 240px; }
+    .footer-bonsai img { width: 240px; transform: translate(10px, -36px); }
     .footer-bonsai::before { width: 320px; height: 320px; }
     .footer-links { text-align: left !important; }
     .footer-right { align-items: flex-start; }
@@ -867,10 +929,12 @@
     .nav-icons { gap: 10px; }
     .brand-logo { height: 30px; }
 
-    .hero { min-height: 460px; margin: 6px 10px 12px; }
+    .hero { min-height: 460px; margin: 6px 10px 12px; border-radius: 18px; }
     .hero-content { padding: 24px 16px; }
+    .hero h1 { font-size: clamp(26px, 9vw, 34px); }
     .hero p { font-size: 13.5px; margin-bottom: 22px; }
     .eyebrow { font-size: 10px; letter-spacing: 0.22em; margin-bottom: 12px; }
+    .hero-logo { width: 90px; margin-bottom: 14px; }
 
     .cats, .craft-wrap, .jade-section, .favs, .testi, .tradition, .newsletter { margin: 0 10px 12px; }
 
@@ -908,7 +972,7 @@
 
     footer { padding: 22px 16px; gap: 18px; }
     .footer-bonsai { width: 220px; height: 140px; }
-    .footer-bonsai img { width: 180px; }
+    .footer-bonsai img { width: 180px; transform: translate(8px, -30px); }
     .footer-bonsai::before { width: 240px; height: 240px; }
 
     .cta-row { flex-direction: column; gap: 8px; }
@@ -918,33 +982,14 @@
 </head>
 <body>
 <div class="page">
-  <div class="side-decor" aria-hidden="true"></div>
-  <img src="assets/bonsai.webp" class="side-bonsai" alt="" aria-hidden="true" />
 
   <main>
-    <!-- NAV -->
-    <nav class="nav">
-      <div class="brand">
-        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="brand-logo" />
-      </div>
-      <ul class="nav-links">
-        <li><a href="#" class="active">Startseite</a></li>
-        <li><a href="#">Kollektionen</a></li>
-        <li><a href="#">Verlobung</a></li>
-        <li><a href="#">Über uns</a></li>
-        <li><a href="#">Kontakt</a></li>
-      </ul>
-      <div class="nav-icons">
-        <button aria-label="Suche"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
-        <button aria-label="Wunschliste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
-        <button aria-label="Konto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
-        <button aria-label="Tasche"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></button>
-      </div>
-    </nav>
 
     <!-- HERO -->
     <section class="hero">
+      <img id="hero-frame" class="hero-frame" src="assets/felix2/frame-001.webp" alt="" />
       <div class="hero-content">
+        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="hero-logo" />
         <div class="eyebrow">Zeitlose Vollkommenheit</div>
         <h1>Klassischer Schmuck<br/>mit Charakter</h1>
         <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
@@ -955,42 +1000,6 @@
         <div class="hero-meta">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
           Jade. Zeitlos. Versandkostenpräzision.
-        </div>
-      </div>
-    </section>
-
-    <!-- CATEGORIES -->
-    <section class="cats">
-      <div class="cat">
-        <div class="cat-img"><img src="assets/bu1.webp" alt="Goldring" loading="lazy" /></div>
-        <div class="cat-text">
-          <h3>Ringe</h3>
-          <p>Zeitlose Eleganz, für besondere Momente.</p>
-          <a href="#" class="cat-link">Entdecken →</a>
-        </div>
-      </div>
-      <div class="cat">
-        <div class="cat-img"><img src="assets/bu2.webp" alt="Goldkette" loading="lazy" /></div>
-        <div class="cat-text">
-          <h3>Ketten</h3>
-          <p>Feine Linien, klare Geschichten.</p>
-          <a href="#" class="cat-link">Entdecken →</a>
-        </div>
-      </div>
-      <div class="cat">
-        <div class="cat-img"><img src="assets/bu3.webp" alt="Ohrringe" loading="lazy" /></div>
-        <div class="cat-text">
-          <h3>Ohrringe</h3>
-          <p>Eleganz, die jedes Detail betont.</p>
-          <a href="#" class="cat-link">Entdecken →</a>
-        </div>
-      </div>
-      <div class="cat">
-        <div class="cat-img"><img src="assets/bu4.webp" alt="Armband" loading="lazy" /></div>
-        <div class="cat-text">
-          <h3>Armbänder</h3>
-          <p>Subtile Schönheit in den feinsten Formen.</p>
-          <a href="#" class="cat-link">Entdecken →</a>
         </div>
       </div>
     </section>
@@ -1027,190 +1036,7 @@
       </div>
       </div>
      </div>
-    </section>
-
-    <!-- JADE KOLLEKTION -->
-    <section class="jade-section">
-      <div class="jade-intro">
-        <h2>Ausgewählte Stücke</h2>
-        <p>Sorgfältig kuratierte Lieblingsstücke aus unserem Atelier — meisterliche Handwerkskunst für besondere Momente.</p>
-        <a href="#" class="jade-link">Alle Stücke ansehen →</a>
-      </div>
-      <div class="jade-products">
-        <div class="jade-card">
-          <div class="jade-badge">Neu</div>
-          <div class="jade-card-img">
-            <svg viewBox="0 0 100 120">
-              <path d="M20 18 Q50 28 80 18" fill="none" stroke="#cfa554" stroke-width="1" stroke-dasharray="1.5 1.5"/>
-              <path d="M50 28 L50 56" stroke="#cfa554" stroke-width="1"/>
-              <ellipse cx="50" cy="76" rx="14" ry="18" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
-              <ellipse cx="46" cy="68" rx="4" ry="5" fill="#a8c0a3" opacity="0.6"/>
-              <circle cx="50" cy="58" r="3" fill="#cfa554"/>
-            </svg>
-          </div>
-          <h4>Jade Anhänger „Harmonie"</h4>
-          <div class="price">865 €</div>
-        </div>
-        <div class="jade-card">
-          <div class="jade-badge">Bestseller</div>
-          <div class="jade-card-img">
-            <svg viewBox="0 0 100 120">
-              <ellipse cx="50" cy="78" rx="26" ry="22" fill="none" stroke="#cfa554" stroke-width="5"/>
-              <ellipse cx="50" cy="48" rx="14" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.5"/>
-              <ellipse cx="46" cy="44" rx="4" ry="3" fill="#a8c0a3" opacity="0.6"/>
-            </svg>
-          </div>
-          <h4>Jade Ring „Balance"</h4>
-          <div class="price">890 €</div>
-        </div>
-        <div class="jade-card">
-          <div class="jade-badge">Neu</div>
-          <div class="jade-card-img">
-            <svg viewBox="0 0 100 120">
-              <circle cx="32" cy="42" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
-              <ellipse cx="32" cy="68" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
-              <circle cx="68" cy="42" r="10" fill="none" stroke="#cfa554" stroke-width="2"/>
-              <ellipse cx="68" cy="68" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1.2"/>
-            </svg>
-          </div>
-          <h4>Jade Tropfen Ohrringe</h4>
-          <div class="price">549 €</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAVORITEN -->
-    <section class="favs">
-      <h2 class="section-title">Ausgewählte Favoriten</h2>
-      <div class="favs-grid">
-        <div class="fav">
-          <div class="fav-img">
-            <svg viewBox="0 0 100 100">
-              <ellipse cx="50" cy="62" rx="28" ry="26" fill="none" stroke="#cfa554" stroke-width="5"/>
-              <circle cx="50" cy="34" r="5" fill="#fff" stroke="#a89c80" stroke-width="0.5"/>
-            </svg>
-          </div>
-          <h4>Zarter Goldring</h4>
-          <div class="price">545 €</div>
-        </div>
-        <div class="fav">
-          <div class="fav-img">
-            <svg viewBox="0 0 100 100">
-              <circle cx="34" cy="32" r="8" fill="none" stroke="#cfa554" stroke-width="2"/>
-              <ellipse cx="34" cy="56" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1"/>
-              <circle cx="66" cy="32" r="8" fill="none" stroke="#cfa554" stroke-width="2"/>
-              <ellipse cx="66" cy="56" rx="7" ry="11" fill="#7a9479" stroke="#4f6b54" stroke-width="1"/>
-            </svg>
-          </div>
-          <h4>Jade Cocoon Ohrringe</h4>
-          <div class="price">290 €</div>
-        </div>
-        <div class="fav">
-          <div class="fav-img">
-            <svg viewBox="0 0 100 100">
-              <path d="M30 20 Q50 30 70 20" fill="none" stroke="#cfa554" stroke-width="1" stroke-dasharray="1.5 1.5"/>
-              <path d="M50 30 L50 56" stroke="#cfa554" stroke-width="1"/>
-              <circle cx="50" cy="68" r="14" fill="#fff" stroke="#bca56b" stroke-width="1.5"/>
-              <circle cx="50" cy="68" r="7" fill="#eee5cd" stroke="#a89c80" stroke-width="0.5"/>
-            </svg>
-          </div>
-          <h4>Solitaire Collier Lume</h4>
-          <div class="price">895 €</div>
-        </div>
-        <div class="fav">
-          <div class="fav-img">
-            <svg viewBox="0 0 100 100">
-              <ellipse cx="50" cy="50" rx="38" ry="6" fill="none" stroke="#cfa554" stroke-width="3"/>
-              <circle cx="20" cy="50" r="3" fill="#cfa554"/>
-              <circle cx="80" cy="50" r="3" fill="#cfa554"/>
-              <circle cx="35" cy="50" r="2" fill="#cfa554"/>
-              <circle cx="65" cy="50" r="2" fill="#cfa554"/>
-              <circle cx="50" cy="50" r="2" fill="#cfa554"/>
-            </svg>
-          </div>
-          <h4>Goldarmband Echo</h4>
-          <div class="price">580 €</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="testi">
-      <h2 class="section-title">Was unsere Kundinnen sagen</h2>
-      <div class="testi-grid">
-        <div class="testi-card">
-          <div class="testi-quote-mark">"</div>
-          <p>Für mich steht Juwelier Weidemann für edlen Wert, ehrliche Beratung und Schmuck, der Generationen verbindet.</p>
-          <div class="stars">★★★★★</div>
-          <div class="testi-author">– Anna K.</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-quote-mark">"</div>
-          <p>Die Jade Kollektion ist etwas ganz Besonderes. Wunderschön, elegant und von bester Qualität.</p>
-          <div class="stars">★★★★★</div>
-          <div class="testi-author">– Lisa M.</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-quote-mark">"</div>
-          <p>Qualität, die man sieht und spürt. Hier kauft ich meinen Schmuck mit gutem Gefühl.</p>
-          <div class="stars">★★★★★</div>
-          <div class="testi-author">– Sabine T.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TRADITION -->
-    <section class="tradition">
-      <div class="tradition-img"></div>
-      <div class="tradition-right">
-        <h2>Tradition trifft Moderne</h2>
-        <p>Unser Haus steht für feinste Juwelierkunst, präzise Handarbeit und persönliche Beratung seit 1875.</p>
-        <div class="tradition-features">
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
-            <span>Familienunternehmen<br/>seit 1875</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 4 7v10l8 5 8-5V7z"/><path d="M12 12V7M12 12l-8-5M12 12l8-5"/></svg></div>
-            <span>Exklusive<br/>Kollektionen</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-            <span>Persönliche<br/>Fachberatung</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/><path d="m9 12 2 2 4-4"/></svg></div>
-            <span>Nachhaltige<br/>Verantwortung</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEWSLETTER -->
-    <section class="newsletter">
-      <div class="newsletter-stones" aria-hidden="true"></div>
-      <div class="newsletter-mid">
-        <h3>Bleiben Sie inspiriert</h3>
-        <p>Exklusive Neuheiten, Einblicke und besondere Angebote – direkt in Ihr Postfach.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Vielen Dank für Ihre Anmeldung!');">
-          <input type="email" placeholder="E-Mail-Adresse eingeben" required />
-          <button type="submit" class="btn btn-primary">Anmelden</button>
-        </form>
-        <label class="newsletter-consent">
-          <input type="checkbox" />
-          Ich akzeptiere die Datenschutzbestimmungen.
-        </label>
-      </div>
-      <div class="newsletter-bracelet" aria-hidden="true">
-        <svg viewBox="0 0 200 130">
-          <ellipse cx="100" cy="65" rx="80" ry="32" fill="none" stroke="#cfa554" stroke-width="6"/>
-          <circle cx="20" cy="65" r="4" fill="#fff" stroke="#a89c80"/>
-          <circle cx="180" cy="65" r="4" fill="#fff" stroke="#a89c80"/>
-          <circle cx="60" cy="38" r="3" fill="#fff" stroke="#a89c80"/>
-          <circle cx="140" cy="38" r="3" fill="#fff" stroke="#a89c80"/>
-          <circle cx="100" cy="33" r="3" fill="#fff" stroke="#a89c80"/>
-        </svg>
-      </div>
+     <section class="wood-strip" aria-hidden="true"></section>
     </section>
 
     <!-- FOOTER -->
@@ -1248,18 +1074,27 @@
 </div>
 <script>
 (function () {
-  var TOTAL = 50;
+  var JEDEMAN = 50;
+  var ORGON = 45;
+  var TOTAL = JEDEMAN + ORGON;
   var wrap = document.getElementById('craft-wrap');
   var img = document.getElementById('craft-frame');
+  var craftImg = document.getElementById('craft-img');
   if (!wrap || !img) return;
 
   var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
-  for (var i = 0; i < TOTAL; i++) {
+  for (var i = 0; i < JEDEMAN; i++) {
     var src = 'assets/jedeman/frame-' + pad(i + 1) + '.webp';
     var preload = new Image();
     preload.src = src;
     frames[i] = src;
+  }
+  for (var j = 0; j < ORGON; j++) {
+    var src2 = 'assets/orgon/frame-' + pad(j + 1) + '.webp';
+    var preload2 = new Image();
+    preload2.src = src2;
+    frames[JEDEMAN + j] = src2;
   }
 
   var current = 0;
@@ -1270,16 +1105,65 @@
     var rect = wrap.getBoundingClientRect();
     var vh = window.innerHeight || document.documentElement.clientHeight;
     var wrapH = wrap.offsetHeight;
+    var stickyEl = wrap.querySelector('.craft-sticky');
+    var stickyActive = stickyEl && window.getComputedStyle(stickyEl).position === 'sticky';
     var p;
-    if (wrapH > vh + 50) {
-      // sticky scroll-jacking mode (desktop): progress = 0 when wrap top hits viewport top, 1 when wrap bottom is one viewport above top
+    if (stickyActive && wrapH > vh + 50) {
       var stickyTotal = wrapH - vh;
       p = -rect.top / stickyTotal;
     } else {
-      // non-sticky / mobile fallback: classic in-out progress
       var travel = wrapH + vh;
       p = (vh - rect.top) / travel;
     }
+    if (p < 0) p = 0; else if (p > 1) p = 1;
+    var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
+    if (idx !== current) {
+      current = idx;
+      img.src = frames[idx];
+    }
+    if (craftImg && wrapH > vh + 50) {
+      var scrolledPast = Math.max(0, -rect.top);
+      var capped = Math.min(scrolledPast, wrapH - vh);
+      craftImg.style.transform = 'translateY(' + capped + 'px)';
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
+(function () {
+  var TOTAL = 30;
+  var hero = document.querySelector('.hero');
+  var img = document.getElementById('hero-frame');
+  if (!hero || !img) return;
+
+  var frames = new Array(TOTAL);
+  var pad = function (n) { return ('00' + n).slice(-3); };
+  for (var i = 0; i < TOTAL; i++) {
+    var src = 'assets/felix2/frame-' + pad(i + 1) + '.webp';
+    var preload = new Image();
+    preload.src = src;
+    frames[i] = src;
+  }
+
+  var current = 0;
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    var rect = hero.getBoundingClientRect();
+    var heroH = hero.offsetHeight;
+    if (heroH <= 0) return;
+    var p = -rect.top / heroH;
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
