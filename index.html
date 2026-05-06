@@ -45,7 +45,7 @@
     margin: 0 auto;
     background: transparent;
     min-height: 100vh;
-    overflow: hidden;
+    overflow: clip;
   }
   .side-decor {
     position: absolute;
@@ -166,15 +166,12 @@
     height: 250vh;
   }
   .hero {
-    position: absolute;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     height: 100vh;
     border-radius: 32px;
     overflow: hidden;
     z-index: 1;
-    will-change: transform;
   }
   .hero-frame {
     position: absolute;
@@ -187,8 +184,6 @@
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
-    transform: translateZ(0);
-    backface-visibility: hidden;
   }
   .hero-frame.is-active { opacity: 1; }
   .hero-content { z-index: 1; }
@@ -1781,7 +1776,7 @@
 <header class="site-header" id="siteHeader">
   <div class="site-header__inner">
     <a href="#" class="site-header__brand" aria-label="Juwelier Weidmann — Startseite">
-      <img src="assets/logo-gold.webp" alt="" class="site-header__logo" />
+      <img src="assets/logo-gold.webp?v=losch" alt="" class="site-header__logo" />
       <span class="site-header__name">Juwelier Weidmann</span>
     </a>
     <nav class="site-nav" aria-label="Hauptnavigation">
@@ -1822,7 +1817,7 @@
     <section class="hero-wrap">
       <div class="hero">
         <div class="hero-content">
-          <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="hero-logo" />
+          <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
           <div class="eyebrow">Zeitlose Vollkommenheit</div>
           <h1>Klassischer Schmuck<br/>mit Charakter</h1>
           <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
@@ -2034,7 +2029,7 @@
     <!-- FOOTER -->
     <footer>
       <div class="footer-brand">
-        <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="brand-logo" />
+        <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="brand-logo" />
         <div class="footer-brand-info">
           Burgstraße 3<br/>
           65183 Wiesbaden<br/>
@@ -2170,10 +2165,22 @@
     fimg.alt = '';
     fimg.setAttribute('aria-hidden', 'true');
     fimg.decoding = 'async';
-    if (i === 0) fimg.classList.add('is-active');
     if (heroContent) hero.insertBefore(fimg, heroContent);
     else hero.appendChild(fimg);
     frameImgs.push(fimg);
+  }
+
+  // Show first frame only after it has actually decoded — avoids the flash
+  // where the activated img is still empty.
+  function activateInitial() {
+    if (frameImgs[0] && !frameImgs[0].classList.contains('is-active')) {
+      frameImgs[0].classList.add('is-active');
+    }
+  }
+  if (frameImgs[0].decode) {
+    frameImgs[0].decode().then(activateInitial).catch(activateInitial);
+  } else {
+    activateInitial();
   }
 
   function reloadSrcs(folderPath) {
@@ -2200,27 +2207,11 @@
     ticking = false;
     var wrapRect = heroWrap.getBoundingClientRect();
     var wrapH = heroWrap.offsetHeight;
+    var heroH = hero.offsetHeight;
     var vh = window.innerHeight || document.documentElement.clientHeight;
-    var heroH = vh;
-    var lockMode = window.getComputedStyle(hero).position === 'absolute';
-    var stickyTotal = Math.max(1, wrapH - heroH);
-
-    if (lockMode) {
-      var translateY;
-      if (wrapRect.top >= 0) {
-        translateY = 0;
-      } else if (wrapRect.bottom > heroH) {
-        translateY = -wrapRect.top;
-      } else {
-        translateY = stickyTotal;
-      }
-      hero.style.transform = 'translate3d(0,' + translateY + 'px,0)';
-    } else {
-      hero.style.transform = '';
-    }
-
     var p;
-    if (lockMode && wrapH > heroH + 50) {
+    if (wrapH > heroH + 50) {
+      var stickyTotal = wrapH - heroH;
       p = -wrapRect.top / stickyTotal;
     } else {
       var travel = wrapH + vh;
@@ -2229,9 +2220,12 @@
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
-      frameImgs[current].classList.remove('is-active');
-      frameImgs[idx].classList.add('is-active');
-      current = idx;
+      var nextImg = frameImgs[idx];
+      if (nextImg.complete && nextImg.naturalWidth > 0) {
+        frameImgs[current].classList.remove('is-active');
+        nextImg.classList.add('is-active');
+        current = idx;
+      }
     }
     var done = p > 0.85;
     if (done !== doneState) {
