@@ -6,7 +6,7 @@
 <title>Juwelier Weidmann — Klassischer Schmuck mit Charakter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f6efe2;
@@ -176,65 +176,6 @@
     z-index: 1;
     will-change: transform;
   }
-  .hero-sticky-note {
-    position: absolute;
-    top: 32px;
-    right: 36px;
-    width: 188px;
-    padding: 22px 22px 26px;
-    background: linear-gradient(160deg, #fff7a8 0%, #ffeb7a 100%);
-    color: #3a2f12;
-    font-family: 'Caveat', 'Cormorant Garamond', serif;
-    font-size: 19px;
-    line-height: 1.25;
-    transform: rotate(-4deg);
-    box-shadow:
-      0 1px 1px rgba(0,0,0,0.12),
-      0 8px 18px -6px rgba(0,0,0,0.35),
-      0 16px 32px -10px rgba(0,0,0,0.25);
-    z-index: 4;
-    transition: opacity .4s ease, transform .4s ease;
-    pointer-events: none;
-    text-align: center;
-  }
-  .hero-sticky-note::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    width: 56px;
-    height: 18px;
-    background: rgba(180, 140, 60, 0.55);
-    transform: translateX(-50%) rotate(2deg);
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    mix-blend-mode: multiply;
-  }
-  .hero-sticky-note .note-arrow {
-    display: block;
-    margin-top: 6px;
-    font-size: 26px;
-    line-height: 1;
-    animation: note-bounce 1.6s infinite ease-in-out;
-  }
-  @keyframes note-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
-  }
-  .hero-wrap.is-done .hero-sticky-note {
-    opacity: 0;
-    transform: rotate(-4deg) translateY(12px) scale(0.96);
-  }
-  @media (max-width: 760px) {
-    .hero-sticky-note {
-      top: 18px;
-      right: 18px;
-      width: 138px;
-      padding: 16px 16px 18px;
-      font-size: 16px;
-    }
-    .hero-sticky-note .note-arrow { font-size: 20px; }
-  }
   .hero-frame {
     position: absolute;
     inset: 0;
@@ -242,9 +183,14 @@
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    opacity: 0;
     user-select: none;
     -webkit-user-drag: none;
+    pointer-events: none;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
+  .hero-frame.is-active { opacity: 1; }
   .hero-content { z-index: 1; }
   .hero::before {
     content: '';
@@ -1529,7 +1475,6 @@
     <!-- HERO -->
     <section class="hero-wrap">
       <div class="hero">
-        <img id="hero-frame" class="hero-frame" src="assets/felix2/frame-001.webp" alt="" />
         <div class="hero-content">
           <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="hero-logo" />
           <div class="eyebrow">Zeitlose Vollkommenheit</div>
@@ -1543,10 +1488,6 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
             Jade. Zeitlos. Versandkostenpräzision.
           </div>
-        </div>
-        <div class="hero-sticky-note" aria-hidden="true">
-          Erst die Animation<br/>zu Ende scrollen
-          <span class="note-arrow">↓</span>
         </div>
       </div>
     </section>
@@ -1858,24 +1799,32 @@
   var TOTAL = 30;
   var heroWrap = document.querySelector('.hero-wrap');
   var hero = heroWrap ? heroWrap.querySelector('.hero') : null;
-  var img = document.getElementById('hero-frame');
-  if (!heroWrap || !hero || !img) return;
+  if (!heroWrap || !hero) return;
 
   var mq = window.matchMedia('(max-width: 760px)');
-  var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
   var folder = mq.matches ? 'assets/eze' : 'assets/felix2';
+  var heroContent = hero.querySelector('.hero-content');
+  var frameImgs = [];
 
-  function loadFrames(folderPath) {
+  for (var i = 0; i < TOTAL; i++) {
+    var fimg = document.createElement('img');
+    fimg.className = 'hero-frame';
+    fimg.src = folder + '/frame-' + pad(i + 1) + '.webp';
+    fimg.alt = '';
+    fimg.setAttribute('aria-hidden', 'true');
+    fimg.decoding = 'async';
+    if (i === 0) fimg.classList.add('is-active');
+    if (heroContent) hero.insertBefore(fimg, heroContent);
+    else hero.appendChild(fimg);
+    frameImgs.push(fimg);
+  }
+
+  function reloadSrcs(folderPath) {
     for (var i = 0; i < TOTAL; i++) {
-      var src = folderPath + '/frame-' + pad(i + 1) + '.webp';
-      var preload = new Image();
-      preload.src = src;
-      frames[i] = src;
+      frameImgs[i].src = folderPath + '/frame-' + pad(i + 1) + '.webp';
     }
   }
-  loadFrames(folder);
-  img.src = frames[0];
 
   var current = 0;
   var ticking = false;
@@ -1885,8 +1834,7 @@
     var newFolder = mq.matches ? 'assets/eze' : 'assets/felix2';
     if (newFolder !== folder) {
       folder = newFolder;
-      loadFrames(folder);
-      img.src = frames[current] || frames[0];
+      reloadSrcs(folder);
     }
   }
   if (mq.addEventListener) mq.addEventListener('change', onMediaChange);
@@ -1901,7 +1849,6 @@
     var lockMode = window.getComputedStyle(hero).position === 'absolute';
     var stickyTotal = Math.max(1, wrapH - heroH);
 
-    // JS-emulated sticky via transform (works even with overflow:hidden ancestors)
     if (lockMode) {
       var translateY;
       if (wrapRect.top >= 0) {
@@ -1926,8 +1873,9 @@
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
+      frameImgs[current].classList.remove('is-active');
+      frameImgs[idx].classList.add('is-active');
       current = idx;
-      img.src = frames[idx];
     }
     var done = p > 0.85;
     if (done !== doneState) {
