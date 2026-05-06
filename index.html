@@ -397,7 +397,7 @@
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
-    height: 260vh;
+    height: 360vh;
   }
   .craft-sticky {
     position: sticky;
@@ -1124,13 +1124,19 @@
 
   /* ====== Erschaffungsprozess (zart-grün) ====== */
   .prozess-section {
-    margin: 32px 24px 32px 24px;
-    padding: 80px 64px;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
-    border-radius: 28px;
     position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: -52vh;
+    margin-bottom: 0;
+    width: 100vw;
+    padding: 72px 64px 80px;
+    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+    box-shadow: 0 -8px 40px -16px rgba(47, 110, 91, 0.18);
+    z-index: 1;
   }
   .prozess-section::before {
     content: '';
@@ -1189,36 +1195,54 @@
     position: relative;
   }
   .prozess-step {
-    text-align: center;
-    padding: 36px 26px;
-    background: rgba(255,255,255,0.42);
+    text-align: left;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .prozess-step:hover { transform: translateY(-4px); }
+  .prozess-step:hover .prozess-step-img { box-shadow: 0 24px 50px -20px rgba(47,110,91,0.40); }
+  .prozess-step-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.55);
     border: 1px solid rgba(47,110,91,0.16);
-    border-radius: 20px;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s, background 0.35s;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    margin-bottom: 18px;
+    box-shadow: 0 12px 32px -16px rgba(47,110,91,0.30);
+    transition: box-shadow 0.35s;
   }
-  .prozess-step:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 22px 50px -24px rgba(47,110,91,0.32);
-    background: rgba(255,255,255,0.65);
+  .prozess-step-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  .prozess-numeral {
+  .prozess-step-numeral {
+    position: absolute;
+    top: 12px;
+    left: 14px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 300;
-    color: var(--jade);
+    color: #fff;
     line-height: 1;
-    display: block;
-    margin-bottom: 16px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     letter-spacing: 0.02em;
+    z-index: 2;
   }
   .prozess-step h3 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
     font-size: 22px;
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: var(--ink);
     letter-spacing: -0.005em;
   }
@@ -1229,14 +1253,13 @@
     margin: 0;
   }
   @media (max-width: 1100px) {
-    .prozess-section { margin: 24px 14px; padding: 56px 32px; }
+    .prozess-section { margin-top: -36vh; padding: 56px 32px 64px; }
     .prozess-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 580px) {
-    .prozess-section { margin: 18px 10px; padding: 40px 22px; }
-    .prozess-grid { grid-template-columns: 1fr; gap: 14px; }
+    .prozess-section { margin-top: -28vh; padding: 40px 22px 48px; }
+    .prozess-grid { grid-template-columns: 1fr; gap: 18px; }
     .prozess-head { margin-bottom: 32px; }
-    .prozess-step { padding: 28px 22px; }
   }
 
   /* ====== Kollektionen Bento ====== */
@@ -1465,9 +1488,316 @@
     .atelier-meta { gap: 24px; font-size: 11px; }
     .atelier-meta span:not(:last-child)::after { right: -16px; }
   }
+
+  /* ====== Site Header / Hero Navigation ====== */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    padding: 18px 36px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color .35s ease, border-color .35s ease,
+                padding .35s ease, backdrop-filter .35s ease;
+  }
+  .site-header > * { pointer-events: auto; }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    width: 100%;
+    max-width: 1240px;
+  }
+  .site-header__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
+    margin-right: auto;
+    transition: color .35s ease;
+  }
+  .site-header__logo {
+    height: 38px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+    transition: filter .35s ease, height .35s ease;
+  }
+  .site-header__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+    transition: text-shadow .35s ease, color .35s ease;
+  }
+  .site-nav {
+    display: flex;
+    gap: 30px;
+  }
+  .site-nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    padding: 6px 2px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+    transition: color .25s ease, text-shadow .35s ease;
+  }
+  .site-nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width .3s ease, left .3s ease;
+  }
+  .site-nav a:hover::after,
+  .site-nav a:focus-visible::after {
+    width: 100%;
+    left: 0;
+  }
+  .site-header__cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 22px;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all .25s ease;
+  }
+  .site-header__cta:hover,
+  .site-header__cta:focus-visible {
+    background: var(--jade-dark);
+    border-color: var(--jade-dark);
+    color: #f5efdb;
+  }
+  .site-header__burger {
+    display: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    width: 44px;
+    height: 44px;
+  }
+  .site-header__burger span {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 1.5px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    transition: transform .3s ease, opacity .3s ease, top .3s ease,
+                background-color .35s ease, box-shadow .35s ease;
+  }
+  .site-header__burger span:nth-child(1) { top: 14px; }
+  .site-header__burger span:nth-child(2) { top: 21px; }
+  .site-header__burger span:nth-child(3) { top: 28px; }
+  .site-header__burger[aria-expanded="true"] span:nth-child(1) {
+    top: 21px;
+    transform: rotate(45deg);
+  }
+  .site-header__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .site-header__burger[aria-expanded="true"] span:nth-child(3) {
+    top: 21px;
+    transform: rotate(-45deg);
+  }
+
+  /* Scrolled state: solid cream nav with dark text */
+  .site-header.is-scrolled {
+    background-color: rgba(251, 246, 236, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--line);
+    padding: 12px 36px;
+  }
+  .site-header.is-scrolled .site-header__brand,
+  .site-header.is-scrolled .site-header__name,
+  .site-header.is-scrolled .site-nav a {
+    color: var(--ink);
+    text-shadow: none;
+  }
+  .site-header.is-scrolled .site-nav a:hover { color: var(--jade); }
+  .site-header.is-scrolled .site-header__logo { filter: none; height: 34px; }
+  .site-header.is-scrolled .site-header__cta {
+    color: var(--ink);
+    border-color: var(--ink-2);
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .site-header.is-scrolled .site-header__cta:hover {
+    background: var(--jade-dark);
+    border-color: var(--jade-dark);
+    color: #f5efdb;
+  }
+  .site-header.is-scrolled .site-header__burger span {
+    background: var(--ink);
+    box-shadow: none;
+  }
+  /* Burger always dark while menu is open (overlay has cream bg) */
+  .site-header.menu-open .site-header__burger span {
+    background: var(--ink);
+    box-shadow: none;
+  }
+
+  /* ====== Mobile Menu Overlay ====== */
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    background: var(--paper);
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 110px 28px 60px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .35s ease, transform .35s ease, visibility .35s;
+    overflow-y: auto;
+  }
+  .mobile-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .mobile-nav__decor {
+    position: absolute;
+    inset: 0;
+    background: url('assets/watercolor-side.webp') left top / 130px auto repeat-y;
+    opacity: 0.45;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 60%);
+            mask-image: linear-gradient(90deg, #000 0%, transparent 60%);
+  }
+  .mobile-nav nav {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+  }
+  .mobile-nav nav a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    padding: 6px 0;
+    transition: color .25s ease;
+  }
+  .mobile-nav nav a:hover { color: var(--jade); }
+  .mobile-nav__divider {
+    width: 36px;
+    height: 1px;
+    background: var(--gold-soft);
+    margin: 30px auto 22px;
+    position: relative;
+    z-index: 1;
+  }
+  .mobile-nav__contact {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .mobile-nav__contact a.phone {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    text-decoration: none;
+    margin-bottom: 6px;
+  }
+  body.menu-open { overflow: hidden; }
+
+  /* Responsive: hide desktop links / show burger */
+  @media (max-width: 900px) {
+    .site-header { padding: 14px 22px; }
+    .site-header.is-scrolled { padding: 10px 22px; }
+    .site-nav,
+    .site-header__cta { display: none; }
+    .site-header__burger { display: block; }
+    .site-header__name { font-size: 18px; }
+    .site-header__logo { height: 34px; }
+    .site-header.is-scrolled .site-header__logo { height: 30px; }
+  }
+  @media (max-width: 480px) {
+    .site-header { padding: 12px 16px; }
+    .site-header.is-scrolled { padding: 8px 16px; }
+    .site-header__name { display: none; }
+    .mobile-nav nav a { font-size: 28px; }
+  }
 </style>
 </head>
 <body>
+
+<!-- Top Navigation -->
+<header class="site-header" id="siteHeader">
+  <div class="site-header__inner">
+    <a href="#" class="site-header__brand" aria-label="Juwelier Weidmann — Startseite">
+      <img src="assets/logo-gold.webp" alt="" class="site-header__logo" />
+      <span class="site-header__name">Juwelier Weidmann</span>
+    </a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <a href="#atelier">Atelier</a>
+      <a href="#prozess">Handwerk</a>
+      <a href="#kollektion">Kollektion</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#kontakt" class="site-header__cta">Termin</a>
+    <button type="button" class="site-header__burger" id="navBurger"
+            aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <div class="mobile-nav__decor" aria-hidden="true"></div>
+  <nav aria-label="Mobile Navigation">
+    <a href="#atelier">Atelier</a>
+    <a href="#prozess">Handwerk</a>
+    <a href="#kollektion">Kollektion</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <div class="mobile-nav__divider"></div>
+  <div class="mobile-nav__contact">
+    <a href="tel:+496113742800" class="phone">+49 611 374 280</a>
+    Burgstraße 3 · Wiesbaden
+  </div>
+</div>
+
 <div class="page">
 
   <main>
@@ -1567,22 +1897,34 @@
       </div>
       <div class="prozess-grid">
         <article class="prozess-step reveal from-left">
-          <span class="prozess-numeral">I</span>
+          <div class="prozess-step-img-wrap">
+            <span class="prozess-step-numeral">I</span>
+            <img class="prozess-step-img" src="assets/jedeman/frame-008.webp" alt="Entwurf" loading="lazy" />
+          </div>
           <h3>Entwurf</h3>
           <p>Skizze und Modell entstehen aus dem persönlichen Gespräch.</p>
         </article>
         <article class="prozess-step reveal from-left delay-1">
-          <span class="prozess-numeral">II</span>
+          <div class="prozess-step-img-wrap">
+            <span class="prozess-step-numeral">II</span>
+            <img class="prozess-step-img" src="assets/jedeman/frame-040.webp" alt="Goldschmiede" loading="lazy" />
+          </div>
           <h3>Goldschmiede</h3>
           <p>Edelmetall wird geschmiedet, Form und Fassung von Hand gearbeitet.</p>
         </article>
         <article class="prozess-step reveal from-right delay-2">
-          <span class="prozess-numeral">III</span>
+          <div class="prozess-step-img-wrap">
+            <span class="prozess-step-numeral">III</span>
+            <img class="prozess-step-img" src="assets/orgon/frame-022.webp" alt="Edelstein" loading="lazy" />
+          </div>
           <h3>Edelstein</h3>
           <p>Jade, Saphir, Diamant — sorgfältig ausgewählt, präzise gefasst.</p>
         </article>
         <article class="prozess-step reveal from-right delay-3">
-          <span class="prozess-numeral">IV</span>
+          <div class="prozess-step-img-wrap">
+            <span class="prozess-step-numeral">IV</span>
+            <img class="prozess-step-img" src="assets/orko/frame-035.webp" alt="Vollendet" loading="lazy" />
+          </div>
           <h3>Vollendet</h3>
           <p>Polierter, fertiger Schmuck — bereit für seinen ersten Auftritt.</p>
         </article>
@@ -1767,8 +2109,8 @@
       p = (vh - rect.top) / travel;
     }
     if (p < 0) p = 0; else if (p > 1) p = 1;
-    // Animation completes at 75% of scroll, last frame holds for remaining 25%
-    var animProgress = Math.min(1, p / 0.75);
+    // Animation completes at 55% of scroll, last frame holds for remaining 45%
+    var animProgress = Math.min(1, p / 0.55);
     var idx = Math.min(TOTAL - 1, Math.floor(animProgress * TOTAL));
     if (idx !== current) {
       current = idx;
@@ -1776,6 +2118,7 @@
       var inShoi = idx >= JEDEMAN + ORGON + ORKO;
       img.classList.toggle('is-shoi', inShoi);
     }
+    wrap.classList.toggle('is-paused', p > 0.55);
     if (craftImg && wrapH > vh + 50) {
       var scrolledPast = Math.max(0, -rect.top);
       var capped = Math.min(scrolledPast, wrapH - vh);
@@ -1912,6 +2255,71 @@
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
   els.forEach(function (el) { observer.observe(el); });
+})();
+
+/* ====== Site Header: scroll state + mobile menu ====== */
+(function () {
+  var header = document.getElementById('siteHeader');
+  var burger = document.getElementById('navBurger');
+  var menu = document.getElementById('mobileNav');
+  if (!header) return;
+
+  var heroWrap = document.querySelector('.hero-wrap');
+  var ticking = false;
+
+  function applyScrollState() {
+    ticking = false;
+    var solid;
+    if (heroWrap) {
+      var r = heroWrap.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      // Solid once hero is sliding out of view
+      solid = r.bottom < vh * 0.85;
+    } else {
+      solid = window.scrollY > 60;
+    }
+    header.classList.toggle('is-scrolled', solid);
+  }
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(applyScrollState);
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  applyScrollState();
+
+  if (burger && menu) {
+    function closeMenu() {
+      burger.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-open');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open');
+      header.classList.remove('menu-open');
+    }
+    function openMenu() {
+      burger.setAttribute('aria-expanded', 'true');
+      menu.classList.add('is-open');
+      menu.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open');
+      header.classList.add('menu-open');
+    }
+    burger.addEventListener('click', function () {
+      if (burger.getAttribute('aria-expanded') === 'true') closeMenu();
+      else openMenu();
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) closeMenu();
+    });
+    // Close menu when resizing back to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900 && menu.classList.contains('is-open')) closeMenu();
+    });
+  }
 })();
 
 </script>
