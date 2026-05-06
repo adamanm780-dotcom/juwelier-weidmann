@@ -6,7 +6,7 @@
 <title>Juwelier Weidmann — Klassischer Schmuck mit Charakter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f6efe2;
@@ -23,6 +23,7 @@
     --line: #e6dcc6;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { margin: 0; padding: 0; }
   body {
     font-family: 'Inter', sans-serif;
@@ -162,52 +163,77 @@
   .hero-wrap {
     position: relative;
     margin: 12px 24px 28px 24px;
-    height: 180vh;
+    height: 250vh;
   }
   .hero {
-    position: sticky;
+    position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     height: 100vh;
     border-radius: 32px;
-    width: auto;
     overflow: hidden;
     z-index: 1;
+    will-change: transform;
   }
-  .hero-scroll-hint {
+  .hero-sticky-note {
     position: absolute;
-    bottom: 22px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    background: rgba(255,255,255,0.92);
-    color: var(--ink);
-    border-radius: 999px;
-    font-size: 11px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    font-weight: 500;
-    box-shadow: 0 6px 18px -6px rgba(0,0,0,0.35);
-    z-index: 3;
-    transition: opacity .35s, transform .35s;
+    top: 32px;
+    right: 36px;
+    width: 188px;
+    padding: 22px 22px 26px;
+    background: linear-gradient(160deg, #fff7a8 0%, #ffeb7a 100%);
+    color: #3a2f12;
+    font-family: 'Caveat', 'Cormorant Garamond', serif;
+    font-size: 19px;
+    line-height: 1.25;
+    transform: rotate(-4deg);
+    box-shadow:
+      0 1px 1px rgba(0,0,0,0.12),
+      0 8px 18px -6px rgba(0,0,0,0.35),
+      0 16px 32px -10px rgba(0,0,0,0.25);
+    z-index: 4;
+    transition: opacity .4s ease, transform .4s ease;
     pointer-events: none;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    text-align: center;
   }
-  .hero-scroll-hint .arrow {
-    display: inline-block;
-    font-size: 14px;
-    animation: hero-bounce 1.6s infinite ease-in-out;
+  .hero-sticky-note::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 56px;
+    height: 18px;
+    background: rgba(180, 140, 60, 0.55);
+    transform: translateX(-50%) rotate(2deg);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    mix-blend-mode: multiply;
   }
-  @keyframes hero-bounce {
+  .hero-sticky-note .note-arrow {
+    display: block;
+    margin-top: 6px;
+    font-size: 26px;
+    line-height: 1;
+    animation: note-bounce 1.6s infinite ease-in-out;
+  }
+  @keyframes note-bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(4px); }
+    50% { transform: translateY(5px); }
   }
-  .hero-wrap.is-done .hero-scroll-hint {
+  .hero-wrap.is-done .hero-sticky-note {
     opacity: 0;
-    transform: translate(-50%, 8px);
+    transform: rotate(-4deg) translateY(12px) scale(0.96);
+  }
+  @media (max-width: 760px) {
+    .hero-sticky-note {
+      top: 18px;
+      right: 18px;
+      width: 138px;
+      padding: 16px 16px 18px;
+      font-size: 16px;
+    }
+    .hero-sticky-note .note-arrow { font-size: 20px; }
   }
   .hero-frame {
     position: absolute;
@@ -425,7 +451,7 @@
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
-    height: 320vh;
+    height: 260vh;
   }
   .craft-sticky {
     position: sticky;
@@ -442,11 +468,11 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     width: 100%;
-    height: min(640px, calc(100vh - 32px));
+    height: min(560px, calc(100vh - 32px));
     will-change: transform;
   }
   .craft-left {
-    padding: 64px 56px;
+    padding: 44px 36px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -460,23 +486,26 @@
   .craft-left h2 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: 34px;
-    margin: 0 0 14px;
+    font-size: 28px;
+    margin: 0 0 12px;
     color: #fff;
+    line-height: 1.15;
   }
   .craft-left p {
     color: #fff;
-    font-size: 14px;
-    margin: 0 0 12px;
+    font-size: 13.5px;
+    margin: 0 0 10px;
+    line-height: 1.55;
   }
   .craft-left .craft-feature span,
   .craft-left .craft-feature .ico { color: #fff; }
   .craft-features {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-top: 28px;
+    gap: 14px;
+    margin-top: 22px;
   }
+  .craft-feature span { font-size: 10.5px; }
   .craft-feature {
     text-align: center;
   }
@@ -510,6 +539,18 @@
     display: block;
     user-select: none;
     -webkit-user-drag: none;
+    transform-origin: center center;
+  }
+  .craft-img:has(.craft-frame.is-shoi) { overflow: visible; }
+  .craft-frame.is-shoi {
+    transform: translateY(18px) scale(2.6);
+    z-index: 4;
+  }
+  @media (max-width: 1100px) {
+    .craft-frame.is-shoi { transform: translateY(14px) scale(2.05); }
+  }
+  @media (max-width: 768px) {
+    .craft-frame.is-shoi { transform: translateY(10px) scale(1.65); }
   }
 
   /* ====== Jade Kollektion ====== */
@@ -926,8 +967,6 @@
     .nav { padding: 18px 28px; }
     .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
     .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
-    .hero-wrap { height: auto; }
-    .hero { position: static; }
     .craft-wrap { height: 280vh; margin: 0 14px 16px; }
     .craft-sticky { position: static; height: auto; place-items: stretch; }
     .craft { height: auto; min-height: auto; box-shadow: none; }
@@ -947,13 +986,8 @@
     .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
     .nav-icons { gap: 14px; }
     .brand-logo { height: 36px; }
-    .hero-wrap { margin: 8px 14px 16px; }
-    .hero {
-      aspect-ratio: auto;
-      height: auto;
-      min-height: 520px;
-      border-radius: 22px;
-    }
+    .hero-wrap { margin: 8px 14px 16px; height: 200vh; }
+    .hero { border-radius: 22px; }
     .hero::before { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%); }
     .hero-content { padding: 32px 22px; max-width: 100%; }
     .hero h1 { font-size: clamp(28px, 8vw, 38px); }
@@ -997,8 +1031,8 @@
     .nav-icons { gap: 10px; }
     .brand-logo { height: 30px; }
 
-    .hero-wrap { margin: 6px 10px 12px; }
-    .hero { min-height: 460px; border-radius: 18px; }
+    .hero-wrap { margin: 6px 10px 12px; height: 200vh; }
+    .hero { border-radius: 18px; }
     .hero-content { padding: 24px 16px; }
     .hero h1 { font-size: clamp(26px, 9vw, 34px); }
     .hero p { font-size: 13.5px; margin-bottom: 22px; }
@@ -1047,6 +1081,444 @@
     .cta-row { flex-direction: column; gap: 8px; }
     .btn { width: 100%; padding: 12px 20px; font-size: 13px; }
   }
+
+  /* ====== Reveal-on-scroll ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(56px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+                transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateX(0) translateY(0); }
+  .reveal.from-left { transform: translateX(-64px); }
+  .reveal.from-right { transform: translateX(64px); }
+  .reveal.delay-1 { transition-delay: 0.10s; }
+  .reveal.delay-2 { transition-delay: 0.20s; }
+  .reveal.delay-3 { transition-delay: 0.32s; }
+  .reveal.delay-4 { transition-delay: 0.44s; }
+  .reveal.delay-5 { transition-delay: 0.56s; }
+
+  /* ====== Atelier / About ====== */
+  .atelier-section {
+    margin: 32px 24px;
+    padding: 90px 64px;
+    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    border-radius: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+  }
+  .atelier-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+    pointer-events: none;
+  }
+  .atelier-grid { max-width: 760px; margin: 0 auto; position: relative; }
+  .atelier-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .atelier-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(38px, 5.4vw, 64px);
+    line-height: 1.04;
+    margin: 0 0 30px;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+  .atelier-headline em {
+    font-style: italic;
+    color: var(--jade);
+    font-weight: 300;
+  }
+  .atelier-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+  .atelier-body {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.78;
+    margin: 0 auto 18px;
+    max-width: 620px;
+  }
+  .atelier-meta {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .atelier-meta span { position: relative; }
+  .atelier-meta span:not(:last-child)::after {
+    content: '·';
+    position: absolute;
+    right: -22px;
+    color: var(--gold);
+    font-size: 16px;
+    top: -1px;
+  }
+
+  /* ====== Erschaffungsprozess (zart-grün) ====== */
+  .prozess-section {
+    margin: 32px 24px 32px 24px;
+    padding: 80px 64px;
+    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+  }
+  .prozess-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+    pointer-events: none;
+  }
+  .prozess-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 56px;
+    position: relative;
+  }
+  .prozess-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .prozess-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.06;
+    margin: 0 0 24px;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+  .prozess-headline em {
+    font-style: italic;
+    color: var(--jade);
+    font-weight: 300;
+  }
+  .prozess-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 24px;
+  }
+  .prozess-intro {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.72;
+    margin: 0;
+  }
+  .prozess-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+  .prozess-step {
+    text-align: center;
+    padding: 36px 26px;
+    background: rgba(255,255,255,0.42);
+    border: 1px solid rgba(47,110,91,0.16);
+    border-radius: 20px;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s, background 0.35s;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .prozess-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 50px -24px rgba(47,110,91,0.32);
+    background: rgba(255,255,255,0.65);
+  }
+  .prozess-numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--jade);
+    line-height: 1;
+    display: block;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .prozess-step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 8px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .prozess-step p {
+    color: var(--ink-2);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  @media (max-width: 1100px) {
+    .prozess-section { margin: 24px 14px; padding: 56px 32px; }
+    .prozess-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 580px) {
+    .prozess-section { margin: 18px 10px; padding: 40px 22px; }
+    .prozess-grid { grid-template-columns: 1fr; gap: 14px; }
+    .prozess-head { margin-bottom: 32px; }
+    .prozess-step { padding: 28px 22px; }
+  }
+
+  /* ====== Kollektionen Bento ====== */
+  .kollektionen-section {
+    margin: 0 24px 90px;
+    padding: 0;
+  }
+  .kollektionen-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .kollektionen-head .eyebrow-jade {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .kollektionen-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .kollektionen-head h2 em { font-style: italic; color: var(--jade); font-weight: 300; }
+  .kollektionen-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: minmax(220px, auto);
+    gap: 18px;
+  }
+  .kollektion-card {
+    background: #fbf8f3;
+    border-radius: 22px;
+    padding: 44px 36px;
+    position: relative;
+    border: 1px solid var(--line);
+    transition: transform 0.4s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.4s, border-color 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .kollektion-card::after {
+    content: '';
+    position: absolute;
+    inset: auto -30% -30% auto;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(47, 110, 91, 0.08), transparent 70%);
+    pointer-events: none;
+    transition: opacity 0.4s;
+    opacity: 0.7;
+  }
+  .kollektion-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 50px -22px rgba(31,26,20,0.28);
+    border-color: rgba(47,110,91,0.35);
+  }
+  .kollektion-card:hover::after { opacity: 1; }
+  .kollektion-card.span-3 { grid-column: span 3; }
+  .kollektion-card.span-2 { grid-column: span 2; }
+  .kollektion-card.span-6 { grid-column: span 6; padding: 56px 56px; }
+  .kollektion-card.tall { grid-row: span 2; }
+  .numeral {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--jade);
+    line-height: 1;
+    display: block;
+    margin-bottom: 22px;
+    letter-spacing: 0.02em;
+  }
+  .kollektion-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 0 0 10px;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .kollektion-card p {
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0;
+    max-width: 38ch;
+  }
+  .kollektion-card.span-6 h3 { font-size: 32px; }
+  .kollektion-card.span-6 p { font-size: 15px; max-width: 56ch; }
+
+  /* ====== Kontakt / Standort ====== */
+  .kontakt-section {
+    margin: 0;
+    padding: 100px 64px;
+    background: linear-gradient(160deg, #2b1d15 0%, #1a110c 100%);
+    color: #f5efdb;
+    position: relative;
+    overflow: hidden;
+  }
+  .kontakt-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 90% 10%, rgba(176,138,62,0.10), transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(47,110,91,0.08), transparent 50%);
+    pointer-events: none;
+  }
+  .kontakt-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .kontakt-left .eyebrow-gold {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .kontakt-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(38px, 5.4vw, 64px);
+    line-height: 1.04;
+    margin: 0 0 30px;
+    color: #f5efdb;
+    letter-spacing: -0.012em;
+  }
+  .kontakt-left h2 em { font-style: italic; color: var(--gold-soft); font-weight: 300; }
+  .kontakt-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 0 0 30px;
+  }
+  .kontakt-left p {
+    color: #d8cfb6;
+    font-size: 16px;
+    line-height: 1.78;
+    margin: 0 0 36px;
+    max-width: 480px;
+  }
+  .kontakt-phone {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 3.6vw, 44px);
+    font-weight: 400;
+    color: #f5efdb;
+    text-decoration: none;
+    display: inline-block;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(176,138,62,0.7);
+    padding-bottom: 6px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .kontakt-phone:hover { color: var(--gold-soft); border-color: var(--gold-soft); }
+  .kontakt-hours {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(245,239,219,0.10);
+    border-radius: 18px;
+    padding: 38px 34px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .kontakt-hours h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 22px;
+    color: #f5efdb;
+    border-bottom: 1px solid rgba(245,239,219,0.16);
+    padding-bottom: 14px;
+    letter-spacing: 0.005em;
+  }
+  .kontakt-hours dl { margin: 0; }
+  .hour-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(245,239,219,0.07);
+    font-size: 14px;
+  }
+  .hour-row:last-child { border-bottom: 0; }
+  .hour-row dt { color: #f5efdb; font-weight: 400; margin: 0; }
+  .hour-row dd { margin: 0; color: #b3a78f; font-weight: 400; }
+  .hour-row--closed dt, .hour-row--closed dd {
+    color: #6e6354;
+    font-style: italic;
+  }
+
+  /* ====== Mobile-Anpassungen für neue Sektionen ====== */
+  @media (max-width: 1100px) {
+    .atelier-section { margin: 60px 14px; padding: 60px 32px; }
+    .kollektionen-section { margin: 0 14px 60px; }
+    .kollektionen-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+    .kollektion-card.span-3, .kollektion-card.span-2 { grid-column: span 1; }
+    .kollektion-card.span-6 { grid-column: span 2; padding: 40px 28px; }
+    .kollektion-card.tall { grid-row: auto; }
+    .kontakt-section { padding: 70px 32px; }
+    .kontakt-grid { grid-template-columns: 1fr; gap: 48px; }
+  }
+  @media (max-width: 580px) {
+    .atelier-section { margin: 40px 10px; padding: 48px 22px; }
+    .kollektionen-section { margin: 0 10px 40px; }
+    .kollektionen-grid { grid-template-columns: 1fr; gap: 12px; }
+    .kollektion-card { padding: 32px 24px; }
+    .kollektion-card.span-6 { padding: 36px 24px; }
+    .kollektion-card.span-6 h3 { font-size: 24px; }
+    .numeral { font-size: 44px; margin-bottom: 16px; }
+    .kontakt-section { padding: 56px 20px; }
+    .kontakt-hours { padding: 28px 22px; }
+    .atelier-meta { gap: 24px; font-size: 11px; }
+    .atelier-meta span:not(:last-child)::after { right: -16px; }
+  }
 </style>
 </head>
 <body>
@@ -1064,17 +1536,43 @@
           <h1>Klassischer Schmuck<br/>mit Charakter</h1>
           <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
           <div class="cta-row">
-            <button class="btn btn-primary">Kollektion entdecken</button>
-            <button class="btn btn-ghost">Über uns erfahren</button>
+            <a href="#kollektion" class="btn btn-primary">Kollektion entdecken</a>
+            <a href="#atelier" class="btn btn-ghost">Über uns erfahren</a>
           </div>
           <div class="hero-meta">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
             Jade. Zeitlos. Versandkostenpräzision.
           </div>
         </div>
-        <div class="hero-scroll-hint" aria-hidden="true">
-          <span>Scrollen</span>
-          <span class="arrow">↓</span>
+        <div class="hero-sticky-note" aria-hidden="true">
+          Erst die Animation<br/>zu Ende scrollen
+          <span class="note-arrow">↓</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ATELIER / ABOUT -->
+    <section class="atelier-section" id="atelier" aria-labelledby="atelier-heading">
+      <div class="atelier-grid">
+        <div class="atelier-eyebrow reveal">Wiesbaden · Burgstraße 3</div>
+        <h2 class="atelier-headline reveal delay-1" id="atelier-heading">
+          Eine Familie.<br/><em>Ein Handwerk.</em>
+        </h2>
+        <div class="atelier-divider reveal delay-2"></div>
+        <p class="atelier-body reveal delay-3">
+          Achim Weidmann führt eine inhabergeführte Goldschmiede-Werkstatt im historischen
+          Herzen Wiesbadens — wenige Schritte von Marktkirche und Schlossplatz.
+        </p>
+        <p class="atelier-body reveal delay-4">
+          Hier entsteht jedes Stück mit eigenen Händen: Trauringe, Verlobungsringe,
+          individuelle Anfertigungen, Reparaturen und Umarbeitungen. Persönlich.
+          Diskret. Mit der Zeit, die ein gutes Stück braucht.
+        </p>
+        <div class="atelier-meta reveal delay-5">
+          <span>Goldschmied</span>
+          <span>Silberschmied</span>
+          <span>Uhren</span>
+          <span>Trauringe</span>
         </div>
       </div>
     </section>
@@ -1111,11 +1609,130 @@
       </div>
       </div>
      </div>
-     <section class="wood-strip">
-       <div class="wood-photo-frame">
-         <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
-       </div>
-     </section>
+    </section>
+
+    <!-- ERSCHAFFUNGSPROZESS -->
+    <section class="prozess-section" id="prozess" aria-labelledby="prozess-heading">
+      <div class="prozess-head">
+        <span class="prozess-eyebrow reveal">Wie es entsteht</span>
+        <h2 class="prozess-headline reveal delay-1" id="prozess-heading">
+          Vom Entwurf<br/><em>zum Schmuck.</em>
+        </h2>
+        <div class="prozess-divider reveal delay-2"></div>
+        <p class="prozess-intro reveal delay-3">
+          Jedes Stück durchläuft vier Stationen — Hand für Hand in unserer Werkstatt
+          in der Burgstraße. Was Sie eben gesehen haben, ist genau dieser Weg.
+        </p>
+      </div>
+      <div class="prozess-grid">
+        <article class="prozess-step reveal from-left">
+          <span class="prozess-numeral">I</span>
+          <h3>Entwurf</h3>
+          <p>Skizze und Modell entstehen aus dem persönlichen Gespräch.</p>
+        </article>
+        <article class="prozess-step reveal from-left delay-1">
+          <span class="prozess-numeral">II</span>
+          <h3>Goldschmiede</h3>
+          <p>Edelmetall wird geschmiedet, Form und Fassung von Hand gearbeitet.</p>
+        </article>
+        <article class="prozess-step reveal from-right delay-2">
+          <span class="prozess-numeral">III</span>
+          <h3>Edelstein</h3>
+          <p>Jade, Saphir, Diamant — sorgfältig ausgewählt, präzise gefasst.</p>
+        </article>
+        <article class="prozess-step reveal from-right delay-3">
+          <span class="prozess-numeral">IV</span>
+          <h3>Vollendet</h3>
+          <p>Polierter, fertiger Schmuck — bereit für seinen ersten Auftritt.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOLZ-BANNER -->
+    <section class="wood-strip">
+      <div class="wood-photo-frame">
+        <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
+      </div>
+    </section>
+
+    <!-- KOLLEKTIONEN -->
+    <section class="kollektionen-section" id="kollektion" aria-labelledby="kollektion-heading">
+      <div class="kollektionen-head">
+        <span class="eyebrow-jade reveal">Was bei uns entsteht</span>
+        <h2 class="reveal delay-1" id="kollektion-heading">
+          Fünf Disziplinen — <em>ein Haus.</em>
+        </h2>
+      </div>
+      <div class="kollektionen-grid">
+        <article class="kollektion-card span-3 reveal from-left">
+          <span class="numeral">I</span>
+          <div>
+            <h3>Trauringe</h3>
+            <p>Für das Versprechen, das ein Leben hält. Aus Platin, Gold oder Palladium — in eigener Werkstatt gefertigt.</p>
+          </div>
+        </article>
+        <article class="kollektion-card span-3 reveal from-right delay-1">
+          <span class="numeral">II</span>
+          <div>
+            <h3>Verlobungsringe</h3>
+            <p>Der Moment vor allem anderen. Klassische Solitaires und individuelle Entwürfe nach Ihren Wünschen.</p>
+          </div>
+        </article>
+        <article class="kollektion-card span-6 reveal delay-2">
+          <span class="numeral">III</span>
+          <div>
+            <h3>Goldschmiede-Atelier</h3>
+            <p>
+              Anfertigungen, Umarbeitungen, Reparaturen — alles vor Ort, in eigener Werkstatt.
+              Bringen Sie Ihre Erbstücke vorbei: Wir bewahren ihre Geschichte und schenken ihnen ein zweites Leben.
+            </p>
+          </div>
+        </article>
+        <article class="kollektion-card span-3 reveal from-left delay-3">
+          <span class="numeral">IV</span>
+          <div>
+            <h3>Edelsteine & Uhren</h3>
+            <p>Ausgesuchte Stücke, persönlich kuratiert — von zeitgenössischen Marken bis zu klassischen Zeitmessern.</p>
+          </div>
+        </article>
+        <article class="kollektion-card span-3 reveal from-right delay-4">
+          <span class="numeral">V</span>
+          <div>
+            <h3>Silberschmiedearbeit</h3>
+            <p>Klassisches Handwerk, zeitlos schön. Bestecke, Tafelsilber, persönliche Geschenke und individuelle Entwürfe.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- KONTAKT / STANDORT -->
+    <section class="kontakt-section" id="kontakt" aria-labelledby="kontakt-heading">
+      <div class="kontakt-grid">
+        <div class="kontakt-left">
+          <span class="eyebrow-gold reveal">Besuchen Sie uns</span>
+          <h2 class="reveal delay-1" id="kontakt-heading">
+            Burgstraße 3<br/><em>Wiesbaden.</em>
+          </h2>
+          <div class="kontakt-divider reveal delay-2"></div>
+          <p class="reveal delay-3">
+            Im historischen Zentrum Wiesbadens, wenige Schritte von der Marktkirche entfernt.
+            Persönliche Beratung — gerne auch nach Terminvereinbarung.
+          </p>
+          <a href="tel:+496113742800" class="kontakt-phone reveal delay-4">+49 611 374 280</a>
+        </div>
+        <div class="kontakt-hours reveal from-right delay-2">
+          <h3>Öffnungszeiten</h3>
+          <dl>
+            <div class="hour-row"><dt>Dienstag</dt><dd>10:00 – 18:30</dd></div>
+            <div class="hour-row"><dt>Mittwoch</dt><dd>10:00 – 18:30</dd></div>
+            <div class="hour-row"><dt>Donnerstag</dt><dd>10:00 – 18:30</dd></div>
+            <div class="hour-row"><dt>Freitag</dt><dd>10:00 – 18:30</dd></div>
+            <div class="hour-row"><dt>Samstag</dt><dd>10:00 – 16:00</dd></div>
+            <div class="hour-row hour-row--closed"><dt>Sonntag</dt><dd>geschlossen</dd></div>
+            <div class="hour-row hour-row--closed"><dt>Montag</dt><dd>geschlossen</dd></div>
+          </dl>
+        </div>
+      </div>
     </section>
 
     <!-- FOOTER -->
@@ -1123,9 +1740,9 @@
       <div class="footer-brand">
         <img src="assets/logo-gold.webp" alt="Juwelier Weidmann" class="brand-logo" />
         <div class="footer-brand-info">
-          Maximilian-Weiss-Str. 1875<br/>
-          40212 Düsseldorf<br/>
-          Deutschland
+          Burgstraße 3<br/>
+          65183 Wiesbaden<br/>
+          +49 611 374 280
         </div>
       </div>
       <div class="footer-mark">
@@ -1155,7 +1772,9 @@
 (function () {
   var JEDEMAN = 50;
   var ORGON = 45;
-  var TOTAL = JEDEMAN + ORGON;
+  var ORKO = 40;
+  var SHOI = 40;
+  var TOTAL = JEDEMAN + ORGON + ORKO + SHOI;
   var wrap = document.getElementById('craft-wrap');
   var img = document.getElementById('craft-frame');
   var craftImg = document.getElementById('craft-img');
@@ -1174,6 +1793,18 @@
     var preload2 = new Image();
     preload2.src = src2;
     frames[JEDEMAN + j] = src2;
+  }
+  for (var k = 0; k < ORKO; k++) {
+    var src3 = 'assets/orko/frame-' + pad(k + 1) + '.webp';
+    var preload3 = new Image();
+    preload3.src = src3;
+    frames[JEDEMAN + ORGON + k] = src3;
+  }
+  for (var m = 0; m < SHOI; m++) {
+    var src4 = 'assets/shoi/frame-' + pad(m + 1) + '.webp';
+    var preload4 = new Image();
+    preload4.src = src4;
+    frames[JEDEMAN + ORGON + ORKO + m] = src4;
   }
 
   var current = 0;
@@ -1195,10 +1826,14 @@
       p = (vh - rect.top) / travel;
     }
     if (p < 0) p = 0; else if (p > 1) p = 1;
-    var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
+    // Animation completes at 75% of scroll, last frame holds for remaining 25%
+    var animProgress = Math.min(1, p / 0.75);
+    var idx = Math.min(TOTAL - 1, Math.floor(animProgress * TOTAL));
     if (idx !== current) {
       current = idx;
       img.src = frames[idx];
+      var inShoi = idx >= JEDEMAN + ORGON + ORKO;
+      img.classList.toggle('is-shoi', inShoi);
     }
     if (craftImg && wrapH > vh + 50) {
       var scrolledPast = Math.max(0, -rect.top);
@@ -1226,29 +1861,63 @@
   var img = document.getElementById('hero-frame');
   if (!heroWrap || !hero || !img) return;
 
+  var mq = window.matchMedia('(max-width: 760px)');
   var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
-  for (var i = 0; i < TOTAL; i++) {
-    var src = 'assets/felix2/frame-' + pad(i + 1) + '.webp';
-    var preload = new Image();
-    preload.src = src;
-    frames[i] = src;
+  var folder = mq.matches ? 'assets/eze' : 'assets/felix2';
+
+  function loadFrames(folderPath) {
+    for (var i = 0; i < TOTAL; i++) {
+      var src = folderPath + '/frame-' + pad(i + 1) + '.webp';
+      var preload = new Image();
+      preload.src = src;
+      frames[i] = src;
+    }
   }
+  loadFrames(folder);
+  img.src = frames[0];
 
   var current = 0;
   var ticking = false;
   var doneState = false;
 
+  function onMediaChange() {
+    var newFolder = mq.matches ? 'assets/eze' : 'assets/felix2';
+    if (newFolder !== folder) {
+      folder = newFolder;
+      loadFrames(folder);
+      img.src = frames[current] || frames[0];
+    }
+  }
+  if (mq.addEventListener) mq.addEventListener('change', onMediaChange);
+  else if (mq.addListener) mq.addListener(onMediaChange);
+
   function update() {
     ticking = false;
     var wrapRect = heroWrap.getBoundingClientRect();
     var wrapH = heroWrap.offsetHeight;
-    var heroH = hero.offsetHeight;
     var vh = window.innerHeight || document.documentElement.clientHeight;
-    var stickyActive = window.getComputedStyle(hero).position === 'sticky';
+    var heroH = vh;
+    var lockMode = window.getComputedStyle(hero).position === 'absolute';
+    var stickyTotal = Math.max(1, wrapH - heroH);
+
+    // JS-emulated sticky via transform (works even with overflow:hidden ancestors)
+    if (lockMode) {
+      var translateY;
+      if (wrapRect.top >= 0) {
+        translateY = 0;
+      } else if (wrapRect.bottom > heroH) {
+        translateY = -wrapRect.top;
+      } else {
+        translateY = stickyTotal;
+      }
+      hero.style.transform = 'translate3d(0,' + translateY + 'px,0)';
+    } else {
+      hero.style.transform = '';
+    }
+
     var p;
-    if (stickyActive && wrapH > heroH + 50) {
-      var stickyTotal = wrapH - heroH;
+    if (lockMode && wrapH > heroH + 50) {
       p = -wrapRect.top / stickyTotal;
     } else {
       var travel = wrapH + vh;
@@ -1277,6 +1946,24 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   update();
+})();
+
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('is-visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function (el) { observer.observe(el); });
 })();
 
 </script>
