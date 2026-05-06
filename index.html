@@ -403,8 +403,8 @@
     position: sticky;
     top: 0;
     height: 100vh;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
     pointer-events: none;
     z-index: 3;
   }
@@ -414,7 +414,8 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     width: 100%;
-    height: min(560px, calc(100vh - 32px));
+    flex: 1 1 50vh;
+    min-height: 0;
     will-change: transform;
   }
   .craft-left {
@@ -479,9 +480,10 @@
     overflow: hidden;
   }
   .craft-frame {
-    width: 100%;
-    max-width: 520px;
+    width: auto;
     height: auto;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
     user-select: none;
     -webkit-user-drag: none;
@@ -1879,56 +1881,53 @@
         <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
       </div>
       </div>
-     </div>
-    </section>
 
-    <!-- ERSCHAFFUNGSPROZESS -->
-    <section class="prozess-section" id="prozess" aria-labelledby="prozess-heading">
-      <div class="prozess-head">
-        <span class="prozess-eyebrow reveal">Wie es entsteht</span>
-        <h2 class="prozess-headline reveal delay-1" id="prozess-heading">
-          Vom Entwurf<br/><em>zum Schmuck.</em>
-        </h2>
-        <div class="prozess-divider reveal delay-2"></div>
-        <p class="prozess-intro reveal delay-3">
-          Jedes Stück durchläuft vier Stationen — Hand für Hand in unserer Werkstatt
-          in der Burgstraße. Was Sie eben gesehen haben, ist genau dieser Weg.
-        </p>
+      <!-- ERSCHAFFUNGSPROZESS — sitzt in der unteren Viewport-Hälfte unter der gepinnten Animation -->
+      <div class="prozess-block" id="prozess" aria-labelledby="prozess-heading">
+        <div class="prozess-block-inner">
+          <div class="prozess-head">
+            <span class="prozess-eyebrow">Wie es entsteht</span>
+            <h2 class="prozess-headline" id="prozess-heading">
+              Vom Entwurf <em>zum Schmuck.</em>
+            </h2>
+          </div>
+          <div class="prozess-grid">
+            <article class="prozess-step">
+              <div class="prozess-step-img-wrap">
+                <span class="prozess-step-numeral">I</span>
+                <img class="prozess-step-img" src="assets/jedeman/frame-008.webp" alt="Entwurf" loading="lazy" />
+              </div>
+              <h3>Entwurf</h3>
+              <p>Skizze aus persönlichem Gespräch.</p>
+            </article>
+            <article class="prozess-step">
+              <div class="prozess-step-img-wrap">
+                <span class="prozess-step-numeral">II</span>
+                <img class="prozess-step-img" src="assets/jedeman/frame-040.webp" alt="Goldschmiede" loading="lazy" />
+              </div>
+              <h3>Goldschmiede</h3>
+              <p>Form und Fassung von Hand gefertigt.</p>
+            </article>
+            <article class="prozess-step">
+              <div class="prozess-step-img-wrap">
+                <span class="prozess-step-numeral">III</span>
+                <img class="prozess-step-img" src="assets/orgon/frame-022.webp" alt="Edelstein" loading="lazy" />
+              </div>
+              <h3>Edelstein</h3>
+              <p>Jade, Saphir, Diamant — präzise gefasst.</p>
+            </article>
+            <article class="prozess-step">
+              <div class="prozess-step-img-wrap">
+                <span class="prozess-step-numeral">IV</span>
+                <img class="prozess-step-img" src="assets/orko/frame-035.webp" alt="Vollendet" loading="lazy" />
+              </div>
+              <h3>Vollendet</h3>
+              <p>Poliert — bereit für den ersten Auftritt.</p>
+            </article>
+          </div>
+        </div>
       </div>
-      <div class="prozess-grid">
-        <article class="prozess-step reveal from-left">
-          <div class="prozess-step-img-wrap">
-            <span class="prozess-step-numeral">I</span>
-            <img class="prozess-step-img" src="assets/jedeman/frame-008.webp" alt="Entwurf" loading="lazy" />
-          </div>
-          <h3>Entwurf</h3>
-          <p>Skizze und Modell entstehen aus dem persönlichen Gespräch.</p>
-        </article>
-        <article class="prozess-step reveal from-left delay-1">
-          <div class="prozess-step-img-wrap">
-            <span class="prozess-step-numeral">II</span>
-            <img class="prozess-step-img" src="assets/jedeman/frame-040.webp" alt="Goldschmiede" loading="lazy" />
-          </div>
-          <h3>Goldschmiede</h3>
-          <p>Edelmetall wird geschmiedet, Form und Fassung von Hand gearbeitet.</p>
-        </article>
-        <article class="prozess-step reveal from-right delay-2">
-          <div class="prozess-step-img-wrap">
-            <span class="prozess-step-numeral">III</span>
-            <img class="prozess-step-img" src="assets/orgon/frame-022.webp" alt="Edelstein" loading="lazy" />
-          </div>
-          <h3>Edelstein</h3>
-          <p>Jade, Saphir, Diamant — sorgfältig ausgewählt, präzise gefasst.</p>
-        </article>
-        <article class="prozess-step reveal from-right delay-3">
-          <div class="prozess-step-img-wrap">
-            <span class="prozess-step-numeral">IV</span>
-            <img class="prozess-step-img" src="assets/orko/frame-035.webp" alt="Vollendet" loading="lazy" />
-          </div>
-          <h3>Vollendet</h3>
-          <p>Polierter, fertiger Schmuck — bereit für seinen ersten Auftritt.</p>
-        </article>
-      </div>
+     </div>
     </section>
 
     <!-- HOLZ-BANNER -->
