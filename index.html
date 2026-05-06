@@ -186,6 +186,7 @@
     pointer-events: none;
   }
   .hero-frame.is-active { opacity: 1; }
+  .hero-pic { display: contents; }
   .hero-content { z-index: 1; }
   .hero::before {
     content: '';
@@ -400,100 +401,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    pointer-events: none;
     z-index: 3;
-  }
-  .craft-sticky > * { pointer-events: auto; }
-  .craft {
-    background: transparent;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    width: 100%;
-    flex: 1 1 50vh;
-    min-height: 0;
-    will-change: transform;
-  }
-  .craft-left {
-    padding: 44px 36px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-image: url('assets/holzi.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 18px;
-    color: #fff;
-  }
-  .craft-left h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: 28px;
-    margin: 0 0 12px;
-    color: #fff;
-    line-height: 1.15;
-  }
-  .craft-left p {
-    color: #fff;
-    font-size: 13.5px;
-    margin: 0 0 10px;
-    line-height: 1.55;
-  }
-  .craft-left .craft-feature span,
-  .craft-left .craft-feature .ico { color: #fff; }
-  .craft-features {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 22px;
-  }
-  .craft-feature span { font-size: 10.5px; }
-  .craft-feature {
-    text-align: center;
-  }
-  .craft-feature .ico {
-    width: 36px;
-    height: 36px;
-    margin: 0 auto 10px;
-    display: grid;
-    place-items: center;
-    color: var(--gold);
-  }
-  .craft-feature span {
-    font-size: 11.5px;
-    color: var(--ink-2);
-    line-height: 1.3;
-    display: block;
-  }
-  .craft-img {
-    background: transparent;
-    height: 100%;
-    position: relative;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    overflow: hidden;
-  }
-  .craft-frame {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-    transform-origin: center center;
-  }
-  .craft-img:has(.craft-frame.is-shoi) { overflow: visible; }
-  .craft-frame.is-shoi {
-    transform: translateY(18px) scale(2.6);
-    z-index: 4;
-  }
-  @media (max-width: 1100px) {
-    .craft-frame.is-shoi { transform: translateY(14px) scale(2.05); }
-  }
-  @media (max-width: 768px) {
-    .craft-frame.is-shoi { transform: translateY(10px) scale(1.65); }
   }
 
   /* ====== Jade Kollektion ====== */
@@ -1816,6 +1724,10 @@
     <!-- HERO -->
     <section class="hero-wrap">
       <div class="hero">
+        <picture class="hero-pic">
+          <source srcset="assets/eze/frame-001.webp" media="(max-width: 760px)" />
+          <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
+        </picture>
         <div class="hero-content">
           <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
           <div class="eyebrow">Zeitlose Vollkommenheit</div>
@@ -1859,39 +1771,9 @@
       </div>
     </section>
 
-    <!-- HANDWERK -->
+    <!-- HANDWERK / ERSCHAFFUNGSPROZESS — Animation läuft als IV. Station -->
     <section class="craft-wrap" id="craft-wrap">
      <div class="craft-sticky">
-      <div class="craft">
-      <div class="craft-left">
-        <h2>Handwerk, das bleibt</h2>
-        <p>Vom Meisterhand vollendet — bei jeder Erfahrung, Sorgfalt und Liebe zum Detail nummeriert.</p>
-        <p>Für Schmuck, der ein Leben lang begleitet.</p>
-        <div class="craft-features">
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
-            <span>Seit 1875</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="6"/><path d="m9 14-1.5 8L12 19l4.5 3L15 14"/></svg></div>
-            <span>Meisterliche<br/>Handarbeit</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg></div>
-            <span>Bewusste<br/>Materialien</span>
-          </div>
-          <div class="craft-feature">
-            <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></div>
-            <span>Für die<br/>Ewigkeit</span>
-          </div>
-        </div>
-      </div>
-      <div class="craft-img" id="craft-img">
-        <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
-      </div>
-      </div>
-
-      <!-- ERSCHAFFUNGSPROZESS — sitzt in der unteren Viewport-Hälfte unter der gepinnten Animation -->
       <div class="prozess-block" id="prozess" aria-labelledby="prozess-heading">
         <div class="prozess-block-inner">
           <div class="prozess-head">
@@ -1925,10 +1807,10 @@
               <h3>Edelstein</h3>
               <p>Jade, Saphir, Diamant — präzise gefasst.</p>
             </article>
-            <article class="prozess-step">
+            <article class="prozess-step prozess-step--anim" id="craft-img">
               <div class="prozess-step-img-wrap">
                 <span class="prozess-step-numeral">IV</span>
-                <img class="prozess-step-img" src="assets/orko/frame-035.webp" alt="Vollendet" loading="lazy" />
+                <img class="prozess-step-img craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="Vollendet" />
               </div>
               <h3>Vollendet</h3>
               <p>Poliert — bereit für den ersten Auftritt.</p>
@@ -2158,7 +2040,11 @@
   var heroContent = hero.querySelector('.hero-content');
   var frameImgs = [];
 
-  for (var i = 0; i < TOTAL; i++) {
+  // First frame is already in the HTML as a <picture> — reuse it
+  var existingFirst = hero.querySelector('.hero-frame.is-active');
+  if (existingFirst) frameImgs.push(existingFirst);
+
+  for (var i = frameImgs.length; i < TOTAL; i++) {
     var fimg = document.createElement('img');
     fimg.className = 'hero-frame';
     fimg.src = folder + '/frame-' + pad(i + 1) + '.webp';
@@ -2170,21 +2056,9 @@
     frameImgs.push(fimg);
   }
 
-  // Show first frame only after it has actually decoded — avoids the flash
-  // where the activated img is still empty.
-  function activateInitial() {
-    if (frameImgs[0] && !frameImgs[0].classList.contains('is-active')) {
-      frameImgs[0].classList.add('is-active');
-    }
-  }
-  if (frameImgs[0].decode) {
-    frameImgs[0].decode().then(activateInitial).catch(activateInitial);
-  } else {
-    activateInitial();
-  }
-
   function reloadSrcs(folderPath) {
-    for (var i = 0; i < TOTAL; i++) {
+    // Skip frame 0 — handled by the <picture> media query in HTML
+    for (var i = 1; i < TOTAL; i++) {
       frameImgs[i].src = folderPath + '/frame-' + pad(i + 1) + '.webp';
     }
   }
