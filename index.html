@@ -1507,6 +1507,20 @@
     transition: background-color .35s ease, border-color .35s ease,
                 padding .35s ease, backdrop-filter .35s ease;
   }
+  /* Subtle dark scrim so white nav text stays readable on bright hero areas */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+                rgba(20,16,10,0.55) 0%,
+                rgba(20,16,10,0.30) 55%,
+                rgba(20,16,10,0) 100%);
+    pointer-events: none;
+    transition: opacity .35s ease;
+    z-index: -1;
+  }
+  .site-header.is-scrolled::before { opacity: 0; }
   .site-header > * { pointer-events: auto; }
   .site-header__inner {
     display: flex;
