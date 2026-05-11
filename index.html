@@ -1270,6 +1270,16 @@
     object-fit: cover;
     display: block;
   }
+  /* Karte III nutzt pro4.png — dort ist oben „SCHRITT 4 HANDARBEIT/AUSARBEITUNG"
+     und unten ein Notiz-Rand mit Pfeilen eingebrannt. Wir zoomen auf das
+     zentrale Polier-Foto, damit die Beschriftungen rauscroppen. */
+  .prozess-grid .prozess-step:nth-child(3) .prozess-step-img-wrap {
+    overflow: hidden;
+  }
+  .prozess-grid .prozess-step:nth-child(3) .prozess-step-img {
+    transform: scale(1.55);
+    transform-origin: center 52%;
+  }
   .prozess-step-numeral {
     position: absolute;
     top: 10px;
@@ -2138,6 +2148,7 @@
   var img = document.getElementById('craft-frame');
   var ivCard = document.getElementById('prozess-card-iv');
   var prozessWrap = document.getElementById('prozess-wrap');
+  var craftLeft = wrap ? wrap.querySelector('.craft-left') : null;
   if (!wrap || !img) return;
 
   var frames = new Array(TOTAL);
@@ -2251,9 +2262,17 @@
         handedOffState = handed;
         img.classList.toggle('is-handed-off', handed);
       }
+      // Craft-left (Holz-Box) fadet kontinuierlich mit flipT aus, damit sie
+      // nicht in die Prozess-Karten hineinragt wenn prozess-wrap erscheint
+      if (craftLeft) {
+        var leftOpacity = Math.max(0, 1 - flipT * 1.4);
+        craftLeft.style.opacity = leftOpacity.toFixed(3);
+        craftLeft.style.pointerEvents = flipT > 0.4 ? 'none' : '';
+      }
     } else {
       if (armedState) { armedState = false; ivCard && ivCard.classList.remove('is-armed'); }
       if (handedOffState) { handedOffState = false; img.classList.remove('is-handed-off'); }
+      if (craftLeft) { craftLeft.style.opacity = ''; craftLeft.style.pointerEvents = ''; }
     }
   }
 
