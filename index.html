@@ -441,19 +441,18 @@
     .wood-photo-frame { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
   }
 
-  /* ====== Handwerk Phase 1 — Jedeman (mit FLIP-Transition zu IV-Karte) ====== */
+  /* ====== Handwerk Phase 1 — Jedeman (statisch, ohne Sticky-FLIP — keine Überlappung mit Prozess-Karten) ====== */
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
-    height: 200vh;
+    height: auto;
   }
   .craft-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    position: static;
+    height: auto;
     display: grid;
     place-items: center;
-    z-index: 50;
+    z-index: auto;
   }
   .craft {
     background: transparent;
