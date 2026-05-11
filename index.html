@@ -1324,101 +1324,130 @@
     .prozess-step p { font-size: 11px; }
   }
 
-  /* ====== Kollektionen Bento ====== */
+  /* ====== Kollektionen — Editorial-Index ====== */
   .kollektionen-section {
-    margin: 0 24px 90px;
-    padding: 0;
+    margin: 0;
+    padding: 110px 24px 130px;
+    position: relative;
+  }
+  .kollektionen-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent, var(--jade) 60%, transparent);
+    opacity: 0.55;
   }
   .kollektionen-head {
     text-align: center;
-    margin-bottom: 56px;
+    margin: 0 auto 88px;
+    max-width: 760px;
   }
   .kollektionen-head .eyebrow-jade {
     font-size: 11px;
-    letter-spacing: 0.34em;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
     color: var(--jade);
     font-weight: 500;
-    margin-bottom: 20px;
-    display: block;
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .kollektionen-head .eyebrow-jade::before,
+  .kollektionen-head .eyebrow-jade::after {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--jade);
+    opacity: 0.55;
   }
   .kollektionen-head h2 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.08;
+    font-size: clamp(40px, 5.4vw, 64px);
+    line-height: 1.05;
     margin: 0;
     color: var(--ink);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.012em;
   }
   .kollektionen-head h2 em { font-style: italic; color: var(--jade); font-weight: 300; }
-  .kollektionen-grid {
+
+  .kollektionen-index {
+    max-width: 980px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid rgba(31,26,20,0.14);
+  }
+  .kollektion-row {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: minmax(220px, auto);
-    gap: 18px;
-  }
-  .kollektion-card {
-    background: #fbf8f3;
-    border-radius: 22px;
-    padding: 44px 36px;
+    grid-template-columns: 110px 1fr auto;
+    align-items: baseline;
+    column-gap: 40px;
+    padding: 38px 8px;
+    border-bottom: 1px solid rgba(31,26,20,0.14);
     position: relative;
-    border: 1px solid var(--line);
-    transition: transform 0.4s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.4s, border-color 0.4s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
+    cursor: default;
+    transition: background-color 0.5s ease;
   }
-  .kollektion-card::after {
+  .kollektion-row::before {
     content: '';
     position: absolute;
-    inset: auto -30% -30% auto;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(47, 110, 91, 0.08), transparent 70%);
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(79, 107, 84, 0.05) 50%, transparent);
+    opacity: 0;
+    transition: opacity 0.55s ease;
     pointer-events: none;
-    transition: opacity 0.4s;
-    opacity: 0.7;
   }
-  .kollektion-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 22px 50px -22px rgba(31,26,20,0.28);
-    border-color: rgba(47,110,91,0.35);
-  }
-  .kollektion-card:hover::after { opacity: 1; }
-  .kollektion-card.span-3 { grid-column: span 3; }
-  .kollektion-card.span-2 { grid-column: span 2; }
-  .kollektion-card.span-6 { grid-column: span 6; padding: 56px 56px; }
-  .kollektion-card.tall { grid-row: span 2; }
-  .numeral {
+  .kollektion-row:hover::before { opacity: 1; }
+  .kollektion-row__numeral {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 56px;
     font-weight: 300;
+    font-size: clamp(56px, 6vw, 84px);
+    line-height: 0.9;
     color: var(--jade);
-    line-height: 1;
-    display: block;
-    margin-bottom: 22px;
     letter-spacing: 0.02em;
+    transition: transform 0.6s cubic-bezier(0.2,0.7,0.2,1), color 0.4s;
+    transform-origin: left center;
   }
-  .kollektion-card h3 {
+  .kollektion-row:hover .kollektion-row__numeral {
+    transform: translateX(6px);
+    color: var(--jade-dark);
+  }
+  .kollektion-row__body {
+    max-width: 580px;
+  }
+  .kollektion-row__body h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: 26px;
-    margin: 0 0 10px;
+    font-weight: 400;
+    font-size: clamp(26px, 2.6vw, 34px);
+    margin: 0 0 12px;
     color: var(--ink);
-    letter-spacing: -0.005em;
+    letter-spacing: -0.008em;
+    line-height: 1.1;
   }
-  .kollektion-card p {
+  .kollektion-row__body p {
     color: var(--ink-2);
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: 15px;
+    line-height: 1.72;
     margin: 0;
-    max-width: 38ch;
+    font-weight: 300;
   }
-  .kollektion-card.span-6 h3 { font-size: 32px; }
-  .kollektion-card.span-6 p { font-size: 15px; max-width: 56ch; }
+  .kollektion-row__meta {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    white-space: nowrap;
+    padding-top: 6px;
+  }
 
   /* ====== Kontakt / Standort ====== */
   .kontakt-section {
@@ -1529,22 +1558,35 @@
   /* ====== Mobile-Anpassungen für neue Sektionen ====== */
   @media (max-width: 1100px) {
     .atelier-section { margin: 60px 14px; padding: 60px 32px; }
-    .kollektionen-section { margin: 0 14px 60px; }
-    .kollektionen-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
-    .kollektion-card.span-3, .kollektion-card.span-2 { grid-column: span 1; }
-    .kollektion-card.span-6 { grid-column: span 2; padding: 40px 28px; }
-    .kollektion-card.tall { grid-row: auto; }
+    .kollektionen-section { padding: 80px 20px 90px; }
+    .kollektionen-head { margin-bottom: 64px; }
+    .kollektion-row {
+      grid-template-columns: 80px 1fr;
+      column-gap: 28px;
+      padding: 30px 4px;
+    }
+    .kollektion-row__meta {
+      grid-column: 2;
+      padding-top: 14px;
+    }
     .kontakt-section { padding: 70px 32px; }
     .kontakt-grid { grid-template-columns: 1fr; gap: 48px; }
   }
   @media (max-width: 580px) {
     .atelier-section { margin: 40px 10px; padding: 48px 22px; }
-    .kollektionen-section { margin: 0 10px 40px; }
-    .kollektionen-grid { grid-template-columns: 1fr; gap: 12px; }
-    .kollektion-card { padding: 32px 24px; }
-    .kollektion-card.span-6 { padding: 36px 24px; }
-    .kollektion-card.span-6 h3 { font-size: 24px; }
-    .numeral { font-size: 44px; margin-bottom: 16px; }
+    .kollektionen-section { padding: 64px 18px 72px; }
+    .kollektionen-head { margin-bottom: 48px; }
+    .kollektionen-head .eyebrow-jade::before,
+    .kollektionen-head .eyebrow-jade::after { width: 18px; }
+    .kollektion-row {
+      grid-template-columns: 64px 1fr;
+      column-gap: 20px;
+      padding: 26px 2px;
+    }
+    .kollektion-row__numeral { font-size: 52px; }
+    .kollektion-row__body h3 { font-size: 22px; margin-bottom: 8px; }
+    .kollektion-row__body p { font-size: 14px; line-height: 1.65; }
+    .kollektion-row__meta { font-size: 11px; padding-top: 12px; letter-spacing: 0.12em; }
     .kontakt-section { padding: 56px 20px; }
     .kontakt-hours { padding: 28px 22px; }
     .atelier-meta { gap: 24px; font-size: 11px; }
@@ -2038,46 +2080,48 @@
           Fünf Disziplinen — <em>ein Haus.</em>
         </h2>
       </div>
-      <div class="kollektionen-grid">
-        <article class="kollektion-card span-3 reveal from-left">
-          <span class="numeral">I</span>
-          <div>
+      <ol class="kollektionen-index">
+        <li class="kollektion-row reveal">
+          <span class="kollektion-row__numeral">I</span>
+          <div class="kollektion-row__body">
             <h3>Trauringe</h3>
             <p>Für das Versprechen, das ein Leben hält. Aus Platin, Gold oder Palladium — in eigener Werkstatt gefertigt.</p>
           </div>
-        </article>
-        <article class="kollektion-card span-3 reveal from-right delay-1">
-          <span class="numeral">II</span>
-          <div>
+          <span class="kollektion-row__meta">eigene werkstatt</span>
+        </li>
+        <li class="kollektion-row reveal delay-1">
+          <span class="kollektion-row__numeral">II</span>
+          <div class="kollektion-row__body">
             <h3>Verlobungsringe</h3>
             <p>Der Moment vor allem anderen. Klassische Solitaires und individuelle Entwürfe nach Ihren Wünschen.</p>
           </div>
-        </article>
-        <article class="kollektion-card span-6 reveal delay-2">
-          <span class="numeral">III</span>
-          <div>
+          <span class="kollektion-row__meta">nach maß</span>
+        </li>
+        <li class="kollektion-row reveal delay-2">
+          <span class="kollektion-row__numeral">III</span>
+          <div class="kollektion-row__body">
             <h3>Goldschmiede-Atelier</h3>
-            <p>
-              Anfertigungen, Umarbeitungen, Reparaturen — alles vor Ort, in eigener Werkstatt.
-              Bringen Sie Ihre Erbstücke vorbei: Wir bewahren ihre Geschichte und schenken ihnen ein zweites Leben.
-            </p>
+            <p>Anfertigungen, Umarbeitungen, Reparaturen — alles vor Ort. Bringen Sie Ihre Erbstücke vorbei: Wir bewahren ihre Geschichte und schenken ihnen ein zweites Leben.</p>
           </div>
-        </article>
-        <article class="kollektion-card span-3 reveal from-left delay-3">
-          <span class="numeral">IV</span>
-          <div>
-            <h3>Edelsteine & Uhren</h3>
+          <span class="kollektion-row__meta">vor ort</span>
+        </li>
+        <li class="kollektion-row reveal delay-3">
+          <span class="kollektion-row__numeral">IV</span>
+          <div class="kollektion-row__body">
+            <h3>Edelsteine &amp; Uhren</h3>
             <p>Ausgesuchte Stücke, persönlich kuratiert — von zeitgenössischen Marken bis zu klassischen Zeitmessern.</p>
           </div>
-        </article>
-        <article class="kollektion-card span-3 reveal from-right delay-4">
-          <span class="numeral">V</span>
-          <div>
+          <span class="kollektion-row__meta">kuratiert</span>
+        </li>
+        <li class="kollektion-row reveal delay-4">
+          <span class="kollektion-row__numeral">V</span>
+          <div class="kollektion-row__body">
             <h3>Silberschmiedearbeit</h3>
             <p>Klassisches Handwerk, zeitlos schön. Bestecke, Tafelsilber, persönliche Geschenke und individuelle Entwürfe.</p>
           </div>
-        </article>
-      </div>
+          <span class="kollektion-row__meta">handgefertigt</span>
+        </li>
+      </ol>
     </section>
 
     <!-- KONTAKT / STANDORT -->
