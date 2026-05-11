@@ -1880,7 +1880,7 @@
       <div class="hero">
         <picture class="hero-pic">
           <source srcset="assets/eze/frame-001.webp" media="(max-width: 760px)" />
-          <img class="hero-frame is-active" src="assets/necklace/frame-001.webp" alt="" fetchpriority="high" />
+          <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content">
           <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
@@ -2289,32 +2289,29 @@
 })();
 
 (function () {
-  // Per-folder frame counts: desktop set has 50, mobile set has 30
-  var COUNTS = { 'assets/necklace': 50, 'assets/eze': 30 };
+  var TOTAL = 30;
   var heroWrap = document.querySelector('.hero-wrap');
   var hero = heroWrap ? heroWrap.querySelector('.hero') : null;
   if (!heroWrap || !hero) return;
 
   var mq = window.matchMedia('(max-width: 760px)');
   var pad = function (n) { return ('00' + n).slice(-3); };
-  var folder = mq.matches ? 'assets/eze' : 'assets/necklace';
-  var total = COUNTS[folder];
+  var folder = mq.matches ? 'assets/eze' : 'assets/felix2';
 
-  // Single visible <img> aus dem HTML wiederverwenden
+  // Single visible <img> aus dem HTML wiederverwenden — keine 30 gestapelten Layer mehr
   var heroImg = hero.querySelector('.hero-frame');
   if (!heroImg) return;
+  // Übrige .hero-frame Elemente (falls altes Markup noch da ist) entfernen
   var oldExtras = hero.querySelectorAll('.hero-frame');
   for (var x = 0; x < oldExtras.length; x++) {
     if (oldExtras[x] !== heroImg) oldExtras[x].parentNode.removeChild(oldExtras[x]);
   }
 
-  var frameSrcs = [];
-  var preloads = [];
+  // Frame-URLs pre-cachen via Image()-Objekte (kein DOM-Stack)
+  var frameSrcs = new Array(TOTAL);
+  var preloads = new Array(TOTAL);
   function buildList(folderPath) {
-    total = COUNTS[folderPath];
-    frameSrcs = new Array(total);
-    preloads = new Array(total);
-    for (var i = 0; i < total; i++) {
+    for (var i = 0; i < TOTAL; i++) {
       var src = folderPath + '/frame-' + pad(i + 1) + '.webp';
       frameSrcs[i] = src;
       var im = new Image();
@@ -2330,12 +2327,11 @@
   var doneState = false;
 
   function onMediaChange() {
-    var newFolder = mq.matches ? 'assets/eze' : 'assets/necklace';
+    var newFolder = mq.matches ? 'assets/eze' : 'assets/felix2';
     if (newFolder !== folder) {
       folder = newFolder;
       buildList(folder);
-      current = 0;
-      heroImg.src = frameSrcs[0];
+      heroImg.src = frameSrcs[current];
     }
   }
   if (mq.addEventListener) mq.addEventListener('change', onMediaChange);
@@ -2356,7 +2352,7 @@
       p = (vh - wrapRect.top) / travel;
     }
     if (p < 0) p = 0; else if (p > 1) p = 1;
-    var idx = Math.min(total - 1, Math.floor(p * total));
+    var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
       // Nur swappen, wenn das Ziel-Frame schon im Cache geladen ist
       // (verhindert weißes Flackern). Sonst beim aktuellen Frame bleiben.
