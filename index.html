@@ -180,12 +180,10 @@
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    opacity: 0;
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
   }
-  .hero-frame.is-active { opacity: 1; }
   .hero-pic { display: contents; }
   .hero-content { z-index: 1; }
   .hero::before {
@@ -389,19 +387,124 @@
     .wood-photo-frame { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
   }
 
-  /* ====== Handwerk ====== */
+  /* ====== Handwerk Phase 1 — Jedeman (mit FLIP-Transition zu IV-Karte) ====== */
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
-    height: 360vh;
+    height: 200vh;
   }
   .craft-sticky {
     position: sticky;
     top: 0;
     height: 100vh;
+    display: grid;
+    place-items: center;
+    z-index: 50;
+  }
+  .craft {
+    background: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    width: 100%;
+    height: min(640px, calc(100vh - 32px));
+    align-items: center;
+  }
+  .craft-left {
+    padding: 56px 44px;
     display: flex;
     flex-direction: column;
-    z-index: 3;
+    justify-content: center;
+    background-image: url('assets/holzi.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 18px;
+    color: #fff;
+    height: 100%;
+  }
+  .craft-left h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0 0 14px;
+    color: #fff;
+    line-height: 1.15;
+  }
+  .craft-left p {
+    color: #fff;
+    font-size: 14px;
+    margin: 0 0 12px;
+    line-height: 1.6;
+  }
+  .craft-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .craft-feature { text-align: center; }
+  .craft-feature .ico {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 10px;
+    display: grid;
+    place-items: center;
+    color: var(--gold-soft);
+  }
+  .craft-feature span {
+    font-size: 11.5px;
+    color: #fff;
+    line-height: 1.3;
+    display: block;
+  }
+  .craft-img {
+    background: transparent;
+    height: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: visible;
+  }
+  .craft-frame {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transform-origin: center center;
+    will-change: transform;
+    position: relative;
+    z-index: 50;
+  }
+  .craft-frame.is-handed-off { opacity: 0; transition: none; }
+
+  /* IV-Karte: auf Desktop erscheinen Bild/Numeral/Text erst wenn der Jedeman-FLIP gelandet ist.
+     Auf Mobile (keine Sticky-Animation) ist die Karte sofort sichtbar. */
+  @media (min-width: 1101px) {
+    #prozess-card-iv .prozess-step-img,
+    #prozess-card-iv .prozess-step-numeral,
+    #prozess-card-iv h3,
+    #prozess-card-iv p {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    #prozess-card-iv.is-armed .prozess-step-img,
+    #prozess-card-iv.is-armed .prozess-step-numeral,
+    #prozess-card-iv.is-armed h3,
+    #prozess-card-iv.is-armed p {
+      opacity: 1;
+    }
+  }
+  /* ====== Prozess (Karte IV: statisch, ohne Scroll-Animation) ====== */
+  .prozess-wrap {
+    position: relative;
+  }
+  .prozess-sticky {
+    display: flex;
+    flex-direction: column;
   }
 
   /* ====== Jade Kollektion ====== */
@@ -818,7 +921,7 @@
     .nav { padding: 18px 28px; }
     .cats, .favs-grid { grid-template-columns: repeat(2, 1fr); }
     .craft, .tradition, .jade-section, .newsletter { grid-template-columns: 1fr; }
-    .craft-wrap { height: 280vh; margin: 0 14px 16px; }
+    .craft-wrap { height: 200vh; margin: 0 14px 16px; }
     .craft-sticky { position: static; height: auto; place-items: stretch; }
     .craft { height: auto; min-height: auto; box-shadow: none; }
     .craft-left { padding: 40px 32px; }
@@ -1027,23 +1130,18 @@
     top: -1px;
   }
 
-  /* ====== Erschaffungsprozess (zart-grün) ====== */
-  .prozess-section {
+  /* ====== Erschaffungsprozess — 4 statische Stationen ====== */
+  .prozess-block {
     position: relative;
-    left: 50%;
-    right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    margin-top: -52vh;
-    margin-bottom: 0;
     width: 100vw;
-    padding: 72px 64px 80px;
+    left: 50%;
     background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
     overflow: hidden;
-    box-shadow: 0 -8px 40px -16px rgba(47, 110, 91, 0.18);
-    z-index: 1;
+    box-shadow: 0 -10px 40px -16px rgba(47, 110, 91, 0.18);
   }
-  .prozess-section::before {
+  .prozess-block::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1052,77 +1150,66 @@
       radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
     pointer-events: none;
   }
+  .prozess-block-inner {
+    position: relative;
+    padding: clamp(48px, 6vh, 88px) clamp(18px, 2.6vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 40px);
+    max-width: 1320px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
   .prozess-head {
     text-align: center;
-    max-width: 720px;
-    margin: 0 auto 56px;
-    position: relative;
+    flex-shrink: 0;
   }
   .prozess-eyebrow {
-    font-size: 11px;
+    font-size: 10.5px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--jade);
     font-weight: 500;
-    margin-bottom: 20px;
     display: block;
+    margin-bottom: 8px;
   }
   .prozess-headline {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.06;
-    margin: 0 0 24px;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.1;
+    margin: 0;
     color: var(--ink);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
   }
   .prozess-headline em {
     font-style: italic;
     color: var(--jade);
     font-weight: 300;
   }
-  .prozess-divider {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto 24px;
-  }
-  .prozess-intro {
-    color: var(--ink-2);
-    font-size: 15px;
-    line-height: 1.72;
-    margin: 0;
-  }
   .prozess-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    position: relative;
+    gap: clamp(14px, 1.6vw, 24px);
   }
   .prozess-step {
-    text-align: left;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
     display: flex;
     flex-direction: column;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .prozess-step:hover { transform: translateY(-4px); }
-  .prozess-step:hover .prozess-step-img { box-shadow: 0 24px 50px -20px rgba(47,110,91,0.40); }
+  .prozess-step:hover { transform: translateY(-3px); }
   .prozess-step-img-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 14px;
     background: rgba(255,255,255,0.55);
     border: 1px solid rgba(47,110,91,0.16);
-    margin-bottom: 18px;
-    box-shadow: 0 12px 32px -16px rgba(47,110,91,0.30);
+    box-shadow: 0 12px 28px -16px rgba(47,110,91,0.30);
     transition: box-shadow 0.35s;
   }
+  .prozess-step:hover .prozess-step-img-wrap { box-shadow: 0 20px 40px -18px rgba(47,110,91,0.42); }
   .prozess-step-img {
     width: 100%;
     height: 100%;
@@ -1131,40 +1218,43 @@
   }
   .prozess-step-numeral {
     position: absolute;
-    top: 12px;
-    left: 14px;
+    top: 10px;
+    left: 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 38px;
+    font-size: clamp(26px, 2.2vw, 34px);
     font-weight: 300;
     color: #fff;
     line-height: 1;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.40);
     letter-spacing: 0.02em;
     z-index: 2;
   }
   .prozess-step h3 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: 22px;
-    margin: 0 0 6px;
+    font-size: clamp(15px, 1.4vw, 19px);
+    margin: 10px 0 3px;
     color: var(--ink);
     letter-spacing: -0.005em;
+    line-height: 1.2;
+    flex-shrink: 0;
   }
   .prozess-step p {
     color: var(--ink-2);
-    font-size: 13px;
-    line-height: 1.55;
+    font-size: clamp(11px, 0.85vw, 13px);
+    line-height: 1.45;
     margin: 0;
+    flex-shrink: 0;
   }
   @media (max-width: 1100px) {
-    .prozess-section { margin-top: -36vh; padding: 56px 32px 64px; }
-    .prozess-grid { grid-template-columns: repeat(2, 1fr); }
+    .prozess-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .prozess-block-inner { padding: 28px; gap: 16px; }
   }
   @media (max-width: 580px) {
-    .prozess-section { margin-top: -28vh; padding: 40px 22px 48px; }
-    .prozess-grid { grid-template-columns: 1fr; gap: 18px; }
-    .prozess-head { margin-bottom: 32px; }
+    .prozess-block-inner { padding: 18px 16px; gap: 12px; }
+    .prozess-step h3 { font-size: 13px; margin-top: 6px; }
+    .prozess-step p { font-size: 11px; }
   }
 
   /* ====== Kollektionen Bento ====== */
@@ -1771,9 +1861,43 @@
       </div>
     </section>
 
-    <!-- HANDWERK / ERSCHAFFUNGSPROZESS — Animation läuft als IV. Station -->
+    <!-- PHASE 1: HANDWERK — Animation 1 (Jedeman) im 2-Spalten-Layout -->
     <section class="craft-wrap" id="craft-wrap">
      <div class="craft-sticky">
+      <div class="craft">
+        <div class="craft-left">
+          <h2>Handwerk, das bleibt</h2>
+          <p>Vom Meisterhand vollendet — bei jeder Erfahrung, Sorgfalt und Liebe zum Detail nummeriert.</p>
+          <p>Für Schmuck, der ein Leben lang begleitet.</p>
+          <div class="craft-features">
+            <div class="craft-feature">
+              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
+              <span>Seit 1875</span>
+            </div>
+            <div class="craft-feature">
+              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="6"/><path d="m9 14-1.5 8L12 19l4.5 3L15 14"/></svg></div>
+              <span>Meisterliche<br/>Handarbeit</span>
+            </div>
+            <div class="craft-feature">
+              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg></div>
+              <span>Bewusste<br/>Materialien</span>
+            </div>
+            <div class="craft-feature">
+              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></div>
+              <span>Für die<br/>Ewigkeit</span>
+            </div>
+          </div>
+        </div>
+        <div class="craft-img" id="craft-img">
+          <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
+        </div>
+      </div>
+     </div>
+    </section>
+
+    <!-- PHASE 2: PROZESS — Animationen 2, 3, 4 in Karte IV (mit Wachstum am Ende) -->
+    <section class="prozess-wrap" id="prozess-wrap">
+     <div class="prozess-sticky">
       <div class="prozess-block" id="prozess" aria-labelledby="prozess-heading">
         <div class="prozess-block-inner">
           <div class="prozess-head">
@@ -1786,7 +1910,7 @@
             <article class="prozess-step">
               <div class="prozess-step-img-wrap">
                 <span class="prozess-step-numeral">I</span>
-                <img class="prozess-step-img" src="assets/jedeman/frame-008.webp" alt="Entwurf" loading="lazy" />
+                <img class="prozess-step-img" src="assets/pro1.png" alt="Entwurf" loading="lazy" />
               </div>
               <h3>Entwurf</h3>
               <p>Skizze aus persönlichem Gespräch.</p>
@@ -1794,7 +1918,7 @@
             <article class="prozess-step">
               <div class="prozess-step-img-wrap">
                 <span class="prozess-step-numeral">II</span>
-                <img class="prozess-step-img" src="assets/jedeman/frame-040.webp" alt="Goldschmiede" loading="lazy" />
+                <img class="prozess-step-img" src="assets/pro3.png" alt="Goldschmiede" loading="lazy" />
               </div>
               <h3>Goldschmiede</h3>
               <p>Form und Fassung von Hand gefertigt.</p>
@@ -1802,15 +1926,15 @@
             <article class="prozess-step">
               <div class="prozess-step-img-wrap">
                 <span class="prozess-step-numeral">III</span>
-                <img class="prozess-step-img" src="assets/orgon/frame-022.webp" alt="Edelstein" loading="lazy" />
+                <img class="prozess-step-img" src="assets/pro4.png" alt="Edelstein" loading="lazy" />
               </div>
               <h3>Edelstein</h3>
               <p>Jade, Saphir, Diamant — präzise gefasst.</p>
             </article>
-            <article class="prozess-step prozess-step--anim" id="craft-img">
+            <article class="prozess-step" id="prozess-card-iv">
               <div class="prozess-step-img-wrap">
                 <span class="prozess-step-numeral">IV</span>
-                <img class="prozess-step-img craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="Vollendet" />
+                <img class="prozess-step-img" src="assets/orgon/frame-001.webp" alt="Vollendet" loading="lazy" />
               </div>
               <h3>Vollendet</h3>
               <p>Poliert — bereit für den ersten Auftritt.</p>
@@ -1942,46 +2066,38 @@
   </main>
 </div>
 <script>
+// Phase 1: Jedeman (Animation 1) im Craft-Wrap + FLIP-Transition zur IV-Karte
 (function () {
-  var JEDEMAN = 50;
-  var ORGON = 45;
-  var ORKO = 40;
-  var SHOI = 40;
-  var TOTAL = JEDEMAN + ORGON + ORKO + SHOI;
+  var TOTAL = 50;
   var wrap = document.getElementById('craft-wrap');
   var img = document.getElementById('craft-frame');
-  var craftImg = document.getElementById('craft-img');
+  var ivCard = document.getElementById('prozess-card-iv');
+  var prozessWrap = document.getElementById('prozess-wrap');
   if (!wrap || !img) return;
 
   var frames = new Array(TOTAL);
   var pad = function (n) { return ('00' + n).slice(-3); };
-  for (var i = 0; i < JEDEMAN; i++) {
+  for (var i = 0; i < TOTAL; i++) {
     var src = 'assets/jedeman/frame-' + pad(i + 1) + '.webp';
     var preload = new Image();
     preload.src = src;
     frames[i] = src;
   }
-  for (var j = 0; j < ORGON; j++) {
-    var src2 = 'assets/orgon/frame-' + pad(j + 1) + '.webp';
-    var preload2 = new Image();
-    preload2.src = src2;
-    frames[JEDEMAN + j] = src2;
-  }
-  for (var k = 0; k < ORKO; k++) {
-    var src3 = 'assets/orko/frame-' + pad(k + 1) + '.webp';
-    var preload3 = new Image();
-    preload3.src = src3;
-    frames[JEDEMAN + ORGON + k] = src3;
-  }
-  for (var m = 0; m < SHOI; m++) {
-    var src4 = 'assets/shoi/frame-' + pad(m + 1) + '.webp';
-    var preload4 = new Image();
-    preload4.src = src4;
-    frames[JEDEMAN + ORGON + ORKO + m] = src4;
-  }
+
+  // Frames spielen über fast den ganzen Sticky-Scroll → spielen WÄHREND des Wanderns
+  var FRAMES_END = 0.97;
+  // FLIP startet exakt wenn sticky endet (prozess-wrap am Viewport-Bottom)
+  // und läuft über die volle Höhe von prozess-wrap nach oben → 100vh Glide,
+  // image bleibt während des gesamten Übergangs vollständig sichtbar
+  var FLIP_START_VH = 1.0;
+  var FLIP_END_VH = 0;
+  // ARM und HANDOFF im selben Moment (flipT = 1) → Jedeman verschwindet exakt wenn IV erscheint, kein Overlap
+  var ARM_T = 0.999;
 
   var current = 0;
   var ticking = false;
+  var armedState = false;
+  var handedOffState = false;
 
   function update() {
     ticking = false;
@@ -1992,27 +2108,87 @@
     var stickyActive = stickyEl && window.getComputedStyle(stickyEl).position === 'sticky';
     var p;
     if (stickyActive && wrapH > vh + 50) {
-      var stickyTotal = wrapH - vh;
-      p = -rect.top / stickyTotal;
+      // Frame-Progress über die VOLLE wrap-Höhe (sticky + FLIP-Phase),
+      // damit die Frames weiterlaufen während das Bild zur IV-Karte gleitet
+      p = -rect.top / wrapH;
     } else {
       var travel = wrapH + vh;
       p = (vh - rect.top) / travel;
     }
     if (p < 0) p = 0; else if (p > 1) p = 1;
-    // Animation completes at 55% of scroll, last frame holds for remaining 45%
-    var animProgress = Math.min(1, p / 0.55);
+
+    // Frame-Animation: läuft über die gesamte wrap-Scroll-Strecke durch
+    var animProgress = Math.min(1, p / FRAMES_END);
     var idx = Math.min(TOTAL - 1, Math.floor(animProgress * TOTAL));
     if (idx !== current) {
       current = idx;
       img.src = frames[idx];
-      var inShoi = idx >= JEDEMAN + ORGON + ORKO;
-      img.classList.toggle('is-shoi', inShoi);
     }
-    wrap.classList.toggle('is-paused', p > 0.55);
-    if (craftImg && wrapH > vh + 50) {
-      var scrolledPast = Math.max(0, -rect.top);
-      var capped = Math.min(scrolledPast, wrapH - vh);
-      craftImg.style.transform = 'translateY(' + capped + 'px)';
+
+    // FLIP-Progress: gesteuert durch prozess-wrap-Annäherung
+    var flipT = 0;
+    if (stickyActive && prozessWrap) {
+      var pwRect = prozessWrap.getBoundingClientRect();
+      var startPx = vh * FLIP_START_VH;
+      var endPx = vh * FLIP_END_VH;
+      if (pwRect.top <= endPx) {
+        flipT = 1;
+      } else if (pwRect.top >= startPx) {
+        flipT = 0;
+      } else {
+        flipT = (startPx - pwRect.top) / (startPx - endPx);
+      }
+      flipT = flipT * flipT * (3 - 2 * flipT); // smoothstep
+    }
+
+    // FLIP-Transition: Jedeman wandert dynamisch zur tatsächlichen IV-Karten-Position
+    if (stickyActive && ivCard && flipT > 0) {
+      // Roh-Position ohne aktuellen Transform messen (Feedback-Loop vermeiden)
+      img.style.transform = '';
+      var rawRect = img.getBoundingClientRect();
+      var ivRect = ivCard.getBoundingClientRect();
+
+      if (rawRect.width > 0 && ivRect.width > 0) {
+        var dx = (ivRect.left + ivRect.width / 2) - (rawRect.left + rawRect.width / 2);
+        var dy = (ivRect.top + ivRect.height / 2) - (rawRect.top + rawRect.height / 2);
+        // contain-style scale: kleinerer der beiden Skalierungen → Bild liegt komplett im IV-Rechteck
+        // 0.85-Faktor → Jedeman landet etwas kleiner, mit Luft im Karten-Rahmen
+        var sxW = ivRect.width / rawRect.width;
+        var sxH = ivRect.height / rawRect.height;
+        var sx = Math.min(sxW, sxH) * 0.85;
+
+        var tx = dx * flipT;
+        var ty = dy * flipT;
+        var sc = 1 + (sx - 1) * flipT;
+
+        img.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+      }
+    } else if (!stickyActive) {
+      // Mobile: keine FLIP
+      img.style.transform = '';
+    } else {
+      // FLIP noch nicht gestartet → Bild auf Roh-Position
+      img.style.transform = '';
+    }
+
+    // IV-Karte einblenden gekoppelt an FLIP-Progress
+    // Jedeman fadet erst aus wenn prozess-wrap deutlich INS Viewport gescrollt ist
+    // (also ERST nachdem es gelandet ist und der User in Phase 2 weitergescrollt hat)
+    if (stickyActive && ivCard && prozessWrap) {
+      var armed = flipT >= ARM_T;
+      if (armed !== armedState) {
+        armedState = armed;
+        ivCard.classList.toggle('is-armed', armed);
+      }
+      // Jedeman verschwindet INSTANT in dem Moment wo es die IV-Position erreicht (flipT = 1)
+      var handed = flipT >= 0.999;
+      if (handed !== handedOffState) {
+        handedOffState = handed;
+        img.classList.toggle('is-handed-off', handed);
+      }
+    } else {
+      if (armedState) { armedState = false; ivCard && ivCard.classList.remove('is-armed'); }
+      if (handedOffState) { handedOffState = false; img.classList.remove('is-handed-off'); }
     }
   }
 
@@ -2037,31 +2213,30 @@
   var mq = window.matchMedia('(max-width: 760px)');
   var pad = function (n) { return ('00' + n).slice(-3); };
   var folder = mq.matches ? 'assets/eze' : 'assets/felix2';
-  var heroContent = hero.querySelector('.hero-content');
-  var frameImgs = [];
 
-  // First frame is already in the HTML as a <picture> — reuse it
-  var existingFirst = hero.querySelector('.hero-frame.is-active');
-  if (existingFirst) frameImgs.push(existingFirst);
-
-  for (var i = frameImgs.length; i < TOTAL; i++) {
-    var fimg = document.createElement('img');
-    fimg.className = 'hero-frame';
-    fimg.src = folder + '/frame-' + pad(i + 1) + '.webp';
-    fimg.alt = '';
-    fimg.setAttribute('aria-hidden', 'true');
-    fimg.decoding = 'async';
-    if (heroContent) hero.insertBefore(fimg, heroContent);
-    else hero.appendChild(fimg);
-    frameImgs.push(fimg);
+  // Single visible <img> aus dem HTML wiederverwenden — keine 30 gestapelten Layer mehr
+  var heroImg = hero.querySelector('.hero-frame');
+  if (!heroImg) return;
+  // Übrige .hero-frame Elemente (falls altes Markup noch da ist) entfernen
+  var oldExtras = hero.querySelectorAll('.hero-frame');
+  for (var x = 0; x < oldExtras.length; x++) {
+    if (oldExtras[x] !== heroImg) oldExtras[x].parentNode.removeChild(oldExtras[x]);
   }
 
-  function reloadSrcs(folderPath) {
-    // Skip frame 0 — handled by the <picture> media query in HTML
-    for (var i = 1; i < TOTAL; i++) {
-      frameImgs[i].src = folderPath + '/frame-' + pad(i + 1) + '.webp';
+  // Frame-URLs pre-cachen via Image()-Objekte (kein DOM-Stack)
+  var frameSrcs = new Array(TOTAL);
+  var preloads = new Array(TOTAL);
+  function buildList(folderPath) {
+    for (var i = 0; i < TOTAL; i++) {
+      var src = folderPath + '/frame-' + pad(i + 1) + '.webp';
+      frameSrcs[i] = src;
+      var im = new Image();
+      im.decoding = 'async';
+      im.src = src;
+      preloads[i] = im;
     }
   }
+  buildList(folder);
 
   var current = 0;
   var ticking = false;
@@ -2071,7 +2246,8 @@
     var newFolder = mq.matches ? 'assets/eze' : 'assets/felix2';
     if (newFolder !== folder) {
       folder = newFolder;
-      reloadSrcs(folder);
+      buildList(folder);
+      heroImg.src = frameSrcs[current];
     }
   }
   if (mq.addEventListener) mq.addEventListener('change', onMediaChange);
@@ -2094,10 +2270,11 @@
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
     if (idx !== current) {
-      var nextImg = frameImgs[idx];
-      if (nextImg.complete && nextImg.naturalWidth > 0) {
-        frameImgs[current].classList.remove('is-active');
-        nextImg.classList.add('is-active');
+      // Nur swappen, wenn das Ziel-Frame schon im Cache geladen ist
+      // (verhindert weißes Flackern). Sonst beim aktuellen Frame bleiben.
+      var pre = preloads[idx];
+      if (pre && pre.complete && pre.naturalWidth > 0) {
+        heroImg.src = frameSrcs[idx];
         current = idx;
       }
     }
