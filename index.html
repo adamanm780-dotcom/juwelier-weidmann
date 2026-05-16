@@ -207,6 +207,17 @@
     margin-bottom: 22px;
     mix-blend-mode: multiply;
   }
+  .hero-logo-floating {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: auto;
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.15));
+  }
   @media (max-width: 760px) {
     .hero-logo { width: 110px; margin-bottom: 16px; }
   }
@@ -381,10 +392,10 @@
   .wood-text {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    right: clamp(24px, 6vw, 96px);
-    left: auto;
-    max-width: min(46%, 520px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: min(85%, 620px);
+    text-align: center;
     color: #f6efe2;
     z-index: 2;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
@@ -413,10 +424,10 @@
     font-weight: 300;
   }
   .wood-text__divider {
-    width: 72px;
-    height: 1px;
-    background: linear-gradient(90deg, #b08a3e, transparent);
-    margin: 0 0 26px;
+    width: 80px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, #e8c98a, transparent);
+    margin: 0 auto 26px;
   }
   .wood-text__body {
     font-family: 'Inter', sans-serif;
@@ -2144,15 +2155,13 @@
 
     <!-- HERO -->
     <section class="hero-wrap">
+      <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo-floating" />
       <div class="hero">
         <picture class="hero-pic">
           <source srcset="assets/eze/frame-001.webp" media="(max-width: 760px)" />
           <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content">
-          <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
-          <h1>Es wird mir eine große Freude sein<br/>Sie zu begleiten.</h1>
-          <p>Lassen Sie mich Ihnen etwas über mich, mein Geschäft und meine Kostbarkeiten erzählen.</p>
         </div>
       </div>
     </section>
