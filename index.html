@@ -1110,6 +1110,202 @@
   .reveal.delay-5 { transition-delay: 0.56s; }
 
   /* ====== Atelier / About ====== */
+  /* ====== PHILOSOPHIE ====== */
+  .philosophie-section {
+    margin: 32px 24px;
+    padding: 90px 64px;
+    background: linear-gradient(180deg, #faf7f1 0%, #f5ede2 100%);
+    border-radius: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px -20px rgba(176, 138, 62, 0.15);
+  }
+  .philosophie-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(201, 162, 91, 0.06), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(176, 138, 62, 0.04), transparent 45%);
+    pointer-events: none;
+  }
+  .philosophie-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .philosophie-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.2vw, 32px);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 24px;
+    letter-spacing: -0.005em;
+  }
+  .philosophie-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    margin: 48px auto 48px;
+  }
+  .philosophie-history {
+    margin: 48px 0 48px;
+  }
+  .history-timeline {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    align-items: start;
+    text-align: left;
+  }
+  .timeline-dot {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .timeline-text {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .timeline-text p {
+    margin: 0 0 14px;
+  }
+  .timeline-text p:last-child {
+    margin-bottom: 0;
+  }
+  .philosophie-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.08;
+    margin: 44px 0 32px;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+  .philosophie-headline em {
+    font-style: italic;
+    color: var(--jade);
+    font-weight: 300;
+  }
+  .philosophie-body {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.78;
+    margin: 0 0 36px;
+    max-width: 740px;
+  }
+  .philosophie-principles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .principle {
+    text-align: center;
+    padding: 24px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(6px);
+  }
+  .principle-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .principle-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* ====== UNIKATE (formerly Atelier) ====== */
+  .unikate-section {
+    margin: 32px 24px;
+    padding: 90px 64px;
+    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    border-radius: 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+  }
+  .unikate-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+    pointer-events: none;
+  }
+  .unikate-grid { max-width: 760px; margin: 0 auto; position: relative; }
+  .unikate-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .unikate-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(38px, 5.4vw, 64px);
+    line-height: 1.04;
+    margin: 0 0 30px;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+  }
+  .unikate-headline em {
+    font-style: italic;
+    color: var(--jade);
+    font-weight: 300;
+  }
+  .unikate-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+  .unikate-body {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.78;
+    margin: 0 auto 18px;
+    max-width: 620px;
+  }
+  .unikate-meta {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .unikate-meta span { position: relative; }
+  .unikate-meta span:not(:last-child)::after {
+    content: '·';
+    position: absolute;
+    right: -22px;
+    color: var(--gold);
+    font-size: 16px;
+    top: -1px;
+  }
+
   .atelier-section {
     margin: 32px 24px;
     padding: 90px 64px;
@@ -1373,6 +1569,13 @@
     letter-spacing: -0.012em;
   }
   .kollektionen-head h2 em { font-style: italic; color: var(--jade); font-weight: 300; }
+  .kollektionen-intro {
+    margin-top: 28px;
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 700px;
+  }
 
   .kollektionen-index {
     max-width: 980px;
@@ -1590,6 +1793,20 @@
     .kontakt-hours { padding: 28px 22px; }
     .atelier-meta { gap: 24px; font-size: 11px; }
     .atelier-meta span:not(:last-child)::after { right: -16px; }
+    .unikate-meta { gap: 24px; font-size: 11px; }
+    .unikate-meta span:not(:last-child)::after { right: -16px; }
+    .philosophie-section { padding: 60px 32px; margin: 24px 16px; }
+    .philosophie-grid { max-width: 90vw; }
+    .philosophie-intro { font-size: clamp(18px, 2.4vw, 26px); margin-bottom: 18px; }
+    .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 36px 0 24px; }
+    .philosophie-body { font-size: 14px; line-height: 1.7; }
+    .philosophie-principles { grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 32px; padding: 0 16px; }
+    .principle { padding: 16px 12px; }
+    .principle-value { font-size: 14px; }
+    .history-timeline { grid-template-columns: 90px 1fr; gap: 24px; }
+    .timeline-dot { font-size: 22px; }
+    .timeline-text { font-size: 13px; line-height: 1.7; }
+    .unikate-section { padding: 60px 32px; margin: 24px 16px; }
   }
 
   /* ====== Site Header / Hero Navigation ====== */
@@ -1886,8 +2103,8 @@
       <span class="site-header__name">Juwelier Weidmann</span>
     </a>
     <nav class="site-nav" aria-label="Hauptnavigation">
-      <a href="#atelier">Atelier</a>
-      <a href="#prozess">Handwerk</a>
+      <a href="#philosophie">Philosophie</a>
+      <a href="#unikate">Unikate</a>
       <a href="#kollektion">Kollektion</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -1903,8 +2120,8 @@
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-nav__decor" aria-hidden="true"></div>
   <nav aria-label="Mobile Navigation">
-    <a href="#atelier">Atelier</a>
-    <a href="#prozess">Handwerk</a>
+    <a href="#philosophie">Philosophie</a>
+    <a href="#unikate">Unikate</a>
     <a href="#kollektion">Kollektion</a>
     <a href="#kontakt">Kontakt</a>
   </nav>
@@ -1928,39 +2145,91 @@
         </picture>
         <div class="hero-content">
           <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
-          <div class="eyebrow">Zeitlose Vollkommenheit</div>
-          <h1>Klassischer Schmuck<br/>mit Charakter</h1>
-          <p>Schönheit, die mehr als einen Moment währt. Entdecken Sie Schmuck für Generationen.</p>
+          <div class="eyebrow">Willkommen</div>
+          <h1>Es wird mir eine große Freude sein<br/>Sie zu begleiten.</h1>
+          <p>Lassen Sie mich Ihnen etwas über mich, mein Geschäft und meine Kostbarkeiten erzählen.</p>
           <div class="cta-row">
-            <a href="#kollektion" class="btn btn-primary">Kollektion entdecken</a>
-            <a href="#atelier" class="btn btn-ghost">Über uns erfahren</a>
+            <a href="#philosophie" class="btn btn-primary">Meine Geschichte</a>
+            <a href="#kollektion" class="btn btn-ghost">Kollektion entdecken</a>
           </div>
           <div class="hero-meta">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-            Jade. Zeitlos. Versandkostenpräzision.
+            Klassisch. Zeitlos. Von Hand gefertigt.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ATELIER / ABOUT -->
-    <section class="atelier-section" id="atelier" aria-labelledby="atelier-heading">
-      <div class="atelier-grid">
-        <div class="atelier-eyebrow reveal">Wiesbaden · Burgstraße 3</div>
-        <h2 class="atelier-headline reveal delay-1" id="atelier-heading">
-          Eine Familie.<br/><em>Ein Handwerk.</em>
+    <!-- PHILOSOPHIE -->
+    <section class="philosophie-section" id="philosophie" aria-labelledby="philosophie-heading">
+      <div class="philosophie-grid">
+        <p class="philosophie-intro reveal">
+          Begonnen hat alles mit der Faszination am Schönen.
+        </p>
+        <p class="philosophie-intro reveal delay-1">
+          Die Faszination an den wundervollen Farben edler Steine, dem unvergleichlich sanftem Glanz erlesener Perlen, sowie dem einzigartigen Feuer des Diamanten — und das schon seit Kindesalter.
+        </p>
+
+        <div class="philosophie-divider reveal delay-2"></div>
+
+        <div class="philosophie-history reveal delay-3">
+          <div class="history-timeline">
+            <div class="timeline-dot">1991</div>
+            <div class="timeline-text">
+              <p>So startete ich 1991 auf der Wiesbadener Taunusstrasse, um dann ganz bald in die Burgstrasse zu übersiedeln.</p>
+              <p>Dort finden Sie mich seit nunmehr über 30 Jahren. Ein kleines feines Juweliergeschäft.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="philosophie-intro reveal delay-4">
+          Treten Sie ein, lassen Sie sich verzaubern. Verzaubern von ganz individuell gefertigten Schmuckstücken, Accessoires für den Alltag, aber auch manches Mal für den großen Auftritt.
+        </p>
+
+        <h2 class="philosophie-headline reveal delay-5" id="philosophie-heading">
+          Ein Design-Prinzip<br/><em>für die Ewigkeit.</em>
         </h2>
-        <div class="atelier-divider reveal delay-2"></div>
-        <p class="atelier-body reveal delay-3">
-          Achim Weidmann führt eine inhabergeführte Goldschmiede-Werkstatt im historischen
-          Herzen Wiesbadens — wenige Schritte von Marktkirche und Schlossplatz.
+
+        <p class="philosophie-body reveal delay-6">
+          Von Anfang an war es mein Bestreben, klassisch zeitlosen und doch absolut zeitgemäßen Schmuck zu präsentieren. Wie ein Chanel Kostüm oder aber ein Porsche 911. Schmuck ohne viel Schnörkel, mit klarem Design, ausgewogener Formensprache, sportlicher Eleganz — dafür mit ausgesucht erlesenen Zutaten.
         </p>
-        <p class="atelier-body reveal delay-4">
-          Hier entsteht jedes Stück mit eigenen Händen: Trauringe, Verlobungsringe,
-          individuelle Anfertigungen, Reparaturen und Umarbeitungen. Persönlich.
-          Diskret. Mit der Zeit, die ein gutes Stück braucht.
+
+        <div class="philosophie-principles reveal delay-7">
+          <div class="principle">
+            <div class="principle-label">Zeitlos</div>
+            <div class="principle-value">30+ Jahre an einem Ort</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">Handwerk</div>
+            <div class="principle-value">Meisterliche Sorgfalt</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">Material</div>
+            <div class="principle-value">Erlesene Zutaten</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">Vision</div>
+            <div class="principle-value">Für Generationen</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIKATE -->
+    <section class="unikate-section" id="unikate" aria-labelledby="unikate-heading">
+      <div class="unikate-grid">
+        <div class="unikate-eyebrow reveal">Wiesbaden · Burgstraße 3</div>
+        <h2 class="unikate-headline reveal delay-1" id="unikate-heading">
+          Jedes Stück<br/><em>ein Unikat.</em>
+        </h2>
+        <div class="unikate-divider reveal delay-2"></div>
+        <p class="unikate-body reveal delay-3">
+          So entstehen, gemeinsam mit den für mich arbeitenden Goldschmieden und Juwelenfassern, viele Schmuckstücke als absolute Unikate. Die Inspiration dazu kommt meist über einen besonderen Stein oder eine besondere Perle.
         </p>
-        <div class="atelier-meta reveal delay-5">
+        <p class="unikate-body reveal delay-4">
+          Von der ersten Idee bis zu dem dann vollendeten Schmuckstück kann es schon einmal mehrere Wochen, vielleicht sogar zwei, drei Monate dauern. Alles will sorgfältig abgewogen sein, damit am Ende, beim ersten Anblick, ein Lächeln in unser Gesicht gezaubert wird.
+        </p>
+        <div class="unikate-meta reveal delay-5">
           <span>Goldschmied</span>
           <span>Silberschmied</span>
           <span>Edelsteine</span>
@@ -2078,6 +2347,9 @@
         <h2 class="reveal delay-1" id="kollektion-heading">
           Fünf Disziplinen — <em>ein Haus.</em>
         </h2>
+        <p class="kollektionen-intro reveal delay-2">
+          Neben meinen Unikaten ist es mir ein ebenso großes Vergnügen, aus hochwertigen Kollektionen international arbeitender Ateliers Schmuckstücke auszuwählen und zu präsentieren. Immer sind es Stücke mit besonderer Handschrift, in kleinen exklusiven Serien gefertigt, mit eigenem Charakter.
+        </p>
       </div>
       <ol class="kollektionen-index">
         <li class="kollektion-row reveal">
