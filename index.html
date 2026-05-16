@@ -422,10 +422,11 @@
   .wood-text {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: min(85%, 620px);
-    text-align: center;
+    transform: translateY(-50%);
+    right: clamp(24px, 6vw, 96px);
+    left: auto;
+    max-width: min(46%, 520px);
+    text-align: left;
     color: #f6efe2;
     z-index: 2;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
@@ -454,10 +455,10 @@
     font-weight: 300;
   }
   .wood-text__divider {
-    width: 80px;
-    height: 1.5px;
-    background: linear-gradient(90deg, transparent, #e8c98a, transparent);
-    margin: 0 auto 26px;
+    width: 72px;
+    height: 1px;
+    background: linear-gradient(90deg, #b08a3e, transparent);
+    margin: 0 0 26px;
   }
   .wood-text__body {
     font-family: 'Inter', sans-serif;
@@ -2648,54 +2649,6 @@
           <span class="kollektion-row__meta">handgefertigt</span>
         </li>
       </ol>
-    </section>
-
-    <!-- NEWS -->
-    <section class="news-section" id="news" aria-labelledby="news-heading">
-      <div class="news-grid">
-        <div class="news-eyebrow reveal">Aktuelles</div>
-        <h2 class="news-headline reveal delay-1" id="news-heading">News & <em>Aktuelles</em></h2>
-        <div class="news-divider reveal delay-2"></div>
-        <p class="news-body reveal delay-3">Neue Kollektionen, aktuelle Ausstellungen und Neuigkeiten aus unserem Atelier.</p>
-        <div class="news-items reveal delay-4">
-          <article class="news-item">
-            <h3>Neue Kollektion 2026</h3>
-            <p>Frühjahrskollekt ion mit zeitlosen Designs und erlesenen Steinen.</p>
-          </article>
-          <article class="news-item">
-            <h3>Atelier längere Zeiten</h3>
-            <p>Ab April auch mittwochs nach 18 Uhr für Beratungen.</p>
-          </article>
-          <article class="news-item">
-            <h3>Reparaturen & Umarbeitungen</h3>
-            <p>Ihre Erbstücke in guten Händen — Restauration nach höchstem Standard.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PARTNER -->
-    <section class="partner-section" id="partner" aria-labelledby="partner-heading">
-      <div class="partner-grid">
-        <div class="partner-eyebrow reveal">Netzwerk</div>
-        <h2 class="partner-headline reveal delay-1" id="partner-heading">Enge <em>Partnerschaften.</em></h2>
-        <div class="partner-divider reveal delay-2"></div>
-        <p class="partner-body reveal delay-3">Langfristige Zusammenarbeit mit international anerkannten Ateliers und Designern.</p>
-        <div class="partner-items reveal delay-4">
-          <div class="partner-item">
-            <h3>Goldschmiede-Ateliers</h3>
-            <p>Meisterbetriebe aus Deutschland und Europa für höchste Qualität.</p>
-          </div>
-          <div class="partner-item">
-            <h3>Steinlieferanten</h3>
-            <p>Zertifizierte Partner für Diamanten, Farbsteine und erlesene Perlen.</p>
-          </div>
-          <div class="partner-item">
-            <h3>Designer & Labels</h3>
-            <p>Ausgewählte Schmuckdesigner mit exklusiven Kollektionen.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- KONTAKT / STANDORT -->
