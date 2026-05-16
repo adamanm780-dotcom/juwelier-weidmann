@@ -194,8 +194,8 @@
   }
   .hero-content {
     position: relative;
-    padding: 60px 60px;
-    max-width: 560px;
+    padding: 80px 60px;
+    max-width: 620px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -204,42 +204,39 @@
   .hero-logo {
     width: 140px;
     height: auto;
-    margin-bottom: 22px;
+    margin-bottom: 32px;
     mix-blend-mode: multiply;
   }
   @media (max-width: 760px) {
-    .hero-logo { width: 110px; margin-bottom: 16px; }
+    .hero-logo { width: 110px; margin-bottom: 24px; }
   }
   .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-    font-weight: 500;
+    display: none;
   }
-  .hero .eyebrow { color: #fff; }
+  .hero .eyebrow { display: none; }
   .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    font-size: clamp(30px, 5vw, 56px);
-    line-height: 1.05;
-    margin: 0 0 18px;
+    font-weight: 400;
+    font-size: clamp(32px, 5.2vw, 64px);
+    line-height: 1.1;
+    margin: 0 0 28px;
     color: #fff;
-    letter-spacing: -0.005em;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+    letter-spacing: -0.008em;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.35);
   }
   .section-title { font-size: clamp(22px, 3vw, 30px); }
   .craft-left h2, .jade-intro h2, .tradition-right h2 { font-size: clamp(24px, 3.2vw, 34px); }
   img { max-width: 100%; height: auto; }
   .hero p {
     color: #fff;
-    margin: 0 0 30px;
-    max-width: 420px;
-    font-size: 15px;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+    margin: 0;
+    max-width: 520px;
+    font-size: 16px;
+    line-height: 1.7;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-weight: 300;
   }
-  .cta-row { display: flex; gap: 12px; margin-bottom: 26px; }
+  .cta-row { display: none; }
   .btn {
     font-family: 'Inter', sans-serif;
     font-size: 13.5px;
@@ -1110,71 +1107,77 @@
   .reveal.delay-5 { transition-delay: 0.56s; }
 
   /* ====== Atelier / About ====== */
-  /* ====== PHILOSOPHIE ====== */
+  /* ====== PHILOSOPHIE — Editorial Mansion Style ====== */
   .philosophie-section {
-    margin: 32px 24px;
-    padding: 90px 64px;
-    background: linear-gradient(180deg, #faf7f1 0%, #f5ede2 100%);
-    border-radius: 28px;
-    text-align: center;
+    margin: 0 24px 64px 24px;
+    padding: 96px 72px;
+    background: transparent;
+    text-align: left;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 12px 40px -20px rgba(176, 138, 62, 0.15);
+    overflow: visible;
+    box-shadow: none;
   }
   .philosophie-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(201, 162, 91, 0.06), transparent 45%),
-      radial-gradient(circle at 85% 90%, rgba(176, 138, 62, 0.04), transparent 45%);
-    pointer-events: none;
+    display: none;
   }
   .philosophie-grid {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     position: relative;
   }
   .philosophie-intro {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(20px, 3.2vw, 32px);
+    font-size: clamp(26px, 4vw, 48px);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.55;
     color: var(--ink);
-    margin: 0 0 24px;
-    letter-spacing: -0.005em;
+    margin: 0 0 32px;
+    letter-spacing: -0.008em;
+    max-width: 900px;
+  }
+  .philosophie-intro:nth-of-type(2) {
+    font-size: clamp(18px, 2.4vw, 28px);
+    color: var(--ink-2);
+    margin-bottom: 48px;
+    max-width: 850px;
+    font-weight: 300;
+    line-height: 1.7;
   }
   .philosophie-divider {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-    margin: 48px auto 48px;
+    width: 3px;
+    height: 80px;
+    background: var(--jade);
+    margin: 56px 0 56px 0;
+    opacity: 0.6;
   }
   .philosophie-history {
-    margin: 48px 0 48px;
+    margin: 72px 0 72px 0;
+    padding: 48px 0;
+    border-top: 1px solid rgba(79, 107, 84, 0.15);
+    border-bottom: 1px solid rgba(79, 107, 84, 0.15);
   }
   .history-timeline {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 40px;
+    grid-template-columns: 140px 1fr;
+    gap: 56px;
     align-items: start;
-    text-align: left;
   }
   .timeline-dot {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--gold);
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--jade);
     line-height: 1;
-    padding-top: 4px;
+    padding-top: 8px;
   }
   .timeline-text {
     color: var(--ink-2);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.8;
   }
   .timeline-text p {
-    margin: 0 0 14px;
+    margin: 0 0 18px;
+    max-width: 700px;
   }
   .timeline-text p:last-child {
     margin-bottom: 0;
@@ -1182,11 +1185,12 @@
   .philosophie-headline {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.08;
-    margin: 44px 0 32px;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.12;
+    margin: 72px 0 48px 0;
     color: var(--ink);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
+    max-width: 950px;
   }
   .philosophie-headline em {
     font-style: italic;
@@ -1196,76 +1200,77 @@
   .philosophie-body {
     color: var(--ink-2);
     font-size: 16px;
-    line-height: 1.78;
-    margin: 0 0 36px;
-    max-width: 740px;
+    line-height: 1.85;
+    margin: 0 0 48px;
+    max-width: 850px;
   }
   .philosophie-principles {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
-    margin-top: 48px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 84px;
+    margin-top: 64px;
+    max-width: 900px;
   }
   .principle {
-    text-align: center;
-    padding: 24px 18px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(6px);
+    text-align: left;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
+    border-left: 3px solid var(--jade);
+    padding-left: 32px;
   }
   .principle-label {
-    font-size: 11px;
-    letter-spacing: 0.18em;
+    font-size: 12px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--jade);
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   .principle-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 24px;
     color: var(--ink);
     font-weight: 400;
     line-height: 1.4;
   }
 
-  /* ====== UNIKATE (formerly Atelier) ====== */
+  /* ====== UNIKATE (formerly Atelier) — Editorial Style ====== */
   .unikate-section {
-    margin: 32px 24px;
-    padding: 90px 64px;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
-    border-radius: 28px;
-    text-align: center;
+    margin: 64px 24px;
+    padding: 96px 72px;
+    background: transparent;
+    text-align: left;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+    overflow: visible;
+    box-shadow: none;
   }
   .unikate-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
-    pointer-events: none;
+    display: none;
   }
-  .unikate-grid { max-width: 760px; margin: 0 auto; position: relative; }
+  .unikate-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+  }
   .unikate-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.34em;
+    font-size: 12px;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: var(--jade);
-    font-weight: 500;
-    margin-bottom: 22px;
+    font-weight: 600;
+    margin-bottom: 28px;
   }
   .unikate-headline {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(38px, 5.4vw, 64px);
-    line-height: 1.04;
-    margin: 0 0 30px;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.12;
+    margin: 0 0 48px;
     color: var(--ink);
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
+    max-width: 900px;
   }
   .unikate-headline em {
     font-style: italic;
@@ -1273,37 +1278,35 @@
     font-weight: 300;
   }
   .unikate-divider {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto 36px;
+    width: 3px;
+    height: 80px;
+    background: var(--jade);
+    margin: 48px 0 48px 0;
+    opacity: 0.6;
   }
   .unikate-body {
     color: var(--ink-2);
     font-size: 16px;
-    line-height: 1.78;
-    margin: 0 auto 18px;
-    max-width: 620px;
+    line-height: 1.85;
+    margin: 0 0 28px;
+    max-width: 850px;
   }
   .unikate-meta {
     display: flex;
-    justify-content: center;
-    gap: 36px;
-    margin-top: 44px;
+    gap: 44px;
+    margin-top: 64px;
     flex-wrap: wrap;
-    font-size: 12px;
-    letter-spacing: 0.18em;
+    font-size: 13px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--jade);
   }
-  .unikate-meta span { position: relative; }
+  .unikate-meta span {
+    position: relative;
+    font-weight: 500;
+  }
   .unikate-meta span:not(:last-child)::after {
-    content: '·';
-    position: absolute;
-    right: -22px;
-    color: var(--gold);
-    font-size: 16px;
-    top: -1px;
+    display: none;
   }
 
   .atelier-section {
@@ -1791,22 +1794,25 @@
     .kollektion-row__meta { font-size: 11px; padding-top: 12px; letter-spacing: 0.12em; }
     .kontakt-section { padding: 56px 20px; }
     .kontakt-hours { padding: 28px 22px; }
-    .atelier-meta { gap: 24px; font-size: 11px; }
-    .atelier-meta span:not(:last-child)::after { right: -16px; }
-    .unikate-meta { gap: 24px; font-size: 11px; }
-    .unikate-meta span:not(:last-child)::after { right: -16px; }
-    .philosophie-section { padding: 60px 32px; margin: 24px 16px; }
-    .philosophie-grid { max-width: 90vw; }
-    .philosophie-intro { font-size: clamp(18px, 2.4vw, 26px); margin-bottom: 18px; }
-    .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 36px 0 24px; }
-    .philosophie-body { font-size: 14px; line-height: 1.7; }
-    .philosophie-principles { grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 32px; padding: 0 16px; }
-    .principle { padding: 16px 12px; }
-    .principle-value { font-size: 14px; }
-    .history-timeline { grid-template-columns: 90px 1fr; gap: 24px; }
-    .timeline-dot { font-size: 22px; }
-    .timeline-text { font-size: 13px; line-height: 1.7; }
-    .unikate-section { padding: 60px 32px; margin: 24px 16px; }
+    .philosophie-section { padding: 64px 32px; margin: 0 16px 48px 16px; }
+    .philosophie-intro { font-size: clamp(20px, 3.6vw, 36px); margin-bottom: 24px; }
+    .philosophie-intro:nth-of-type(2) { font-size: clamp(15px, 2.2vw, 22px); margin-bottom: 36px; }
+    .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 48px 0 28px; }
+    .philosophie-body { font-size: 15px; line-height: 1.75; margin-bottom: 32px; }
+    .philosophie-divider { height: 60px; margin: 40px 0; }
+    .philosophie-principles { grid-template-columns: 1fr; gap: 36px; margin-top: 48px; }
+    .principle { border-left: 2px solid var(--jade); padding-left: 24px; }
+    .principle-value { font-size: 20px; }
+    .history-timeline { grid-template-columns: 100px 1fr; gap: 32px; }
+    .timeline-dot { font-size: 36px; }
+    .timeline-text { font-size: 14px; line-height: 1.75; }
+    .unikate-section { padding: 64px 32px; margin: 48px 16px; }
+    .unikate-eyebrow { margin-bottom: 20px; }
+    .unikate-headline { font-size: clamp(28px, 4.2vw, 44px); margin-bottom: 32px; }
+    .unikate-body { font-size: 15px; line-height: 1.75; margin-bottom: 24px; }
+    .unikate-divider { height: 60px; margin: 40px 0; }
+    .unikate-meta { gap: 28px; font-size: 11px; }
+    .hero-content { padding: 64px 32px; }
   }
 
   /* ====== Site Header / Hero Navigation ====== */
@@ -1816,27 +1822,23 @@
     left: 0;
     right: 0;
     z-index: 200;
-    padding: 18px 36px;
+    padding: 24px 48px;
     display: flex;
     justify-content: center;
     pointer-events: none;
     background-color: transparent;
-    border-bottom: 1px solid transparent;
-    transition: background-color .35s ease, border-color .35s ease,
-                padding .35s ease, backdrop-filter .35s ease;
+    border-bottom: none;
+    transition: all .4s ease;
   }
-  /* Subtle dark scrim so white nav text stays readable on bright hero areas */
   .site-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-                rgba(20,16,10,0.55) 0%,
-                rgba(20,16,10,0.30) 55%,
-                rgba(20,16,10,0) 100%);
-    pointer-events: none;
-    transition: opacity .35s ease;
-    z-index: -1;
+    display: none;
+  }
+  .site-header.is-scrolled {
+    background-color: rgba(251, 246, 236, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(230, 220, 198, 0.4);
+    padding: 18px 48px;
   }
   .site-header.is-scrolled::before { opacity: 0; }
   .site-header > * { pointer-events: auto; }
@@ -2145,17 +2147,8 @@
         </picture>
         <div class="hero-content">
           <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo" />
-          <div class="eyebrow">Willkommen</div>
           <h1>Es wird mir eine große Freude sein<br/>Sie zu begleiten.</h1>
           <p>Lassen Sie mich Ihnen etwas über mich, mein Geschäft und meine Kostbarkeiten erzählen.</p>
-          <div class="cta-row">
-            <a href="#philosophie" class="btn btn-primary">Meine Geschichte</a>
-            <a href="#kollektion" class="btn btn-ghost">Kollektion entdecken</a>
-          </div>
-          <div class="hero-meta">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
-            Klassisch. Zeitlos. Von Hand gefertigt.
-          </div>
         </div>
       </div>
     </section>
@@ -2733,8 +2726,8 @@
     if (heroWrap) {
       var r = heroWrap.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;
-      // Solid once hero is sliding out of view
-      solid = r.bottom < vh * 0.85;
+      // Nav becomes visible once scrolling past hero
+      solid = r.bottom < vh * 0.5;
     } else {
       solid = window.scrollY > 60;
     }
