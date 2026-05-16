@@ -1953,7 +1953,7 @@
     .unikate-section { padding: 60px 32px; margin: 24px 16px; }
   }
 
-  /* ====== Site Header / Hero Navigation ====== */
+  /* ====== Site Header / Navigation (separate, always visible) ====== */
   .site-header {
     position: fixed;
     top: 0;
@@ -1964,25 +1964,16 @@
     display: flex;
     justify-content: center;
     pointer-events: none;
-    background-color: transparent;
-    border-bottom: 1px solid transparent;
-    transition: background-color .35s ease, border-color .35s ease,
-                padding .35s ease, backdrop-filter .35s ease;
+    background-color: rgba(251, 246, 236, 0.95);
+    border-bottom: 1px solid rgba(230, 220, 198, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background-color .35s ease, border-color .35s ease;
   }
-  /* Subtle dark scrim so white nav text stays readable on bright hero areas */
   .site-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-                rgba(20,16,10,0.55) 0%,
-                rgba(20,16,10,0.30) 55%,
-                rgba(20,16,10,0) 100%);
-    pointer-events: none;
-    transition: opacity .35s ease;
-    z-index: -1;
+    display: none;
   }
-  .site-header.is-scrolled::before { opacity: 0; }
+  .site-header.is-scrolled::before { display: none; }
   .site-header > * { pointer-events: auto; }
   .site-header__inner {
     display: flex;
@@ -2026,11 +2017,11 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #fff;
+    color: var(--ink);
     position: relative;
     padding: 6px 2px;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
-    transition: color .25s ease, text-shadow .35s ease;
+    text-shadow: none;
+    transition: color .25s ease;
   }
   .site-nav a::after {
     content: '';
@@ -2426,8 +2417,6 @@
           <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content">
-          <h1 class="hero-title">Es wird mir eine<br/>große Freude sein<br/>Sie zu begleiten.</h1>
-          <p class="hero-subtitle">Lassen Sie mich Ihnen etwas über mich, mein Geschäft und meine Kostbarkeiten erzählen.</p>
         </div>
       </div>
     </section>
