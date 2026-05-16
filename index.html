@@ -1969,6 +1969,92 @@
     transform: rotate(-45deg);
   }
 
+  /* ====== MODALS ====== */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 300;
+  }
+  .modal.is-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(31, 26, 20, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .modal__content {
+    position: relative;
+    background: var(--paper);
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 560px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  }
+  .modal__content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 400;
+    margin: 0 0 32px;
+    color: var(--ink);
+  }
+  .modal__body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .modal__body p {
+    margin: 0 0 18px;
+  }
+  .modal__body a {
+    color: var(--jade);
+    text-decoration: none;
+    border-bottom: 1px solid var(--jade);
+  }
+  .modal__body a:hover {
+    color: var(--jade-dark);
+  }
+  .modal__body dl {
+    margin: 18px 0;
+  }
+  .modal__body dt {
+    font-weight: 600;
+    margin-top: 12px;
+  }
+  .modal__body dd {
+    margin: 4px 0 0 0;
+    color: var(--muted);
+  }
+  .modal__close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: 0;
+    font-size: 28px;
+    color: var(--ink-2);
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    transition: color 0.2s;
+  }
+  .modal__close:hover {
+    color: var(--ink);
+  }
+
   /* Scrolled state: solid cream nav with dark text */
   .site-header.is-scrolled {
     background-color: rgba(251, 246, 236, 0.92);
@@ -2118,9 +2204,9 @@
       <a href="#philosophie">Philosophie</a>
       <a href="#unikate">Unikate</a>
       <a href="#kollektion">Kollektion</a>
-      <a href="#news">News</a>
-      <a href="#partner">Partner</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
+      <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
+      <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
     </nav>
     <a href="#kontakt" class="site-header__cta">Termin</a>
     <button type="button" class="site-header__burger" id="navBurger"
@@ -2130,6 +2216,51 @@
   </div>
 </header>
 
+<!-- Modal Kontakt -->
+<div class="modal" id="modalKontakt" role="dialog" aria-labelledby="modal-kontakt-title">
+  <div class="modal__overlay"></div>
+  <div class="modal__content">
+    <button class="modal__close" id="closeModalKontakt" aria-label="Schließen">✕</button>
+    <h2 id="modal-kontakt-title">Kontakt</h2>
+    <div class="modal__body">
+      <p><strong>Juwelier Weidmann</strong></p>
+      <p>Burgstraße 3<br/>65183 Wiesbaden</p>
+      <p><strong>Telefon:</strong> <a href="tel:+496113742800">+49 611 374 280</a></p>
+      <p><strong>E-Mail:</strong> <a href="mailto:info@weidmann.de">info@weidmann.de</a></p>
+      <p><strong>Öffnungszeiten:</strong></p>
+      <dl>
+        <dt>Montag–Freitag:</dt><dd>10:00–18:30 Uhr</dd>
+        <dt>Samstag:</dt><dd>10:00–14:00 Uhr</dd>
+        <dt>Sonntag:</dt><dd>Geschlossen</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Modal News -->
+<div class="modal" id="modalNews" role="dialog" aria-labelledby="modal-news-title">
+  <div class="modal__overlay"></div>
+  <div class="modal__content">
+    <button class="modal__close" id="closeModalNews" aria-label="Schließen">✕</button>
+    <h2 id="modal-news-title">News</h2>
+    <div class="modal__body">
+      <p>Aktuelle Meldungen und Neuigkeiten von Juwelier Weidmann folgen in Kürze.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Partner -->
+<div class="modal" id="modalPartner" role="dialog" aria-labelledby="modal-partner-title">
+  <div class="modal__overlay"></div>
+  <div class="modal__content">
+    <button class="modal__close" id="closeModalPartner" aria-label="Schließen">✕</button>
+    <h2 id="modal-partner-title">Partner</h2>
+    <div class="modal__body">
+      <p>Unsere geschätzten Partner und Kooperationen — bald mit mehr Details.</p>
+    </div>
+  </div>
+</div>
+
 <!-- Mobile Menu Overlay -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-nav__decor" aria-hidden="true"></div>
@@ -2138,9 +2269,9 @@
     <a href="#philosophie">Philosophie</a>
     <a href="#unikate">Unikate</a>
     <a href="#kollektion">Kollektion</a>
-    <a href="#news">News</a>
-    <a href="#partner">Partner</a>
-    <a href="#kontakt">Kontakt</a>
+    <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
+    <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
+    <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
   </nav>
   <div class="mobile-nav__divider"></div>
   <div class="mobile-nav__contact">
@@ -2786,6 +2917,64 @@
       if (window.innerWidth > 900 && menu.classList.contains('is-open')) closeMenu();
     });
   }
+})();
+
+// Modals
+(function () {
+  var modalKontakt = document.getElementById('modalKontakt');
+  var modalNews = document.getElementById('modalNews');
+  var modalPartner = document.getElementById('modalPartner');
+
+  function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Trigger buttons
+  document.querySelectorAll('.nav-modal-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var modalId = this.getAttribute('data-modal');
+      var modal = document.getElementById(modalId);
+      openModal(modal);
+    });
+  });
+
+  // Close buttons
+  ['modalKontakt', 'modalNews', 'modalPartner'].forEach(function (modalId) {
+    var modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    var closeBtn = modal.querySelector('.modal__close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        closeModal(modal);
+      });
+    }
+
+    var overlay = modal.querySelector('.modal__overlay');
+    if (overlay) {
+      overlay.addEventListener('click', function () {
+        closeModal(modal);
+      });
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeModal(modalKontakt);
+      closeModal(modalNews);
+      closeModal(modalPartner);
+    }
+  });
 })();
 
 </script>
