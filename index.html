@@ -216,13 +216,13 @@
   .hero-logo-floating {
     position: absolute;
     top: 50%;
-    left: 40%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 200px;
+    width: 280px;
     height: auto;
     z-index: 10;
     pointer-events: none;
-    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.15));
+    filter: drop-shadow(0 6px 24px rgba(0,0,0,0.2));
   }
   @media (max-width: 760px) {
     .hero-logo { width: 110px; margin-bottom: 16px; }
@@ -278,6 +278,17 @@
       opacity: 1;
       transform: translateY(0) scale(1);
     }
+  }
+  .hero-tagline {
+    position: absolute;
+    bottom: 48px;
+    left: 60px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    animation: heroFadeIn 1.2s ease-out 0.8s both;
   }
   .hero p {
     color: #fff;
@@ -1964,8 +1975,8 @@
     display: flex;
     justify-content: center;
     pointer-events: none;
-    background-color: rgba(251, 246, 236, 0.95);
-    border-bottom: 1px solid rgba(230, 220, 198, 0.4);
+    background-color: rgba(31, 26, 20, 0.92);
+    border-bottom: 1px solid rgba(79, 107, 84, 0.3);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: background-color .35s ease, border-color .35s ease;
@@ -1987,15 +1998,15 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: #fff;
+    color: #f5efdb;
     margin-right: auto;
     transition: color .35s ease;
   }
   .site-header__logo {
-    height: 38px;
+    height: 40px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,.35));
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
     transition: filter .35s ease, height .35s ease;
   }
   .site-header__name {
@@ -2003,8 +2014,8 @@
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0.02em;
-    text-shadow: 0 1px 8px rgba(0,0,0,0.35);
-    transition: text-shadow .35s ease, color .35s ease;
+    color: #f5efdb;
+    transition: color .35s ease;
   }
   .site-nav {
     display: flex;
@@ -2017,10 +2028,10 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
-    color: var(--ink);
+    color: #f5efdb;
     position: relative;
     padding: 6px 2px;
-    text-shadow: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     transition: color .25s ease;
   }
   .site-nav a::after {
@@ -2417,6 +2428,7 @@
           <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content">
+          <div class="hero-tagline">Meisterliche Goldschmiedekunst seit 1875</div>
         </div>
       </div>
     </section>
