@@ -511,11 +511,12 @@
     .wood-photo-frame { height: 85%; max-width: 55%; left: 8px; border-radius: 8px; }
   }
 
-  /* ====== Handwerk Phase 1 — Jedeman (sticky-scroll, mit fade vor Prozess-Karten) ====== */
+  /* ====== Handwerk Phase 1 — Jedeman (sticky-scroll, mit hard cut vor Prozess-Karten) ====== */
   .craft-wrap {
     position: relative;
     margin: 0 32px 28px 24px;
     height: 130vh;
+    overflow: hidden;
   }
   .craft-sticky {
     position: sticky;
@@ -1307,6 +1308,52 @@
     color: var(--ink);
     font-weight: 400;
     line-height: 1.4;
+  }
+
+  /* ====== Achim Portrait Placeholder ====== */
+  .philosophie-portrait {
+    display: flex;
+    justify-content: center;
+    margin-top: 56px;
+  }
+  .portrait-placeholder {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6efe2 0%, #f1e9d8 100%);
+    border: 2px solid var(--gold-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px -12px rgba(0,0,0,0.15);
+  }
+  .portrait-placeholder svg {
+    width: 65%;
+    height: 65%;
+    opacity: 0.7;
+  }
+  .portrait-placeholder-text {
+    position: absolute;
+    bottom: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 768px) {
+    .portrait-placeholder {
+      width: 200px;
+      height: 200px;
+    }
+    .portrait-placeholder-text {
+      font-size: 14px;
+      bottom: 14px;
+    }
   }
 
   /* ====== UNIKATE (formerly Atelier) ====== */
@@ -2496,6 +2543,17 @@
             <div class="principle-value">Für Generationen</div>
           </div>
         </div>
+
+        <div class="philosophie-portrait reveal delay-8">
+          <div class="portrait-placeholder">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="100" cy="100" r="100" fill="#f1e9d8"/>
+              <circle cx="100" cy="70" r="35" fill="#b08a3e" opacity="0.6"/>
+              <path d="M 100 105 Q 70 130 70 160 L 130 160 Q 130 130 100 105 Z" fill="#b08a3e" opacity="0.6"/>
+            </svg>
+            <p class="portrait-placeholder-text">Achim Weidmann</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2867,11 +2925,8 @@
         handedOffState = handed;
         img.classList.toggle('is-handed-off', handed);
       }
-      // Craft-left (Holz-Box) fadet kontinuierlich mit flipT aus, damit sie
-      // nicht in die Prozess-Karten hineinragt wenn prozess-wrap erscheint
+      // Craft-left Opacity wird nicht mehr verwaltet — hard cut via overflow: hidden statt Fade
       if (craftLeft) {
-        var leftOpacity = Math.max(0, 1 - flipT * 1.4);
-        craftLeft.style.opacity = leftOpacity.toFixed(3);
         craftLeft.style.pointerEvents = flipT > 0.4 ? 'none' : '';
       }
     } else {
