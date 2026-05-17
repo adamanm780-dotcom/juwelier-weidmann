@@ -215,25 +215,14 @@
   }
   .hero-logo-floating {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 48%;
+    left: 72px;
+    transform: translateY(-50%);
     width: 280px;
     height: auto;
     z-index: 10;
     pointer-events: none;
     filter: drop-shadow(0 6px 24px rgba(0,0,0,0.2));
-    animation: logoPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-  }
-  @keyframes logoPopIn {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.7);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
   }
   @media (max-width: 760px) {
     .hero-logo { width: 110px; margin-bottom: 16px; }
@@ -525,6 +514,7 @@
     display: grid;
     place-items: center;
     z-index: 50;
+    overflow: hidden;
   }
   .craft {
     background: transparent;
@@ -2932,7 +2922,7 @@
     } else {
       if (armedState) { armedState = false; ivCard && ivCard.classList.remove('is-armed'); }
       if (handedOffState) { handedOffState = false; img.classList.remove('is-handed-off'); }
-      if (craftLeft) { craftLeft.style.opacity = ''; craftLeft.style.pointerEvents = ''; }
+      if (craftLeft) { craftLeft.style.pointerEvents = ''; }
     }
   }
 
