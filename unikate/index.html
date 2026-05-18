@@ -179,6 +179,13 @@
       0 1px 0 rgba(255,255,255,0.7) inset,
       0 18px 50px -22px rgba(70,52,18,0.22),
       0 2px 8px rgba(70,52,18,0.06);
+    outline: 1px solid rgba(176,138,62,0.55);
+    outline-offset: 16px;
+    transition: outline-color .5s ease, outline-offset .5s ease;
+  }
+  .ring:hover .ring__frame {
+    outline-color: rgba(176,138,62,0.85);
+    outline-offset: 20px;
   }
   .ring__frame::after {
     content: '';
@@ -326,6 +333,8 @@
     .r3 { grid-column: 1 / span 6; margin-top: -20px; }
     .r4 { grid-column: 7 / span 6; }
     .r5 { grid-column: 3 / span 8; }
+    .ring__frame { outline-offset: 12px; }
+    .ring:hover .ring__frame { outline-offset: 14px; }
   }
   @media (max-width: 760px) {
     .topbar__inner { padding: 14px 18px; }
@@ -346,8 +355,10 @@
     }
     .r1 .ring__frame, .r2 .ring__frame, .r3 .ring__frame,
     .r4 .ring__frame, .r5 .ring__frame { aspect-ratio: 4 / 5; }
+    .ring__frame { outline-offset: 10px; }
+    .ring:hover .ring__frame { outline-offset: 12px; }
     .ring__name { font-size: 24px; }
-    .closing { padding: 60px 22px 100px; margin: 0 22px; }
+    .closing { padding: 60px 22px 100px; }
   }
 </style>
 </head>
