@@ -2469,8 +2469,8 @@
       <div class="hero">
         <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo-floating" />
         <picture class="hero-pic">
-          <source srcset="assets/eze/frame-001.webp" media="(max-width: 760px)" />
-          <img class="hero-frame is-active" src="assets/felix2/frame-001.webp" alt="" fetchpriority="high" />
+          <source srcset="assets/shigma-mobile/frame-001.webp" media="(max-width: 760px)" />
+          <img class="hero-frame is-active" src="assets/shigma/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content">
           <div class="hero-tagline">Meisterliche Goldschmiedekunst seit 1875</div>
@@ -2934,14 +2934,14 @@
 })();
 
 (function () {
-  var TOTAL = 30;
+  var TOTAL = 50;
   var heroWrap = document.querySelector('.hero-wrap');
   var hero = heroWrap ? heroWrap.querySelector('.hero') : null;
   if (!heroWrap || !hero) return;
 
   var mq = window.matchMedia('(max-width: 760px)');
   var pad = function (n) { return ('00' + n).slice(-3); };
-  var folder = mq.matches ? 'assets/eze' : 'assets/felix2';
+  var folder = mq.matches ? 'assets/shigma-mobile' : 'assets/shigma';
 
   // Single visible <img> aus dem HTML wiederverwenden — keine 30 gestapelten Layer mehr
   var heroImg = hero.querySelector('.hero-frame');
@@ -2972,7 +2972,7 @@
   var doneState = false;
 
   function onMediaChange() {
-    var newFolder = mq.matches ? 'assets/eze' : 'assets/felix2';
+    var newFolder = mq.matches ? 'assets/shigma-mobile' : 'assets/shigma';
     if (newFolder !== folder) {
       folder = newFolder;
       buildList(folder);
