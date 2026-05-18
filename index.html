@@ -166,8 +166,10 @@
   .hero-wrap {
     position: relative;
     margin: 12px 24px 28px 24px;
-    height: 100vh;
-    overflow: hidden;
+    /* 500vh: 1 Viewport für die Hero selbst (sticky) + 4 Viewports Scroll-Strecke,
+       über die sich die 50 Shigma-Frames abspielen. Erst danach scrollt die Seite weiter. */
+    height: 500vh;
+    overflow: visible;
   }
   .hero {
     position: sticky;
@@ -211,17 +213,7 @@
     margin-bottom: 22px;
     mix-blend-mode: multiply;
   }
-  .hero-logo-floating {
-    position: absolute;
-    top: 50%;
-    left: 72px;
-    transform: translateY(-50%);
-    width: 280px;
-    height: auto;
-    z-index: 10;
-    pointer-events: none;
-    filter: drop-shadow(0 6px 24px rgba(0,0,0,0.2));
-  }
+  .hero-logo-floating { display: none; }
   @media (max-width: 760px) {
     .hero-logo { width: 110px; margin-bottom: 16px; }
   }
@@ -1064,7 +1056,7 @@
     .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
     .nav-icons { gap: 14px; }
     .brand-logo { height: 36px; }
-    .hero-wrap { margin: 8px 14px 16px; height: 200vh; }
+    .hero-wrap { margin: 8px 14px 16px; height: 400vh; }
     .hero { border-radius: 22px; }
     .hero::before { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%); }
     .hero-content { padding: 32px 22px; max-width: 100%; }
@@ -1109,7 +1101,7 @@
     .nav-icons { gap: 10px; }
     .brand-logo { height: 30px; }
 
-    .hero-wrap { margin: 6px 10px 12px; height: 200vh; }
+    .hero-wrap { margin: 6px 10px 12px; height: 400vh; }
     .hero { border-radius: 18px; }
     .hero-content { padding: 24px 16px; }
     .hero h1 { font-size: clamp(26px, 9vw, 34px); }
@@ -2020,8 +2012,8 @@
     display: flex;
     justify-content: center;
     pointer-events: none;
-    background-color: rgba(31, 26, 20, 0.92);
-    border-bottom: 1px solid rgba(79, 107, 84, 0.3);
+    background-color: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid rgba(176, 138, 62, 0.18);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: background-color .35s ease, border-color .35s ease;
@@ -2043,7 +2035,7 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: #f5efdb;
+    color: var(--ink);
     margin-right: auto;
     transition: color .35s ease;
   }
@@ -2051,15 +2043,14 @@
     height: 40px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
-    transition: filter .35s ease, height .35s ease;
+    transition: height .35s ease;
   }
   .site-header__name {
     font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0.02em;
-    color: #f5efdb;
+    color: var(--ink);
     transition: color .35s ease;
   }
   .site-nav {
@@ -2073,12 +2064,12 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #f5efdb;
+    color: var(--ink-2);
     position: relative;
     padding: 6px 2px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     transition: color .25s ease;
   }
+  .site-nav a:hover { color: var(--jade); }
   .site-nav a::after {
     content: '';
     position: absolute;
@@ -2101,20 +2092,18 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #fff;
+    color: var(--ink);
     padding: 10px 22px;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid rgba(31, 26, 20, 0.5);
     border-radius: 999px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: transparent;
     transition: all .25s ease;
   }
   .site-header__cta:hover,
   .site-header__cta:focus-visible {
-    background: var(--jade-dark);
-    border-color: var(--jade-dark);
-    color: #f5efdb;
+    background: var(--jade);
+    border-color: var(--jade);
+    color: #fff;
   }
   .site-header__burger {
     display: none;
@@ -2131,10 +2120,9 @@
     left: 10px;
     right: 10px;
     height: 1.5px;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    background: var(--ink);
     transition: transform .3s ease, opacity .3s ease, top .3s ease,
-                background-color .35s ease, box-shadow .35s ease;
+                background-color .35s ease;
   }
   .site-header__burger span:nth-child(1) { top: 14px; }
   .site-header__burger span:nth-child(2) { top: 21px; }
@@ -2467,7 +2455,6 @@
     <!-- HERO -->
     <section class="hero-wrap">
       <div class="hero">
-        <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="hero-logo-floating" />
         <picture class="hero-pic">
           <source srcset="assets/shigma-mobile/frame-001.webp" media="(max-width: 760px)" />
           <img class="hero-frame is-active" src="assets/shigma/frame-001.webp" alt="" fetchpriority="high" />
