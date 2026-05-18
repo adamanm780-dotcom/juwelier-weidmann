@@ -59,7 +59,7 @@
   .topbar__inner {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 18px max(40px, calc((100vw - 1600px) / 2));
+    padding: 18px 40px;
     display: flex; align-items: center; justify-content: space-between;
     gap: 24px;
   }
@@ -258,9 +258,10 @@
   .closing {
     position: relative;
     text-align: center;
-    padding: 80px max(40px, calc((100vw - 1600px) / 2)) 140px;
+    padding: 80px 40px 140px;
+    max-width: 1600px;
+    margin: 0 auto;
     border-top: 1px solid var(--line);
-    margin: 0 max(40px, calc((100vw - 1600px) / 2));
     z-index: 1;
   }
   .closing__kicker {
