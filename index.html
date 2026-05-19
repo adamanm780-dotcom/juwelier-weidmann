@@ -178,6 +178,7 @@
     border-radius: 32px;
     overflow: hidden;
     z-index: 1;
+    background: #e8e4d4;
   }
   .hero-frame {
     position: absolute;
@@ -186,10 +187,14 @@
     height: 100%;
     object-fit: cover;
     object-position: left center;
+    transform: translateX(6%);
     z-index: 0;
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+  }
+  @media (max-width: 760px) {
+    .hero-frame { transform: none; }
   }
   .hero-pic { display: contents; }
   .hero-content { z-index: 1; }
