@@ -187,11 +187,18 @@
     height: 100%;
     object-fit: cover;
     object-position: left center;
-    transform: translateX(6%);
+    transform: translateX(14%);
     z-index: 0;
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+  }
+  /* Auf typischen Mac-Laptop-Aspekten (16:10 / 1.6) ist der Hero-Container
+     niedriger als auf Desktop-Monitoren — die height-getriebene Cover-Skalierung
+     fällt geringer aus, daher braucht es etwas mehr Shift damit der eingebrannte
+     "JUWELIER WEIDMANN"-Schriftzug die runde Top-Left-Ecke sicher klärt. */
+  @media (min-width: 761px) and (max-aspect-ratio: 16/10) {
+    .hero-frame { transform: translateX(18%); }
   }
   @media (max-width: 760px) {
     .hero-frame { transform: none; }
