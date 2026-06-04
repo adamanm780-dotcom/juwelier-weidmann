@@ -624,6 +624,14 @@
     display: flex;
     flex-direction: column;
   }
+  /* Reservierter Leerraum für die neue Scroll-Animation (kommt später rein) */
+  .anim-placeholder {
+    min-height: 100vh;
+  }
+  /* Reservierter Leerraum für die neuen Bilder im "Der Weg"-Block */
+  .prozess-img-placeholder {
+    min-height: clamp(280px, 32vh, 420px);
+  }
 
   /* ====== Jade Kollektion ====== */
   .jade-section {
@@ -1637,24 +1645,25 @@
     .prozess-step p { font-size: 11px; }
   }
 
-  /* ====== MEISTERSTÜCK — gerahmtes Jade-Feature (zwischen Prozess & Holz) ====== */
+  /* ====== MEISTERSTÜCK — gerahmtes Farbstein-Feature (zwischen Prozess & Holz) ====== */
   .jade-feature {
     position: relative;
     left: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
     width: 100vw;
-    padding: clamp(56px, 8vh, 104px) 24px;
-    background: linear-gradient(180deg, #d5e2ee 0%, #dde6e4 30%, #e9edf0 64%, #eef1f4 100%);
+    padding: clamp(60px, 9vh, 120px) 24px;
+    background: transparent;                 /* lässt den blauen Marmor-Hintergrund durchscheinen */
     display: flex;
     justify-content: center;
     overflow: hidden;
   }
   .jade-feature::before {
-    content: '';
+    content: '';                             /* weiches Licht hinter dem Rahmen */
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 44%, rgba(38, 78, 140, 0.16), transparent 58%);
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 46%, rgba(255,255,255,0.42), transparent 70%);
     pointer-events: none;
   }
   .jade-feature-inner {
@@ -1671,56 +1680,63 @@
     font-size: 10.5px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: #2c5aa0;
+    color: #234d86;
     font-weight: 600;
-    margin-bottom: 18px;
+    margin-bottom: 22px;
   }
-  /* Der wunderschöne blaue Saphir-Rahmen */
+  /* Edle Galerie-Rahmung: tiefblaue Leiste · Gold-Falz · warmes Creme-Passepartout */
   .jade-feature-frame {
     position: relative;
-    padding: clamp(14px, 1.6vw, 22px);
-    border-radius: 20px;
-    background: linear-gradient(150deg, #3463ab 0%, #1d3f78 47%, #14315f 100%);
+    padding: clamp(10px, 1.05vw, 15px);      /* schlanke blaue Rahmenleiste */
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, #3d6cb0 0%, #244f8d 34%, #173b6e 68%, #0f2c54 100%);
     box-shadow:
-      0 0 0 1px rgba(201, 162, 91, 0.55),            /* zarte Gold-Haarlinie außen */
-      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-      inset 0 1px 0 rgba(255, 255, 255, 0.22),
-      0 34px 70px -28px rgba(20, 49, 95, 0.62),       /* tiefer Saphir-Schatten */
-      0 10px 26px -18px rgba(20, 49, 95, 0.50);
-    transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.5s;
+      inset 0 2px 1px rgba(255,255,255,0.30),     /* Bevel: heller oberer Grat */
+      inset 0 -2px 2px rgba(0,0,0,0.32),          /* Bevel: dunkler unterer Grat */
+      inset 1px 0 1px rgba(255,255,255,0.12),
+      inset -1px 0 1px rgba(0,0,0,0.18),
+      0 0 0 1px rgba(201,162,91,0.50),            /* feine Gold-Linie am Außenrand */
+      0 28px 56px -26px rgba(12,34,68,0.55),      /* realistischer Schlagschatten */
+      0 9px 22px -16px rgba(12,34,68,0.45);
+    transition: transform 0.55s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.55s;
   }
   .jade-feature-frame::after {
-    content: '';                                       /* feiner Glanzlauf */
+    content: '';                                  /* sehr feiner diagonaler Glanz auf der Leiste */
     position: absolute;
     inset: 0;
-    border-radius: 20px;
-    background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, transparent 28%, transparent 72%, rgba(255,255,255,0.08) 100%);
+    border-radius: 8px;
+    background: linear-gradient(125deg, rgba(255,255,255,0.16) 0%, transparent 26%, transparent 80%, rgba(255,255,255,0.06) 100%);
     pointer-events: none;
   }
   .jade-feature-frame:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     box-shadow:
-      0 0 0 1px rgba(201, 162, 91, 0.78),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.26),
-      0 46px 88px -28px rgba(20, 49, 95, 0.70),
-      0 14px 30px -18px rgba(20, 49, 95, 0.55);
+      inset 0 2px 1px rgba(255,255,255,0.34),
+      inset 0 -2px 2px rgba(0,0,0,0.34),
+      inset 1px 0 1px rgba(255,255,255,0.14),
+      inset -1px 0 1px rgba(0,0,0,0.20),
+      0 0 0 1px rgba(201,162,91,0.70),
+      0 40px 78px -26px rgba(12,34,68,0.62),
+      0 12px 26px -16px rgba(12,34,68,0.5);
   }
   .jade-feature-mat {
-    display: block;                                    /* heller Passepartout */
-    border-radius: 12px;
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 36%, #ffffff 0%, #f1f4f8 100%);
-    box-shadow: inset 0 0 0 1px rgba(20,49,95,0.10), inset 0 6px 22px -10px rgba(20,49,95,0.18);
+    display: block;                               /* großzügiges warmes Passepartout */
+    padding: clamp(18px, 2.4vw, 38px);
+    border-radius: 3px;
+    background: linear-gradient(180deg, #fdfbf6 0%, #f5f1e8 100%);
+    box-shadow:
+      0 0 0 1px rgba(201,162,91,0.55),            /* Gold-Falzlinie zwischen Leiste & Mat */
+      inset 0 1px 6px rgba(0,0,0,0.05);
   }
   .jade-feature-img {
     display: block;
-    width: clamp(220px, 32vw, 360px);
+    width: clamp(280px, 48vw, 640px);             /* Querformat-Foto */
     height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: contain;
-    padding: clamp(10px, 1.4vw, 20px);
-    box-sizing: border-box;
+    border-radius: 2px;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.06),
+      0 4px 16px -6px rgba(0,0,0,0.30);           /* Foto sitzt leicht vertieft im Mat */
   }
   .jade-feature-caption {
     font-family: 'Cormorant Garamond', serif;
@@ -1728,13 +1744,14 @@
     font-weight: 400;
     font-size: clamp(16px, 1.7vw, 22px);
     color: var(--ink-2);
-    margin-top: 24px;
+    margin-top: 26px;
     letter-spacing: 0.005em;
   }
-  .jade-feature-caption em { color: #2c5aa0; font-style: normal; }
+  .jade-feature-caption em { color: #234d86; font-style: normal; }
   @media (max-width: 580px) {
-    .jade-feature { padding: 48px 18px; }
-    .jade-feature-img { width: min(72vw, 280px); }
+    .jade-feature { padding: 52px 18px; }
+    .jade-feature-img { width: min(80vw, 360px); }
+    .jade-feature-mat { padding: 16px; }
   }
 
   /* ====== Kollektionen — Editorial-Index ====== */
@@ -2660,6 +2677,9 @@
       </div>
     </section>
 
+    <!-- PLATZHALTER: neue Scroll-Animation kommt hier rein (Space bewusst reserviert) -->
+    <section class="anim-placeholder" id="anim-placeholder" aria-hidden="true"></section>
+
     <!-- PROZESS — Überschrift (Karten + Scroll-Animation entfernt) -->
     <section class="prozess-wrap" id="prozess-wrap">
      <div class="prozess-sticky">
@@ -2671,21 +2691,23 @@
               Der Weg <em>zu Ihrem Schmuckstück.</em>
             </h2>
           </div>
+          <!-- PLATZHALTER: neue Bilder kommen hier rein (Space bewusst reserviert) -->
+          <div class="prozess-img-placeholder" id="prozess-img-placeholder" aria-hidden="true"></div>
         </div>
       </div>
      </div>
     </section>
 
-    <!-- MEISTERSTÜCK — gerahmtes Jade-Feature -->
+    <!-- MEISTERSTÜCK — gerahmtes Farbstein-Feature -->
     <section class="jade-feature" aria-label="Vollendetes Schmuckstück">
       <figure class="jade-feature-inner">
         <span class="jade-feature-eyebrow reveal">Das vollendete Unikat</span>
         <span class="jade-feature-frame reveal delay-1">
           <span class="jade-feature-mat">
-            <img class="jade-feature-img" src="assets/jedeman/frame-050.webp?v=3" alt="Jade-Ohrhänger in Gelbgold — handgefertigtes Unikat" loading="lazy" />
+            <img class="jade-feature-img" src="assets/nue.webp?v=1" alt="Collier und Ring aus Türkis und Farbedelsteinen — handgefertigtes Unikat" loading="lazy" />
           </span>
         </span>
-        <figcaption class="jade-feature-caption reveal delay-2">Jade in <em>Gelbgold</em> — gefasst von Hand.</figcaption>
+        <figcaption class="jade-feature-caption reveal delay-2">Türkis &amp; <em>Farbedelsteine</em> — von Hand komponiert.</figcaption>
       </figure>
     </section>
 
