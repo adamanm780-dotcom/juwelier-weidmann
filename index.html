@@ -17,9 +17,9 @@
     --muted: #786e5e;
     --gold: #b08a3e;
     --gold-soft: #c9a25b;
-    --jade: #4f6b54;
-    --jade-dark: #3a5340;
-    --jade-deep: #2d3f33;
+    --jade: #3a6b96;
+    --jade-dark: #2f5680;
+    --jade-deep: #243f5e;
     --line: #e6dcc6;
   }
   * { box-sizing: border-box; }
@@ -519,7 +519,7 @@
   .craft {
     background: transparent;
     display: grid;
-    grid-template-columns: 1fr 1.35fr;
+    grid-template-columns: 1fr;
     width: 100%;
     height: min(640px, calc(100vh - 32px));
     align-items: center;
@@ -1351,20 +1351,20 @@
   .unikate-section {
     margin: 32px 24px;
     padding: 90px 64px;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
     border-radius: 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
   }
   .unikate-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
     pointer-events: none;
   }
   .unikate-grid { max-width: 760px; margin: 0 auto; position: relative; }
@@ -1427,20 +1427,20 @@
   .atelier-section {
     margin: 32px 24px;
     padding: 90px 64px;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
     border-radius: 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
   }
   .atelier-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
     pointer-events: none;
   }
   .atelier-grid { max-width: 760px; margin: 0 auto; position: relative; }
@@ -1507,17 +1507,17 @@
     margin-right: -50vw;
     width: 100vw;
     left: 50%;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
     overflow: hidden;
-    box-shadow: 0 -10px 40px -16px rgba(47, 110, 91, 0.18);
+    box-shadow: 0 -10px 40px -16px rgba(63, 134, 196, 0.18);
   }
   .prozess-block::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
     pointer-events: none;
   }
   .prozess-block-inner {
@@ -1575,11 +1575,11 @@
     overflow: hidden;
     border-radius: 14px;
     background: rgba(255,255,255,0.55);
-    border: 1px solid rgba(47,110,91,0.16);
-    box-shadow: 0 12px 28px -16px rgba(47,110,91,0.30);
+    border: 1px solid rgba(63, 134, 196,0.16);
+    box-shadow: 0 12px 28px -16px rgba(63, 134, 196,0.30);
     transition: box-shadow 0.35s;
   }
-  .prozess-step:hover .prozess-step-img-wrap { box-shadow: 0 20px 40px -18px rgba(47,110,91,0.42); }
+  .prozess-step:hover .prozess-step-img-wrap { box-shadow: 0 20px 40px -18px rgba(63, 134, 196,0.42); }
   .prozess-step-img {
     width: 100%;
     height: 100%;
@@ -1635,6 +1635,106 @@
     .prozess-block-inner { padding: 18px 16px; gap: 12px; }
     .prozess-step h3 { font-size: 13px; margin-top: 6px; }
     .prozess-step p { font-size: 11px; }
+  }
+
+  /* ====== MEISTERSTÜCK — gerahmtes Jade-Feature (zwischen Prozess & Holz) ====== */
+  .jade-feature {
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: clamp(56px, 8vh, 104px) 24px;
+    background: linear-gradient(180deg, #d5e2ee 0%, #dde6e4 30%, #e9edf0 64%, #eef1f4 100%);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .jade-feature::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 44%, rgba(38, 78, 140, 0.16), transparent 58%);
+    pointer-events: none;
+  }
+  .jade-feature-inner {
+    position: relative;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+  }
+  .jade-feature-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #2c5aa0;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  /* Der wunderschöne blaue Saphir-Rahmen */
+  .jade-feature-frame {
+    position: relative;
+    padding: clamp(14px, 1.6vw, 22px);
+    border-radius: 20px;
+    background: linear-gradient(150deg, #3463ab 0%, #1d3f78 47%, #14315f 100%);
+    box-shadow:
+      0 0 0 1px rgba(201, 162, 91, 0.55),            /* zarte Gold-Haarlinie außen */
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 34px 70px -28px rgba(20, 49, 95, 0.62),       /* tiefer Saphir-Schatten */
+      0 10px 26px -18px rgba(20, 49, 95, 0.50);
+    transition: transform 0.5s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.5s;
+  }
+  .jade-feature-frame::after {
+    content: '';                                       /* feiner Glanzlauf */
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, transparent 28%, transparent 72%, rgba(255,255,255,0.08) 100%);
+    pointer-events: none;
+  }
+  .jade-feature-frame:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 1px rgba(201, 162, 91, 0.78),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.26),
+      0 46px 88px -28px rgba(20, 49, 95, 0.70),
+      0 14px 30px -18px rgba(20, 49, 95, 0.55);
+  }
+  .jade-feature-mat {
+    display: block;                                    /* heller Passepartout */
+    border-radius: 12px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 36%, #ffffff 0%, #f1f4f8 100%);
+    box-shadow: inset 0 0 0 1px rgba(20,49,95,0.10), inset 0 6px 22px -10px rgba(20,49,95,0.18);
+  }
+  .jade-feature-img {
+    display: block;
+    width: clamp(220px, 32vw, 360px);
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    padding: clamp(10px, 1.4vw, 20px);
+    box-sizing: border-box;
+  }
+  .jade-feature-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(16px, 1.7vw, 22px);
+    color: var(--ink-2);
+    margin-top: 24px;
+    letter-spacing: 0.005em;
+  }
+  .jade-feature-caption em { color: #2c5aa0; font-style: normal; }
+  @media (max-width: 580px) {
+    .jade-feature { padding: 48px 18px; }
+    .jade-feature-img { width: min(72vw, 280px); }
   }
 
   /* ====== Kollektionen — Editorial-Index ====== */
@@ -1717,7 +1817,7 @@
     content: '';
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(79, 107, 84, 0.05) 50%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(58, 107, 150, 0.05) 50%, transparent);
     opacity: 0;
     transition: opacity 0.55s ease;
     pointer-events: none;
@@ -1773,20 +1873,20 @@
   .news-section, .partner-section {
     margin: 32px 24px;
     padding: 90px 64px;
-    background: linear-gradient(180deg, #ecf2e7 0%, #d6e3ce 100%);
+    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
     border-radius: 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(47, 110, 91, 0.25);
+    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
   }
   .news-section::before, .partner-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(47, 110, 91, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(47, 110, 91, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
     pointer-events: none;
   }
   .news-grid, .partner-grid {
@@ -1870,7 +1970,7 @@
     inset: 0;
     background:
       radial-gradient(circle at 90% 10%, rgba(176,138,62,0.10), transparent 50%),
-      radial-gradient(circle at 10% 90%, rgba(47,110,91,0.08), transparent 50%);
+      radial-gradient(circle at 10% 90%, rgba(63, 134, 196,0.08), transparent 50%);
     pointer-events: none;
   }
   .kontakt-grid {
@@ -2383,7 +2483,6 @@
       <a href="#home">Home</a>
       <a href="#philosophie">Philosophie</a>
       <a href="/unikate">Unikate</a>
-      <a href="#kollektion">Kollektion</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
@@ -2448,7 +2547,6 @@
     <a href="#home">Home</a>
     <a href="#philosophie">Philosophie</a>
     <a href="/unikate">Unikate</a>
-    <a href="#kollektion">Kollektion</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
@@ -2468,8 +2566,8 @@
     <section class="hero-wrap">
       <div class="hero">
         <picture class="hero-pic">
-          <source srcset="assets/shigma-mobile/frame-001.webp" media="(max-width: 760px)" />
-          <img class="hero-frame is-active" src="assets/shigma/frame-001.webp" alt="" fetchpriority="high" />
+          <source srcset="assets/wdm-mobile/frame-001.webp" media="(max-width: 760px)" />
+          <img class="hero-frame is-active" src="assets/wdm/frame-001.webp" alt="" fetchpriority="high" />
         </picture>
         <div class="hero-content"></div>
       </div>
@@ -2557,48 +2655,12 @@
         </p>
         <div class="unikate-meta reveal delay-5">
           <span>Maßanfertigung</span>
-          <span>Silberwaren</span>
           <span>Edelsteine</span>
-          <span>Trauringe</span>
         </div>
       </div>
     </section>
 
-    <!-- PHASE 1: HANDWERK — Animation 1 (Jedeman) im 2-Spalten-Layout -->
-    <section class="craft-wrap" id="craft-wrap">
-     <div class="craft-sticky">
-      <div class="craft">
-        <div class="craft-left">
-          <h2>Qualität, die bleibt</h2>
-          <p>Über drei Jahrzehnte ist es mein Bestreben gewesen: Jedes Stück wird wie ein Meisterwerk behandelt — ausgewählt und präsentiert mit der gleichen Sorgfalt und Liebe zum Detail, die ein feines Kunstwerk verdient.</p>
-          <p>Schmuck, der nicht nur Generationen überdauert, sondern die Geschichten und Momente Ihres Lebens trägt.</p>
-          <div class="craft-features">
-            <div class="craft-feature">
-              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div>
-              <span>Seit 1991</span>
-            </div>
-            <div class="craft-feature">
-              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="6"/><path d="m9 14-1.5 8L12 19l4.5 3L15 14"/></svg></div>
-              <span>Meisterliche<br/>Handarbeit</span>
-            </div>
-            <div class="craft-feature">
-              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-12V5l-8-3-8 3v5c0 8 8 12 8 12z"/></svg></div>
-              <span>Bewusste<br/>Materialien</span>
-            </div>
-            <div class="craft-feature">
-              <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></div>
-              <span>Für die<br/>Ewigkeit</span>
-            </div>
-          </div>
-        </div>
-        <div class="craft-img" id="craft-img">
-          <img class="craft-frame" id="craft-frame" src="assets/jedeman/frame-001.webp" alt="" />
-        </div>
-      </div>
-     </div>
-    </section>
-
-    <!-- PHASE 2: PROZESS — Animationen 2, 3, 4 in Karte IV (mit Wachstum am Ende) -->
+    <!-- PROZESS — Überschrift (Karten + Scroll-Animation entfernt) -->
     <section class="prozess-wrap" id="prozess-wrap">
      <div class="prozess-sticky">
       <div class="prozess-block" id="prozess" aria-labelledby="prozess-heading">
@@ -2609,43 +2671,22 @@
               Der Weg <em>zu Ihrem Schmuckstück.</em>
             </h2>
           </div>
-          <div class="prozess-grid">
-            <article class="prozess-step">
-              <div class="prozess-step-img-wrap">
-                <span class="prozess-step-numeral">I</span>
-                <img class="prozess-step-img" src="assets/pro1.png?v=2" alt="Entwurf" loading="lazy" />
-              </div>
-              <h3>Entwurf</h3>
-              <p>Skizze aus persönlichem Gespräch.</p>
-            </article>
-            <article class="prozess-step">
-              <div class="prozess-step-img-wrap">
-                <span class="prozess-step-numeral">II</span>
-                <img class="prozess-step-img" src="assets/pro3.png?v=2" alt="Goldschmiede" loading="lazy" />
-              </div>
-              <h3>Anfertigung</h3>
-              <p>Bei erfahrenen Goldschmieden in Auftrag gegeben.</p>
-            </article>
-            <article class="prozess-step">
-              <div class="prozess-step-img-wrap">
-                <span class="prozess-step-numeral">III</span>
-                <img class="prozess-step-img" src="assets/pro4.png?v=2" alt="Edelstein" loading="lazy" />
-              </div>
-              <h3>Edelstein</h3>
-              <p>Jade, Saphir, Diamant — präzise gefasst.</p>
-            </article>
-            <article class="prozess-step" id="prozess-card-iv">
-              <div class="prozess-step-img-wrap">
-                <span class="prozess-step-numeral">IV</span>
-                <img class="prozess-step-img" src="assets/jedeman/frame-050.webp?v=3" alt="Vollendet" loading="lazy" />
-              </div>
-              <h3>Vollendet</h3>
-              <p>Poliert — bereit für den ersten Auftritt.</p>
-            </article>
-          </div>
         </div>
       </div>
      </div>
+    </section>
+
+    <!-- MEISTERSTÜCK — gerahmtes Jade-Feature -->
+    <section class="jade-feature" aria-label="Vollendetes Schmuckstück">
+      <figure class="jade-feature-inner">
+        <span class="jade-feature-eyebrow reveal">Das vollendete Unikat</span>
+        <span class="jade-feature-frame reveal delay-1">
+          <span class="jade-feature-mat">
+            <img class="jade-feature-img" src="assets/jedeman/frame-050.webp?v=3" alt="Jade-Ohrhänger in Gelbgold — handgefertigtes Unikat" loading="lazy" />
+          </span>
+        </span>
+        <figcaption class="jade-feature-caption reveal delay-2">Jade in <em>Gelbgold</em> — gefasst von Hand.</figcaption>
+      </figure>
     </section>
 
     <!-- HOLZ-BANNER -->
@@ -2663,61 +2704,6 @@
           Treten Sie ein in einen Raum voller Wärme und Geschichte. Holzregale, die seit Jahrzehnten Schätze bewahren, Vitrinen, die von den Leidenschaften unserer Kunden erzählen. Hier nehme ich mir Zeit für Sie — für ein echtes Gespräch, um das zu finden, das Ihr Herz berührt.
         </p>
       </div>
-    </section>
-
-    <!-- KOLLEKTIONEN -->
-    <section class="kollektionen-section" id="kollektion" aria-labelledby="kollektion-heading">
-      <div class="kollektionen-head">
-        <span class="eyebrow-jade reveal">Was Sie bei uns finden</span>
-        <h2 class="reveal delay-1" id="kollektion-heading">
-          Fünf Bereiche — <em>ein Haus.</em>
-        </h2>
-        <p class="kollektionen-intro reveal delay-2">
-          Es ist mir eine echte Leidenschaft, international arbeitende Ateliers zu entdecken und ihre besten Stücke hier zu zeigen. Immer mit Bedacht ausgewählt: Schmuck mit eigener Handschrift, in kleinen exklusiven Serien gefertigt, mit Charakter. Stücke, die zeigen, dass Handwerk überall zuhause ist.
-        </p>
-      </div>
-      <ol class="kollektionen-index">
-        <li class="kollektion-row reveal">
-          <span class="kollektion-row__numeral">I</span>
-          <div class="kollektion-row__body">
-            <h3>Trauringe</h3>
-            <p>Ein Versprechen, das sich anfühlen soll wie Ewigkeit. Aus Platin, Gold oder Palladium — jedes Paar wird auf Bestellung bei vertrauten Goldschmieden in Auftrag gegeben, mit der gleichen Sorgfalt wie die Liebe, die es symbolisiert.</p>
-          </div>
-          <span class="kollektion-row__meta">auf bestellung</span>
-        </li>
-        <li class="kollektion-row reveal delay-1">
-          <span class="kollektion-row__numeral">II</span>
-          <div class="kollektion-row__body">
-            <h3>Verlobungsringe</h3>
-            <p>Der wichtigste Moment Ihres Lebens verdient mehr als ein Ring — er verdient eine Geschichte. Klassische Solitaires oder Ihre ganz persönliche Vision: Zusammen entstehen Ringe, die nur für Sie passen.</p>
-          </div>
-          <span class="kollektion-row__meta">nach maß</span>
-        </li>
-        <li class="kollektion-row reveal delay-2">
-          <span class="kollektion-row__numeral">III</span>
-          <div class="kollektion-row__body">
-            <h3>Goldschmiede-Service</h3>
-            <p>Neue Stücke entwerfen, alte Erbstücke wieder zum Glänzen bringen, liebevolle Reparaturen — beraten und begleitet vor Ort, ausgeführt von vertrauten Goldschmieden in unserer Nähe. Ihre Schmuckgeschichte ist unsere Aufgabe, sie zu bewahren und weiterzuschreiben.</p>
-          </div>
-          <span class="kollektion-row__meta">vermittelt</span>
-        </li>
-        <li class="kollektion-row reveal delay-3">
-          <span class="kollektion-row__numeral">IV</span>
-          <div class="kollektion-row__body">
-            <h3>Edelsteine</h3>
-            <p>Jede Farbe erzählt ihre eigene Geschichte — ausgesuchte Diamanten, Saphire und Farbsteine, persönlich von mir kuratiert. Jeder Stein wird für sein Stück ausgewählt, als wäre er gemacht für diesen einen Moment in Ihrem Leben.</p>
-          </div>
-          <span class="kollektion-row__meta">kuratiert</span>
-        </li>
-        <li class="kollektion-row reveal delay-4">
-          <span class="kollektion-row__numeral">V</span>
-          <div class="kollektion-row__body">
-            <h3>Silberwaren</h3>
-            <p>Das älteste Handwerk — Bestecke und Tafelsilber, die seit Generationen an einem Tisch die Momente zelebrieren. Meisterlich gefertigt von ausgewählten Manufakturen, zeitlos schön, persönlich kuratiert für die, die das Schöne im Alltag schätzen.</p>
-          </div>
-          <span class="kollektion-row__meta">handgefertigt</span>
-        </li>
-      </ol>
     </section>
 
     <!-- KONTAKT / STANDORT -->
@@ -2938,7 +2924,7 @@
 
   var mq = window.matchMedia('(max-width: 760px)');
   var pad = function (n) { return ('00' + n).slice(-3); };
-  var folder = mq.matches ? 'assets/shigma-mobile' : 'assets/shigma';
+  var folder = mq.matches ? 'assets/wdm-mobile' : 'assets/wdm';
 
   // Single visible <img> aus dem HTML wiederverwenden — keine 30 gestapelten Layer mehr
   var heroImg = hero.querySelector('.hero-frame');
@@ -2969,7 +2955,7 @@
   var doneState = false;
 
   function onMediaChange() {
-    var newFolder = mq.matches ? 'assets/shigma-mobile' : 'assets/shigma';
+    var newFolder = mq.matches ? 'assets/wdm-mobile' : 'assets/wdm';
     if (newFolder !== folder) {
       folder = newFolder;
       buildList(folder);
