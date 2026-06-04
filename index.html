@@ -404,11 +404,13 @@
     margin-bottom: 28px;
     width: 100vw;
     height: 800px;
-    background-image: url('assets/holzi.png');
+    background-image:
+      linear-gradient(180deg, rgba(19,42,82,0.82) 0%, rgba(11,27,56,0.90) 100%),
+      url('assets/np.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 6px 20px -10px rgba(31,26,20,0.25);
+    box-shadow: 0 6px 20px -10px rgba(11,27,56,0.30);
     z-index: 1;
     overflow: hidden;
   }
@@ -437,8 +439,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: clamp(24px, 6vw, 96px);
-    left: auto;
+    right: auto;
+    left: 50%;
     max-width: min(46%, 520px);
     text-align: left;
     color: #f6efe2;
@@ -623,9 +625,31 @@
   .anim-placeholder {
     min-height: 100vh;
   }
-  /* Reservierter Leerraum für die neuen Bilder im "Der Weg"-Block */
-  .prozess-img-placeholder {
-    min-height: clamp(280px, 32vh, 420px);
+  /* Bilder-Galerie im "Der Weg"-Block — zwei Designs nebeneinander */
+  .prozess-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 32px);
+    max-width: 980px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .prozess-gallery-item {
+    margin: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 22px 48px -28px rgba(47, 110, 91, 0.45);
+    background: #fff;
+  }
+  .prozess-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  @media (max-width: 580px) {
+    .prozess-gallery { grid-template-columns: 1fr; }
   }
 
   /* ====== Jade Kollektion ====== */
@@ -1187,14 +1211,13 @@
   /* ====== Atelier / About ====== */
   /* ====== PHILOSOPHIE ====== */
   .philosophie-section {
-    margin: 0 24px 32px;
-    padding: 90px 64px;
-    background: linear-gradient(180deg, #faf7f1 0%, #f5ede2 100%);
-    border-radius: 0 0 28px 28px;
+    margin: 0 24px;
+    padding: 90px 64px 170px;
+    background: linear-gradient(180deg, #faf7f1 0%, #f4ece1 38%, #f0eee9 60%, #ebeef2 80%, #e7eef5 100%);
+    border-radius: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 12px 40px -20px rgba(176, 138, 62, 0.15);
   }
   .philosophie-section::before {
     content: '';
@@ -1352,10 +1375,10 @@
 
   /* ====== UNIKATE (formerly Atelier) ====== */
   .unikate-section {
-    margin: 32px 24px;
-    padding: 90px 64px;
-    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
-    border-radius: 28px;
+    margin: 0 24px 32px;
+    padding: 120px 64px 90px;
+    background: linear-gradient(180deg, #e7eef5 0%, #dde7f1 40%, #d5e2ee 100%);
+    border-radius: 0 0 28px 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1788,7 +1811,7 @@
   }
   .jade-feature-img {
     display: block;
-    width: clamp(300px, 58vw, 780px);             /* Querformat-Foto */
+    width: clamp(320px, 72vw, 1040px);             /* Querformat-Foto */
     height: auto;
     border-radius: 2px;
     box-shadow:
@@ -2173,7 +2196,7 @@
     .atelier-meta span:not(:last-child)::after { right: -16px; }
     .unikate-meta { gap: 24px; font-size: 11px; }
     .unikate-meta span:not(:last-child)::after { right: -16px; }
-    .philosophie-section { padding: 60px 32px; margin: 0 16px 24px; }
+    .philosophie-section { padding: 60px 32px 90px; margin: 0 16px; }
     .philosophie-grid { max-width: 90vw; }
     .philosophie-intro { font-size: clamp(18px, 2.4vw, 26px); margin-bottom: 18px; }
     .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 36px 0 24px; }
@@ -2184,7 +2207,7 @@
     .history-timeline { grid-template-columns: 90px 1fr; gap: 24px; }
     .timeline-dot { font-size: 22px; }
     .timeline-text { font-size: 13px; line-height: 1.7; }
-    .unikate-section { padding: 60px 32px; margin: 24px 16px; }
+    .unikate-section { padding: 60px 32px; margin: 0 16px 24px; }
   }
 
   /* ====== Site Header / Navigation (separate, always visible) ====== */
@@ -2757,8 +2780,14 @@
               Der Weg <em>zu Ihrem Schmuckstück.</em>
             </h2>
           </div>
-          <!-- PLATZHALTER: neue Bilder kommen hier rein (Space bewusst reserviert) -->
-          <div class="prozess-img-placeholder" id="prozess-img-placeholder" aria-hidden="true"></div>
+          <div class="prozess-gallery">
+            <figure class="prozess-gallery-item">
+              <img src="assets/yue-design.jpeg" alt="Schmuckdesign — Entwurf" loading="lazy" />
+            </figure>
+            <figure class="prozess-gallery-item">
+              <img src="assets/yp-design.jpeg" alt="Schmuckdesign — Ausarbeitung" loading="lazy" />
+            </figure>
+          </div>
         </div>
       </div>
      </div>
@@ -2779,7 +2808,7 @@
     <!-- HOLZ-BANNER -->
     <section class="wood-strip">
       <div class="wood-photo-frame">
-        <img src="assets/weid.png" alt="Juwelier Weidmann · Laden" class="wood-photo" />
+        <video class="wood-photo" src="assets/gebel.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Juwelier Weidmann · Eindrücke"></video>
       </div>
       <div class="wood-text">
         <div class="wood-text__eyebrow reveal from-right">Impressionen · Burgstraße 3</div>
