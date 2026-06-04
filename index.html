@@ -405,12 +405,12 @@
     width: 100vw;
     height: 800px;
     background-image:
-      linear-gradient(180deg, rgba(19,42,82,0.82) 0%, rgba(11,27,56,0.90) 100%),
+      linear-gradient(180deg, rgba(205,221,238,0.50) 0%, rgba(184,205,229,0.60) 100%),
       url('assets/np.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 6px 20px -10px rgba(11,27,56,0.30);
+    box-shadow: 0 10px 30px -16px rgba(63,134,196,0.22);
     z-index: 1;
     overflow: hidden;
   }
@@ -443,18 +443,18 @@
     left: 50%;
     max-width: min(46%, 520px);
     text-align: left;
-    color: #f6efe2;
+    color: var(--ink);
     z-index: 2;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+    text-shadow: none;
   }
   .wood-text__eyebrow {
     font-family: 'Inter', sans-serif;
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #e8c98a;
+    color: #234d86;
     margin-bottom: 16px;
-    font-weight: 500;
+    font-weight: 600;
   }
   .wood-text__headline {
     font-family: 'Cormorant Garamond', serif;
@@ -463,12 +463,12 @@
     line-height: 1.2;
     letter-spacing: -0.005em;
     margin: 0 0 18px;
-    color: #f6efe2;
+    color: var(--ink);
   }
   .wood-text__headline em {
     font-style: italic;
-    color: #e8c98a;
-    font-weight: 300;
+    color: #234d86;
+    font-weight: 400;
   }
   .wood-text__divider {
     width: 72px;
@@ -481,7 +481,7 @@
     font-weight: 300;
     font-size: 15px;
     line-height: 1.7;
-    color: rgba(246, 239, 226, 0.88);
+    color: var(--ink-2);
     margin: 0;
     max-width: 420px;
   }
