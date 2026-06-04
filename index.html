@@ -1187,10 +1187,10 @@
   /* ====== Atelier / About ====== */
   /* ====== PHILOSOPHIE ====== */
   .philosophie-section {
-    margin: 32px 24px;
+    margin: 0 24px 32px;
     padding: 90px 64px;
     background: linear-gradient(180deg, #faf7f1 0%, #f5ede2 100%);
-    border-radius: 28px;
+    border-radius: 0 0 28px 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1361,6 +1361,37 @@
     overflow: hidden;
     box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
   }
+
+  /* WILLKOMMEN — Begrüßung unter der Hero im Hellblau der Website */
+  .welcome-section {
+    margin: 32px 24px 0;
+    padding: clamp(48px, 7vw, 88px) clamp(24px, 6vw, 80px) clamp(64px, 9vw, 120px);
+    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 58%, #faf7f1 100%);
+    border-radius: 28px 28px 0 0;
+    text-align: center;
+  }
+  .welcome-inner { max-width: 760px; margin: 0 auto; }
+  .welcome-eyebrow {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--jade);
+    font-weight: 500;
+    margin-bottom: 22px;
+  }
+  .welcome-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: 0.002em;
+  }
+  @media (max-width: 580px) {
+    .welcome-section { margin: 14px 14px 0; padding: 44px 24px 64px; }
+  }
   .unikate-section::before {
     content: '';
     position: absolute;
@@ -1400,12 +1431,15 @@
     margin: 0 auto 36px;
   }
   .unikate-body {
+    position: relative;
+    z-index: 1;
     color: var(--ink-2);
     font-size: 16px;
     line-height: 1.78;
     margin: 0 auto 18px;
     max-width: 620px;
   }
+  .unikate-eyebrow, .unikate-headline, .unikate-divider { position: relative; z-index: 1; }
   .unikate-meta {
     position: relative;
     display: flex;
@@ -2124,7 +2158,7 @@
     .atelier-meta span:not(:last-child)::after { right: -16px; }
     .unikate-meta { gap: 24px; font-size: 11px; }
     .unikate-meta span:not(:last-child)::after { right: -16px; }
-    .philosophie-section { padding: 60px 32px; margin: 24px 16px; }
+    .philosophie-section { padding: 60px 32px; margin: 0 16px 24px; }
     .philosophie-grid { max-width: 90vw; }
     .philosophie-intro { font-size: clamp(18px, 2.4vw, 26px); margin-bottom: 18px; }
     .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 36px 0 24px; }
@@ -2598,8 +2632,18 @@
       </div>
     </section>
 
+    <!-- WILLKOMMEN -->
+    <section class="welcome-section" aria-label="Willkommen">
+      <div class="welcome-inner">
+        <span class="welcome-eyebrow reveal">Schön, dass Sie hier sind</span>
+        <p class="welcome-text reveal delay-1">
+          Herzlich willkommen auf unserer Homepage. Es ist mir eine Freude, Sie in den folgenden Minuten zu begleiten, Ihnen ein wenig über mich und mein Geschäft zu erzählen — und Sie herzlich willkommen zu heißen.
+        </p>
+      </div>
+    </section>
+
     <!-- PHILOSOPHIE -->
-    <section class="philosophie-section" id="philosophie" aria-labelledby="philosophie-heading">
+    <section class="philosophie-section" id="philosophie" aria-label="Philosophie">
       <div class="philosophie-grid">
         <p class="philosophie-intro reveal">
           Begonnen hat alles mit der Faszination am Schönen.
@@ -2624,11 +2668,7 @@
           Treten Sie ein, lassen Sie sich verzaubern. Verzaubern von ganz individuell gefertigten Schmuckstücken, Accessoires für den Alltag, aber auch manches Mal für den großen Auftritt.
         </p>
 
-        <h2 class="philosophie-headline reveal delay-5" id="philosophie-heading">
-          Ein Design-Prinzip<br/><em>für die Ewigkeit.</em>
-        </h2>
-
-        <p class="philosophie-body reveal delay-6">
+        <p class="philosophie-body reveal delay-5">
           Von Anfang an war es mein Bestreben, klassisch zeitlosen und doch absolut zeitgemäßen Schmuck zu präsentieren. Wie ein Chanel Kostüm oder aber ein Porsche 911. Schmuck ohne viel Schnörkel, mit klarem Design, ausgewogener Formensprache, sportlicher Eleganz — dafür mit ausgesucht erlesenen Zutaten.
         </p>
 
