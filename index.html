@@ -186,22 +186,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left center;
-    transform: translateX(9%);
+    object-position: center center;
+    transform: none;
     z-index: 0;
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
   }
-  /* Mac-Laptops haben typisch 16:10-Aspekt (1.6) — etwas mehr Shift damit der
-     eingebrannte "JUWELIER WEIDMANN"-Schriftzug die runde Top-Left-Ecke
-     sicher klärt, ohne den Schmuck rechts aus dem Bild zu drängen. */
-  @media (min-width: 761px) and (max-aspect-ratio: 16/10) {
-    .hero-frame { transform: translateX(11%); }
-  }
-  @media (max-width: 760px) {
-    .hero-frame { transform: none; }
-  }
+  /* Das Hero-Bild füllt die Hero immer voll aus (cover, inset:0, kein translate →
+     kein leerer Streifen). Auf schmaleren/höheren Desktop-Viewports beschneidet
+     cover die Seiten; object-position:center hält den Beschnitt links/rechts
+     symmetrisch, damit weder Schriftzug noch Schmuck einseitig wegfallen. */
   .hero-pic { display: contents; }
   .hero-content { z-index: 1; }
   .hero::before {
@@ -1412,6 +1407,7 @@
     max-width: 620px;
   }
   .unikate-meta {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: 36px;
@@ -1422,7 +1418,19 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .unikate-meta span { position: relative; }
+  .unikate-meta::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(230px, 24vw, 340px);
+    aspect-ratio: 1 / 1;
+    background: url('assets/due-ring.png') center / contain no-repeat;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .unikate-meta span { position: relative; z-index: 2; }
   .unikate-meta span:not(:last-child)::after {
     content: '·';
     position: absolute;
@@ -1687,7 +1695,7 @@
   /* Edle Galerie-Rahmung: tiefblaue Leiste · Gold-Falz · warmes Creme-Passepartout */
   .jade-feature-frame {
     position: relative;
-    padding: clamp(10px, 1.05vw, 15px);      /* schlanke blaue Rahmenleiste */
+    padding: clamp(3px, 0.32vw, 5px);      /* schlanke blaue Rahmenleiste */
     border-radius: 8px;
     background:
       linear-gradient(135deg, #3d6cb0 0%, #244f8d 34%, #173b6e 68%, #0f2c54 100%);
@@ -1721,8 +1729,8 @@
       0 12px 26px -16px rgba(12,34,68,0.5);
   }
   .jade-feature-mat {
-    display: block;                               /* großzügiges warmes Passepartout */
-    padding: clamp(18px, 2.4vw, 38px);
+    display: block;                               /* schmales warmes Passepartout */
+    padding: clamp(4px, 0.5vw, 7px);
     border-radius: 3px;
     background: linear-gradient(180deg, #fdfbf6 0%, #f5f1e8 100%);
     box-shadow:
@@ -1731,7 +1739,7 @@
   }
   .jade-feature-img {
     display: block;
-    width: clamp(280px, 48vw, 640px);             /* Querformat-Foto */
+    width: clamp(300px, 58vw, 780px);             /* Querformat-Foto */
     height: auto;
     border-radius: 2px;
     box-shadow:
@@ -1750,8 +1758,8 @@
   .jade-feature-caption em { color: #234d86; font-style: normal; }
   @media (max-width: 580px) {
     .jade-feature { padding: 52px 18px; }
-    .jade-feature-img { width: min(80vw, 360px); }
-    .jade-feature-mat { padding: 16px; }
+    .jade-feature-img { width: min(88vw, 440px); }
+    .jade-feature-mat { padding: 5px; }
   }
 
   /* ====== Kollektionen — Editorial-Index ====== */
@@ -2701,8 +2709,7 @@
     <!-- MEISTERSTÜCK — gerahmtes Farbstein-Feature -->
     <section class="jade-feature" aria-label="Vollendetes Schmuckstück">
       <figure class="jade-feature-inner">
-        <span class="jade-feature-eyebrow reveal">Das vollendete Unikat</span>
-        <span class="jade-feature-frame reveal delay-1">
+        <span class="jade-feature-frame reveal">
           <span class="jade-feature-mat">
             <img class="jade-feature-img" src="assets/nue.webp?v=1" alt="Collier und Ring aus Türkis und Farbedelsteinen — handgefertigtes Unikat" loading="lazy" />
           </span>
