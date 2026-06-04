@@ -1452,19 +1452,34 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .unikate-meta::before {
-    content: '';
+  /* Ring-Grafik ist jetzt ein anklickbarer Link zur Galerie */
+  .unikate-ring {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: clamp(230px, 24vw, 340px);
     aspect-ratio: 1 / 1;
-    background: url('assets/due-ring.png') center / contain no-repeat;
-    z-index: 0;
+    z-index: 1;
+    display: block;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.45s cubic-bezier(0.2,0.7,0.2,1), filter 0.45s;
+  }
+  .unikate-ring img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
     pointer-events: none;
   }
-  .unikate-meta span { position: relative; z-index: 2; }
+  .unikate-ring:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: drop-shadow(0 12px 24px rgba(176, 138, 62, 0.38));
+  }
+  .unikate-ring:focus-visible { outline: 2px solid var(--gold); outline-offset: 8px; }
+  /* Text liegt optisch vorn, lässt Klicks aber zum Ring-Link durch */
+  .unikate-meta span { position: relative; z-index: 2; pointer-events: none; }
   .unikate-meta span:not(:last-child)::after {
     content: '·';
     position: absolute;
@@ -2541,7 +2556,7 @@
     <nav class="site-nav" aria-label="Hauptnavigation">
       <a href="#home">Home</a>
       <a href="#philosophie">Philosophie</a>
-      <a href="/unikate">Unikate</a>
+      <a href="/unikate">Galerie</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
       <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
@@ -2605,7 +2620,7 @@
   <nav aria-label="Mobile Navigation">
     <a href="#home">Home</a>
     <a href="#philosophie">Philosophie</a>
-    <a href="/unikate">Unikate</a>
+    <a href="/unikate">Galerie</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalNews">News</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalPartner">Partner</a>
     <a href="#" class="nav-modal-trigger" data-modal="modalKontakt">Kontakt</a>
@@ -2719,6 +2734,9 @@
           Von der ersten flüchtigen Skizze bis zum vollendeten Werk können Wochen vergehen, manchmal Monate. Denn jedes Detail wird mit Bedacht in Auftrag gegeben — damit es am Ende nicht nur schön ist, sondern zeitlos. Damit es ein Leben lang begleitet.
         </p>
         <div class="unikate-meta reveal delay-5">
+          <a class="unikate-ring" href="/unikate" aria-label="Zur Galerie">
+            <img src="assets/due-ring.png" alt="Zur Galerie" loading="lazy" />
+          </a>
           <span>Maßanfertigung</span>
           <span>Edelsteine</span>
         </div>
