@@ -616,35 +616,92 @@
     display: flex;
     flex-direction: column;
   }
-  /* Reservierter Leerraum für die neue Scroll-Animation (kommt später rein) */
-  .anim-placeholder {
-    min-height: 100vh;
+  /* Ring Scroll-Animation (50 Frames) — schwebt über statischem Marmor */
+  .ring-anim-wrap {
+    position: relative;
+    height: 260vh;
+    margin: 0 24px;
+    z-index: 60;            /* Ring wandert ÜBER die nachfolgende blaue Sektion */
   }
-  /* Bilder-Galerie im "Der Weg"-Block — zwei Designs nebeneinander */
+  .ring-anim-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  .ring-anim-frame {
+    width: auto;
+    height: auto;
+    max-width: 70%;
+    max-height: 66vh;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transform-origin: center center;
+    will-change: transform;
+    filter: drop-shadow(0 28px 44px rgba(0,0,0,0.20));
+  }
+  .ring-anim-frame.is-handed-off { opacity: 0; transition: none; }
+  @media (max-width: 760px) {
+    /* Mobile: keine FLIP-Wanderung — Animation aus, fertiger Ring steht in der Galerie */
+    .ring-anim-wrap { display: none; }
+  }
+  /* Galerie im "Der Weg"-Block: zwei Design-Bilder (links) + fertiger Ring (rechts) */
   .prozess-gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(16px, 2vw, 32px);
-    max-width: 980px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(20px, 2.4vw, 40px);
+    max-width: 1360px;
     margin: 0 auto;
     width: 100%;
+    align-items: start;
   }
   .prozess-gallery-item {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .prozess-frame {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 22px 48px -28px rgba(47, 110, 91, 0.45);
     background: #fff;
   }
-  .prozess-gallery-item img {
+  .prozess-frame > img {
     display: block;
     width: 100%;
     height: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
   }
+  .prozess-gallery-cap {
+    text-align: center;
+    font-size: 12.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--jade);
+    margin-top: 20px;
+  }
+  /* Lande-Rahmen: gerahmte Karte, Ring sitzt freigestellt mittig auf Weiß */
+  .prozess-ring-final .prozess-frame {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, #ffffff 0%, #f7f5f0 100%);
+  }
+  .prozess-ring-final .prozess-frame > img {
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    padding: 7%;
+  }
+  /* Desktop: fertiger Ring erst sichtbar, wenn die Animation gelandet ist (FLIP-Handoff) */
+  @media (min-width: 761px) {
+    #prozess-ring-slot > img { opacity: 0; transition: opacity 0.2s ease; }
+    #prozess-ring-slot.is-armed > img { opacity: 1; }
+  }
   @media (max-width: 580px) {
-    .prozess-gallery { grid-template-columns: 1fr; }
+    .prozess-gallery { grid-template-columns: 1fr; max-width: 420px; }
   }
 
   /* ====== Jade Kollektion ====== */
@@ -981,8 +1038,8 @@
     width: 440px;
     height: 440px;
     border-radius: 50%;
-    background: radial-gradient(circle at 60% 40%, #e9dcb6 0%, #c9b884 70%, #b09f6c 100%);
-    box-shadow: inset 0 0 60px rgba(31,26,20,0.08);
+    background: radial-gradient(circle at 60% 40%, #dce8f4 0%, #b3cce6 70%, #93b6da 100%);
+    box-shadow: inset 0 0 60px rgba(20,40,68,0.10);
   }
   .footer-bonsai img {
     position: relative;
@@ -990,7 +1047,7 @@
     height: auto;
     display: block;
     transform: translate(-40px, -50px);
-    filter: drop-shadow(0 10px 16px rgba(31,26,20,0.18));
+    filter: drop-shadow(0 10px 16px rgba(20,40,68,0.18));
   }
   .footer-brand .brand-name { display: block; margin-bottom: 10px; }
   .footer-brand-info {
@@ -1605,11 +1662,11 @@
   }
   .prozess-block-inner {
     position: relative;
-    padding: clamp(48px, 6vh, 88px) clamp(18px, 2.6vw, 40px);
+    padding: clamp(64px, 8vh, 116px) clamp(22px, 3vw, 52px);
     display: flex;
     flex-direction: column;
-    gap: clamp(20px, 3vh, 40px);
-    max-width: 1320px;
+    gap: clamp(26px, 3.6vh, 50px);
+    max-width: 1480px;
     margin: 0 auto;
     box-sizing: border-box;
   }
@@ -1618,18 +1675,18 @@
     flex-shrink: 0;
   }
   .prozess-eyebrow {
-    font-size: 10.5px;
+    font-size: 12px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
     color: var(--jade);
     font-weight: 500;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
   .prozess-headline {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(24px, 3vw, 38px);
+    font-size: clamp(30px, 3.7vw, 48px);
     line-height: 1.1;
     margin: 0;
     color: var(--ink);
@@ -1744,6 +1801,7 @@
   .jade-feature-inner {
     position: relative;
     margin: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1762,6 +1820,9 @@
   /* Edle Galerie-Rahmung: tiefblaue Leiste · Gold-Falz · warmes Creme-Passepartout */
   .jade-feature-frame {
     position: relative;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     padding: clamp(3px, 0.32vw, 5px);      /* schlanke blaue Rahmenleiste */
     border-radius: 8px;
     background:
@@ -1806,7 +1867,7 @@
   }
   .jade-feature-img {
     display: block;
-    width: clamp(300px, 50vw, 720px);              /* Querformat-Foto */
+    width: 100%;                                    /* volle Breite */
     height: auto;
     border-radius: 2px;
     box-shadow:
@@ -1824,8 +1885,8 @@
   }
   .jade-feature-caption em { color: #234d86; font-style: normal; }
   @media (max-width: 580px) {
-    .jade-feature { padding: 52px 18px; }
-    .jade-feature-img { width: min(88vw, 440px); }
+    .jade-feature { padding: 52px 14px; }
+    .jade-feature-img { width: 100%; }
     .jade-feature-mat { padding: 5px; }
   }
 
@@ -2778,8 +2839,12 @@
       </div>
     </section>
 
-    <!-- PLATZHALTER: neue Scroll-Animation kommt hier rein (Space bewusst reserviert) -->
-    <section class="anim-placeholder" id="anim-placeholder" aria-hidden="true"></section>
+    <!-- RING SCROLL-ANIMATION (50 Frames, Chromakey-freigestellt aus bdsm.mp4) -->
+    <section class="ring-anim-wrap" id="ring-anim-wrap" aria-hidden="true">
+      <div class="ring-anim-sticky">
+        <img class="ring-anim-frame" id="ring-anim-frame" src="assets/bdsm/frame-001.webp" alt="" />
+      </div>
+    </section>
 
     <!-- PROZESS — Überschrift (Karten + Scroll-Animation entfernt) -->
     <section class="prozess-wrap" id="prozess-wrap">
@@ -2794,10 +2859,23 @@
           </div>
           <div class="prozess-gallery">
             <figure class="prozess-gallery-item">
-              <img src="assets/xp-design.png" alt="Schmuckdesign — Entwurf" loading="lazy" />
+              <div class="prozess-frame">
+                <img src="assets/xp-design.png" alt="Schmuckdesign — Entwurf" loading="lazy" />
+              </div>
+              <figcaption class="prozess-gallery-cap">Entwurf</figcaption>
             </figure>
             <figure class="prozess-gallery-item">
-              <img src="assets/xue-design.png" alt="Schmuckdesign — Ausarbeitung" loading="lazy" />
+              <div class="prozess-frame">
+                <img src="assets/xue-design.png" alt="Schmuckdesign — Ausarbeitung" loading="lazy" />
+              </div>
+              <figcaption class="prozess-gallery-cap">Ausarbeitung</figcaption>
+            </figure>
+            <!-- Lande-Rahmen: hier landet die Ring-Scroll-Animation (fertiges Produkt) -->
+            <figure class="prozess-gallery-item prozess-ring-final">
+              <div class="prozess-frame" id="prozess-ring-slot">
+                <img id="prozess-ring-img" src="assets/bdsm/frame-050.webp" alt="Fertiger Ring" loading="lazy" />
+              </div>
+              <figcaption class="prozess-gallery-cap">Das fertige Stück</figcaption>
             </figure>
           </div>
         </div>
@@ -2864,7 +2942,7 @@
         <div class="est">Wiesbaden</div>
       </div>
       <div class="footer-bonsai" aria-hidden="true">
-        <img src="assets/bonsai.webp" alt="" />
+        <img src="assets/hoz.png" alt="" />
       </div>
       <div class="footer-right">
         <div class="footer-links" style="text-align:right">
@@ -2883,6 +2961,107 @@
   </main>
 </div>
 <script>
+// Ring Scroll-Animation (50 Frames) + FLIP-Landung neben die zwei Design-Bilder
+(function () {
+  var TOTAL = 50;
+  var wrap = document.getElementById('ring-anim-wrap');
+  var img = document.getElementById('ring-anim-frame');
+  var slot = document.getElementById('prozess-ring-slot');
+  var prozessWrap = document.getElementById('prozess-wrap');
+  if (!wrap || !img) return;
+
+  var frames = new Array(TOTAL);
+  var pad = function (n) { return ('00' + n).slice(-3); };
+  for (var i = 0; i < TOTAL; i++) {
+    var src = 'assets/bdsm/frame-' + pad(i + 1) + '.webp';
+    var pre = new Image(); pre.src = src;   // preload
+    frames[i] = src;
+  }
+
+  // Frames laufen über fast den ganzen Sticky-Scroll durch
+  var FRAMES_END = 0.90;
+  // FLIP: startet wenn prozess-wrap-Oberkante am Viewport-Bottom, fertig wenn am Viewport-Top
+  var FLIP_START_VH = 1.0;
+  var FLIP_END_VH = 0.0;
+
+  var current = 0, ticking = false, armedState = false, handedOffState = false;
+
+  function update() {
+    ticking = false;
+    var rect = wrap.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var wrapH = wrap.offsetHeight;
+    var stickyEl = wrap.querySelector('.ring-anim-sticky');
+    var stickyActive = stickyEl && window.getComputedStyle(stickyEl).position === 'sticky'
+                       && window.getComputedStyle(wrap).display !== 'none';
+    var p;
+    if (stickyActive && wrapH > vh + 50) {
+      p = -rect.top / wrapH;     // Frame-Progress über volle wrap-Höhe (inkl. FLIP-Phase)
+    } else {
+      var travel = wrapH + vh;
+      p = (vh - rect.top) / travel;
+    }
+    if (p < 0) p = 0; else if (p > 1) p = 1;
+
+    var animProgress = Math.min(1, p / FRAMES_END);
+    var idx = Math.min(TOTAL - 1, Math.floor(animProgress * TOTAL));
+    if (idx !== current) { current = idx; img.src = frames[idx]; }
+
+    // FLIP-Fortschritt aus prozess-wrap-Annäherung
+    var flipT = 0;
+    if (stickyActive && prozessWrap && slot) {
+      var pwRect = prozessWrap.getBoundingClientRect();
+      var startPx = vh * FLIP_START_VH;
+      var endPx = vh * FLIP_END_VH;
+      if (pwRect.top <= endPx) flipT = 1;
+      else if (pwRect.top >= startPx) flipT = 0;
+      else flipT = (startPx - pwRect.top) / (startPx - endPx);
+      flipT = flipT * flipT * (3 - 2 * flipT); // smoothstep
+    }
+
+    // Transform = Pre-Drift (Teaser, bewegt sich schon früh Richtung Slot)
+    // sauber geblendet in die FLIP-Landung im exakten Rahmen
+    if (stickyActive) {
+      var driftEase = p * p * (3 - 2 * p);           // smoothstep über den ganzen Scrub
+      var preX = 90 * driftEase;                      // px nach rechts
+      var preY = 130 * driftEase;                     // px nach unten
+      var preSc = 1 - 0.14 * driftEase;               // wird schon leicht kleiner
+      var flipDx = 0, flipDy = 0, slotSc = 1;
+      if (slot) {
+        img.style.transform = '';
+        var rawRect = img.getBoundingClientRect();
+        var tRect = slot.getBoundingClientRect();
+        if (rawRect.width > 0 && tRect.width > 0) {
+          flipDx = (tRect.left + tRect.width / 2) - (rawRect.left + rawRect.width / 2);
+          flipDy = (tRect.top + tRect.height / 2) - (rawRect.top + rawRect.height / 2);
+          slotSc = Math.min(tRect.width / rawRect.width, tRect.height / rawRect.height) * 0.92;
+        }
+      }
+      var tx = preX * (1 - flipT) + flipDx * flipT;
+      var ty = preY * (1 - flipT) + flipDy * flipT;
+      var sc = preSc * (1 - flipT) + slotSc * flipT;
+      img.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+    } else {
+      img.style.transform = '';
+    }
+
+    // Handoff: gelandeter Ring (Slot) erscheint, fliegender Ring verschwindet — im selben Moment
+    if (stickyActive && slot) {
+      var landed = flipT >= 0.999;
+      if (landed !== armedState) { armedState = landed; slot.classList.toggle('is-armed', landed); }
+      if (landed !== handedOffState) { handedOffState = landed; img.classList.toggle('is-handed-off', landed); }
+    } else {
+      if (armedState) { armedState = false; slot && slot.classList.remove('is-armed'); }
+      if (handedOffState) { handedOffState = false; img.classList.remove('is-handed-off'); }
+    }
+  }
+
+  function onScroll() { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+
 // Phase 1: Jedeman (Animation 1) im Craft-Wrap + FLIP-Transition zur IV-Karte
 (function () {
   var TOTAL = 50;
