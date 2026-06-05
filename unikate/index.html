@@ -18,8 +18,8 @@
     --muted: #786e5e;
     --gold: #b08a3e;
     --gold-soft: #c9a25b;
-    --jade: #4f6b54;
-    --jade-dark: #3a5340;
+    --jade: #3a6b96;
+    --jade-dark: #2f5680;
     --line: #e6dcc6;
   }
   * { box-sizing: border-box; }
@@ -42,7 +42,7 @@
     inset: 0;
     background:
       radial-gradient(1100px 700px at 12% 8%, rgba(176,138,62,0.07), transparent 60%),
-      radial-gradient(900px 600px at 92% 28%, rgba(79,107,84,0.06), transparent 65%),
+      radial-gradient(900px 600px at 92% 28%, rgba(58, 107, 150,0.06), transparent 65%),
       radial-gradient(800px 600px at 50% 100%, rgba(176,138,62,0.05), transparent 60%);
     pointer-events: none;
     z-index: 0;
@@ -242,11 +242,11 @@
     text-transform: uppercase;
     color: var(--jade);
     padding-top: 8px;
-    border-top: 1px solid rgba(79,107,84,0.18);
+    border-top: 1px solid rgba(58, 107, 150,0.18);
   }
 
   /* Editorial grid placement */
-  .r1 { grid-column: 1 / span 7; }
+  .r1 { grid-column: 1 / span 6; }
   .r1 .ring__frame { aspect-ratio: 4 / 5; }
 
   .r2 { grid-column: 9 / span 4; margin-top: 90px; }
@@ -306,12 +306,12 @@
     text-transform: uppercase;
     border-radius: 999px;
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
-    box-shadow: 0 12px 28px -14px rgba(45,63,51,0.45);
+    box-shadow: 0 12px 28px -14px rgba(36, 63, 94,0.45);
   }
   .closing__cta:hover {
     background: var(--jade-dark);
     transform: translateY(-1px);
-    box-shadow: 0 16px 32px -14px rgba(45,63,51,0.55);
+    box-shadow: 0 16px 32px -14px rgba(36, 63, 94,0.55);
   }
   .closing__cta::after { content: '→'; font-size: 14px; }
 
@@ -415,26 +415,12 @@
     </div>
   </article>
 
-  <article class="ring r3">
-    <div class="ring__frame">
-      <img class="ring__img" src="/assets/unikate/ring-3.webp" alt="Unikat — Ring III" loading="lazy" />
-    </div>
-    <div class="ring__meta">
-      <div class="ring__num">N° 03</div>
-      <div>
-        <h2 class="ring__name">Giardino</h2>
-        <p class="ring__desc">Reich gefasste Brillantkomposition — auf Bestellung in Wiesbaden gefertigt.</p>
-        <span class="ring__tag">Auf Bestellung</span>
-      </div>
-    </div>
-  </article>
-
   <article class="ring r4">
     <div class="ring__frame">
       <img class="ring__img" src="/assets/unikate/ring-4.webp" alt="Unikat — Ring IV" loading="lazy" />
     </div>
     <div class="ring__meta">
-      <div class="ring__num">N° 04</div>
+      <div class="ring__num">N° 03</div>
       <div>
         <h2 class="ring__name">Memoria</h2>
         <p class="ring__desc">Erbstück, neu interpretiert — Steine bewahrt, Fassung neu gefertigt.</p>
@@ -448,7 +434,7 @@
       <img class="ring__img" src="/assets/unikate/ring-5.webp" alt="Unikat — Ring V" loading="lazy" />
     </div>
     <div class="ring__meta">
-      <div class="ring__num">N° 05</div>
+      <div class="ring__num">N° 04</div>
       <div>
         <h2 class="ring__name">Couronne <em class="serif" style="font-style:italic; color:var(--jade)">Royale</em></h2>
         <p class="ring__desc">Krone aus feinen Steinen — Statement-Stück, ein einziges Mal gefertigt.</p>
