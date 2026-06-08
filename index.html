@@ -1822,7 +1822,7 @@
   .jade-feature-frame {
     position: relative;
     display: block;
-    width: 87%;
+    width: min(90%, 720px);
     margin: 0 auto;
     box-sizing: border-box;
     padding: clamp(3px, 0.32vw, 5px);      /* schlanke blaue Rahmenleiste */
@@ -2905,7 +2905,7 @@
       <figure class="jade-feature-inner">
         <span class="jade-feature-frame reveal">
           <span class="jade-feature-mat">
-            <video class="jade-feature-img" src="assets/schn.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Schmuck-Unikate — Juwelier Weidmann"></video>
+            <video class="jade-feature-img" id="jade-scrub-video" src="assets/schn-scrub.mp4" muted playsinline preload="auto" aria-label="Schmuck-Unikate — Juwelier Weidmann"></video>
           </span>
         </span>
         <figcaption class="jade-feature-caption reveal delay-2">Türkis &amp; <em>Farbedelsteine</em> — von Hand komponiert.</figcaption>
@@ -2978,6 +2978,35 @@
   </main>
 </div>
 <script>
+// Scroll-gesteuertes Feature-Video — scrubbt mit dem Scroll statt Autoplay
+(function () {
+  var v = document.getElementById('jade-scrub-video');
+  if (!v) return;
+  var section = v.closest('.jade-feature') || v.parentElement;
+  var dur = 0, ready = false, ticking = false;
+  v.pause();
+  function setDur() { if (v.duration) { dur = v.duration; ready = true; update(); } }
+  v.addEventListener('loadedmetadata', setDur);
+  v.addEventListener('loadeddata', setDur);
+  if (v.readyState >= 1) setDur();
+  function update() {
+    ticking = false;
+    if (!ready) return;
+    var rect = section.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var total = rect.height + vh;
+    var p = (vh - rect.top) / total;
+    if (p < 0) p = 0; else if (p > 1) p = 1;
+    var t = p * dur;
+    if (t > dur - 0.04) t = dur - 0.04;
+    if (t < 0) t = 0;
+    if (Math.abs(t - v.currentTime) > 0.012) { try { v.currentTime = t; } catch (e) {} }
+  }
+  function onScroll() { if (!ticking) { window.requestAnimationFrame(update); ticking = true; } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+
 // Ring Scroll-Animation (50 Frames) + FLIP-Landung neben die zwei Design-Bilder
 (function () {
   var TOTAL = 50;
