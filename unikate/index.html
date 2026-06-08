@@ -150,12 +150,13 @@
   /* ====== Gallery ====== */
   .gallery {
     position: relative;
-    padding: 60px max(40px, calc((100vw - 1500px) / 2)) 140px;
+    padding: 28px max(40px, calc((100vw - 1500px) / 2)) 64px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 56px 40px;
     z-index: 1;
   }
+  .gallery:last-of-type { padding-bottom: 120px; }
 
   .ring {
     position: relative;
@@ -245,21 +246,63 @@
     border-top: 1px solid rgba(58, 107, 150,0.18);
   }
 
-  /* Editorial grid placement */
-  .r1 { grid-column: 1 / span 6; }
-  .r1 .ring__frame { aspect-ratio: 4 / 5; }
+  /* ====== Kategorie-Kopf ====== */
+  .cat-head {
+    text-align: center;
+    padding: 60px max(40px, calc((100vw - 1500px) / 2)) 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .cat-head + .gallery { padding-top: 22px; }
+  .cat-head__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .cat-head__eyebrow::before,
+  .cat-head__eyebrow::after {
+    content: '';
+    width: 42px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(176,138,62,0.85), transparent);
+  }
+  .cat-head__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.08;
+    margin: 0 0 14px;
+    color: var(--ink);
+    letter-spacing: 0.005em;
+  }
+  .cat-head__title em { font-style: italic; color: var(--jade); }
+  .cat-head__sub {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
 
-  .r2 { grid-column: 9 / span 4; margin-top: 90px; }
-  .r2 .ring__frame { aspect-ratio: 3 / 4; }
+  /* Editorial grid placement — Unikate (3 Stücke) */
+  .u1 { grid-column: 1 / span 7; }
+  .u1 .ring__frame { aspect-ratio: 4 / 5; }
+  .u2 { grid-column: 9 / span 4; margin-top: 80px; }
+  .u2 .ring__frame { aspect-ratio: 3 / 4; }
+  .u3 { grid-column: 4 / span 6; margin-top: 10px; }
+  .u3 .ring__frame { aspect-ratio: 3 / 2; }
 
-  .r3 { grid-column: 2 / span 5; margin-top: -40px; }
-  .r3 .ring__frame { aspect-ratio: 1 / 1; }
-
-  .r4 { grid-column: 8 / span 5; }
-  .r4 .ring__frame { aspect-ratio: 5 / 4; }
-
-  .r5 { grid-column: 4 / span 6; margin-top: 20px; }
-  .r5 .ring__frame { aspect-ratio: 3 / 2; }
+  /* Editorial grid placement — Kollektion (2 Stücke) */
+  .c1 { grid-column: 1 / span 6; }
+  .c1 .ring__frame { aspect-ratio: 4 / 5; }
+  .c2 { grid-column: 8 / span 5; margin-top: 70px; }
+  .c2 .ring__frame { aspect-ratio: 4 / 5; }
 
   /* ====== Closing CTA ====== */
   .closing {
@@ -328,11 +371,11 @@
   /* ====== Responsive ====== */
   @media (max-width: 1100px) {
     .gallery { gap: 44px 28px; }
-    .r1 { grid-column: 1 / span 8; }
-    .r2 { grid-column: 9 / span 4; margin-top: 60px; }
-    .r3 { grid-column: 1 / span 6; margin-top: -20px; }
-    .r4 { grid-column: 7 / span 6; }
-    .r5 { grid-column: 3 / span 8; }
+    .u1 { grid-column: 1 / span 8; }
+    .u2 { grid-column: 9 / span 4; margin-top: 50px; }
+    .u3 { grid-column: 2 / span 10; margin-top: 8px; }
+    .c1 { grid-column: 1 / span 6; }
+    .c2 { grid-column: 7 / span 6; margin-top: 50px; }
     .ring__frame { outline-offset: 12px; }
     .ring:hover .ring__frame { outline-offset: 14px; }
   }
@@ -347,14 +390,16 @@
     .gallery {
       grid-template-columns: 1fr;
       gap: 50px 0;
-      padding: 30px 22px 80px;
+      padding: 24px 22px 60px;
     }
-    .r1, .r2, .r3, .r4, .r5 {
+    .cat-head { padding: 44px 22px 4px; }
+    .cat-head + .gallery { padding-top: 18px; }
+    .u1, .u2, .u3, .c1, .c2 {
       grid-column: 1 / -1;
       margin-top: 0;
     }
-    .r1 .ring__frame, .r2 .ring__frame, .r3 .ring__frame,
-    .r4 .ring__frame, .r5 .ring__frame { aspect-ratio: 4 / 5; }
+    .u1 .ring__frame, .u2 .ring__frame, .u3 .ring__frame,
+    .c1 .ring__frame, .c2 .ring__frame { aspect-ratio: 4 / 5; }
     .ring__frame { outline-offset: 10px; }
     .ring:hover .ring__frame { outline-offset: 12px; }
     .ring__name { font-size: 24px; }
@@ -375,19 +420,29 @@
 </header>
 
 <section class="hero">
-  <div class="hero__eyebrow">Wiesbaden · Einzelstücke</div>
-  <h1 class="hero__title">Unikate <em>auf Bestellung</em></h1>
+  <div class="hero__eyebrow">Wiesbaden · Galerie</div>
+  <h1 class="hero__title">Unikate <em>&amp; Kollektionen</em></h1>
   <p class="hero__sub">
-    Jedes Stück wird gemeinsam mit Ihnen in unserer Boutique in der Wiesbadener Burgstraße
-    entworfen und anschließend bei vertrauten Goldschmieden in Auftrag gegeben.
-    Fünf Beispiele aus jüngsten Anfertigungen.
+    Jedes Unikat entsteht gemeinsam mit Ihnen in unserer Boutique in der Wiesbadener Burgstraße
+    und wird bei vertrauten Goldschmieden in Auftrag gegeben. Daneben führen wir
+    ausgewählte Stücke aus feinen Kollektionen.
   </p>
   <div class="hero__ornament" aria-hidden="true"></div>
 </section>
 
-<section class="gallery" aria-label="Unikate-Galerie">
+<!-- ===== Kategorie 1: Unikate ===== -->
+<div class="cat-head">
+  <div class="cat-head__eyebrow">Einzelanfertigungen</div>
+  <h2 class="cat-head__title">Unikate</h2>
+  <p class="cat-head__sub">
+    Gemeinsam mit Ihnen entworfen und nur ein einziges Mal gefertigt — Trauringe,
+    Umarbeitungen von Erbstücken und High-Jewelry-Stücke.
+  </p>
+</div>
 
-  <article class="ring r1">
+<section class="gallery" aria-label="Unikate">
+
+  <article class="ring u1">
     <div class="ring__frame">
       <img class="ring__img" src="/assets/unikate/ring-1.webp" alt="Unikat — Ring I" loading="eager" />
     </div>
@@ -401,26 +456,12 @@
     </div>
   </article>
 
-  <article class="ring r2">
-    <div class="ring__frame">
-      <img class="ring__img" src="/assets/unikate/ring-2.webp" alt="Unikat — Ring II" loading="lazy" />
-    </div>
-    <div class="ring__meta">
-      <div class="ring__num">N° 02</div>
-      <div>
-        <h2 class="ring__name">Linea <em class="serif" style="font-style:italic; color:var(--jade)">Pura</em></h2>
-        <p class="ring__desc">Schmale Linie in Weißgold — reduziert, klar, zeitlos.</p>
-        <span class="ring__tag">Verlobungsring</span>
-      </div>
-    </div>
-  </article>
-
-  <article class="ring r4">
+  <article class="ring u2">
     <div class="ring__frame">
       <img class="ring__img" src="/assets/unikate/ring-4.webp" alt="Unikat — Ring IV" loading="lazy" />
     </div>
     <div class="ring__meta">
-      <div class="ring__num">N° 03</div>
+      <div class="ring__num">N° 02</div>
       <div>
         <h2 class="ring__name">Memoria</h2>
         <p class="ring__desc">Erbstück, neu interpretiert — Steine bewahrt, Fassung neu gefertigt.</p>
@@ -429,16 +470,58 @@
     </div>
   </article>
 
-  <article class="ring r5">
+  <article class="ring u3">
     <div class="ring__frame">
       <img class="ring__img" src="/assets/unikate/ring-5.webp" alt="Unikat — Ring V" loading="lazy" />
     </div>
     <div class="ring__meta">
-      <div class="ring__num">N° 04</div>
+      <div class="ring__num">N° 03</div>
       <div>
         <h2 class="ring__name">Couronne <em class="serif" style="font-style:italic; color:var(--jade)">Royale</em></h2>
         <p class="ring__desc">Krone aus feinen Steinen — Statement-Stück, ein einziges Mal gefertigt.</p>
         <span class="ring__tag">High Jewelry</span>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ===== Kategorie 2: Stücke aus einer Kollektion ===== -->
+<div class="cat-head">
+  <div class="cat-head__eyebrow">Aus feinen Kollektionen</div>
+  <h2 class="cat-head__title">Stücke aus einer <em>Kollektion</em></h2>
+  <p class="cat-head__sub">
+    Sorgfältig ausgewählte Linien renommierter Manufakturen — verfügbar in mehreren
+    Größen und Varianten, jederzeit für Sie bestellbar.
+  </p>
+</div>
+
+<section class="gallery" aria-label="Stücke aus einer Kollektion">
+
+  <article class="ring c1">
+    <div class="ring__frame">
+      <img class="ring__img" src="/assets/unikate/ring-2.webp" alt="Kollektion — Ring II" loading="lazy" />
+    </div>
+    <div class="ring__meta">
+      <div class="ring__num">N° 01</div>
+      <div>
+        <h2 class="ring__name">Linea <em class="serif" style="font-style:italic; color:var(--jade)">Pura</em></h2>
+        <p class="ring__desc">Schmale Linie in Weißgold — reduziert, klar, zeitlos. In mehreren Größen erhältlich.</p>
+        <span class="ring__tag">Verlobungsring · Kollektion</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="ring c2">
+    <div class="ring__frame">
+      <img class="ring__img" src="/assets/unikate/ring-3.webp" alt="Kollektion — Ring III" loading="lazy" />
+    </div>
+    <div class="ring__meta">
+      <div class="ring__num">N° 02</div>
+      <div>
+        <h2 class="ring__name">Aurora</h2>
+        <p class="ring__desc">Filigranes Brillant-Pavé — Teil einer feinen Kollektion, in mehreren Varianten verfügbar.</p>
+        <span class="ring__tag">Kollektion</span>
       </div>
     </div>
   </article>
