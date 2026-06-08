@@ -1117,6 +1117,16 @@
     display: block;
     transform: translate(-40px, -50px);
     filter: drop-shadow(0 10px 16px rgba(20,40,68,0.18));
+    transform-origin: center center;
+    animation: bonsaiBreath 5.5s ease-in-out infinite;
+  }
+  /* Sanftes Größer-/Kleinerwerden im Loop (scale-Property kombiniert mit translate) */
+  @keyframes bonsaiBreath {
+    0%, 100% { scale: 1; }
+    50% { scale: 1.06; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .footer-bonsai img { animation: none; }
   }
   .footer-brand .brand-name { display: block; margin-bottom: 10px; }
   .footer-brand-info {
