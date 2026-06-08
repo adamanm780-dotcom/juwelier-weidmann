@@ -4,9 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Juwelier Weidmann — Klassischer Schmuck mit Charakter</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Schriften selbst gehostet (DSGVO-konform, keine Verbindung zu Google) -->
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
   :root {
     --cream: #f6efe2;
@@ -1002,6 +1001,77 @@
   .kontakt-map iframe {
     display: block;
     border-radius: 12px;
+    width: 100%;
+    height: 300px;
+    border: 0;
+  }
+  /* Consent-Platzhalter für Google Maps */
+  .map-consent {
+    height: 300px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+      linear-gradient(rgba(45,63,51,0.82), rgba(45,63,51,0.88)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 18px, transparent 18px 36px),
+      var(--jade-deep);
+    color: var(--cream);
+  }
+  .map-consent__inner { max-width: 360px; padding: 24px; }
+  .map-consent__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem; color: var(--gold-soft); margin: 0 0 8px;
+  }
+  .map-consent__text {
+    font-size: 0.86rem; line-height: 1.55; opacity: 0.82; margin: 0 0 18px;
+  }
+  .map-consent__text a { color: var(--gold-soft); text-decoration: underline; }
+  .map-consent__btn {
+    font-family: 'Inter', sans-serif; font-size: 0.74rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink); background: var(--gold-soft);
+    border: 0; padding: 12px 26px; border-radius: 2px; cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .map-consent__btn:hover { background: var(--gold); transform: translateY(-1px); }
+  .map-consent__addr { font-size: 0.74rem; letter-spacing: 0.1em; opacity: 0.6; margin: 16px 0 0; }
+
+  /* ====== Cookie-Consent-Banner ====== */
+  .cc-banner {
+    position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%);
+    z-index: 9999; width: min(680px, calc(100vw - 32px));
+    background: var(--ink); color: var(--cream);
+    border: 1px solid rgba(201,162,91,0.35); border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+    padding: 26px 28px; opacity: 0; pointer-events: none;
+    transition: transform 0.5s cubic-bezier(.16,1,.3,1), opacity 0.5s ease;
+  }
+  .cc-banner.is-visible { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+  .cc-banner__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem; color: var(--gold-soft); margin: 0 0 8px;
+  }
+  .cc-banner__text { font-size: 0.85rem; line-height: 1.6; opacity: 0.85; margin: 0 0 18px; }
+  .cc-banner__text a { color: var(--gold-soft); text-decoration: underline; }
+  .cc-banner__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .cc-btn {
+    font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.13em;
+    text-transform: uppercase; padding: 12px 22px; border-radius: 2px;
+    cursor: pointer; transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .cc-btn:hover { transform: translateY(-1px); }
+  .cc-btn--accept { background: var(--gold-soft); color: var(--ink); border: 1px solid var(--gold-soft); }
+  .cc-btn--accept:hover { background: var(--gold); border-color: var(--gold); }
+  .cc-btn--decline {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(246,239,226,0.35);
+  }
+  .cc-btn--decline:hover { border-color: var(--cream); }
+  @media (max-width: 540px) {
+    .cc-banner { padding: 22px 20px; bottom: 12px; }
+    .cc-banner__actions { flex-direction: column; }
+    .cc-btn { width: 100%; }
   }
 
   /* ====== Footer ====== */
@@ -2939,7 +3009,16 @@
           </dl>
         </div>
         <div class="kontakt-map reveal from-right delay-3">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.1234567890!2d8.2738!3d50.0829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd10f8e8e8e8e9%3A0x1234567890abcdef!2sBurgstra%C3%9Fe%203%2C%2065183%20Wiesbaden!5e0!3m2!1sde!2sde!4v1234567890" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <!-- Google Maps wird erst nach Einwilligung geladen (DSGVO) -->
+          <div class="map-consent" id="mapConsent"
+               data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2559.1234567890!2d8.2738!3d50.0829!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd10f8e8e8e8e9%3A0x1234567890abcdef!2sBurgstra%C3%9Fe%203%2C%2065183%20Wiesbaden!5e0!3m2!1sde!2sde!4v1234567890">
+            <div class="map-consent__inner">
+              <p class="map-consent__title">Standort auf Google Maps</p>
+              <p class="map-consent__text">Beim Laden der Karte werden Daten an Google übertragen. Mehr dazu in der <a href="/datenschutz/">Datenschutzerklärung</a>.</p>
+              <button type="button" class="map-consent__btn" data-load-map>Karte laden</button>
+              <p class="map-consent__addr">Burgstraße 3 · 65183 Wiesbaden</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2963,10 +3042,9 @@
       </div>
       <div class="footer-right">
         <div class="footer-links" style="text-align:right">
-          <a href="#">Impressum</a>
-          <a href="#">Datenschutz</a>
-          <a href="#">AGB</a>
-          <a href="#">Widerruf</a>
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="#" data-open-consent>Cookie-Einstellungen</a>
         </div>
         <div class="socials">
           <a href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.7" fill="currentColor"/></svg></a>
@@ -3486,6 +3564,83 @@
   });
 })();
 
+</script>
+
+<!-- ===== Cookie-/Consent-Banner ===== -->
+<div class="cc-banner" id="ccBanner" role="dialog" aria-live="polite" aria-label="Cookie-Hinweis">
+  <p class="cc-banner__title">Datenschutz &amp; Cookies</p>
+  <p class="cc-banner__text">
+    Diese Website nutzt nur technisch notwendige Cookies und lädt keine Tracking-Dienste.
+    Inhalte von Google Maps werden ausschließlich nach Ihrer Einwilligung geladen — dabei werden
+    Daten an Google übertragen. Details in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+  </p>
+  <div class="cc-banner__actions">
+    <button type="button" class="cc-btn cc-btn--accept" data-consent="all">Alle akzeptieren</button>
+    <button type="button" class="cc-btn cc-btn--decline" data-consent="essential">Nur notwendige</button>
+  </div>
+</div>
+
+<script>
+/* ===== Consent-Management (DSGVO, Opt-in) ===== */
+(function () {
+  var KEY = 'weidmann_consent';      // 'all' | 'essential'
+  var banner = document.getElementById('ccBanner');
+
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  function showBanner() { if (banner) banner.classList.add('is-visible'); }
+  function hideBanner() { if (banner) banner.classList.remove('is-visible'); }
+
+  // Google-Maps erst nach Einwilligung laden
+  function loadMap() {
+    var el = document.getElementById('mapConsent');
+    if (!el || el.dataset.loaded) return;
+    var src = el.getAttribute('data-map-src');
+    if (!src) return;
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.width = '100%';
+    iframe.height = '300';
+    iframe.style.border = '0';
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('loading', 'lazy');
+    iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    iframe.title = 'Standort Juwelier Weidmann auf Google Maps';
+    el.replaceWith(iframe);
+    el.dataset.loaded = '1';
+  }
+
+  function apply(consent) {
+    if (consent === 'all') loadMap();
+  }
+
+  // Banner-Buttons
+  if (banner) {
+    banner.querySelectorAll('[data-consent]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var v = btn.getAttribute('data-consent');
+        set(v); hideBanner(); apply(v);
+      });
+    });
+  }
+
+  // Einzel-Button am Karten-Platzhalter ("Karte laden")
+  document.querySelectorAll('[data-load-map]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      set('all'); hideBanner(); loadMap();
+    });
+  });
+
+  // Footer-Link "Cookie-Einstellungen" öffnet Banner erneut
+  document.querySelectorAll('[data-open-consent]').forEach(function (link) {
+    link.addEventListener('click', function (e) { e.preventDefault(); showBanner(); });
+  });
+
+  // Initial
+  var saved = get();
+  if (!saved) { showBanner(); } else { apply(saved); }
+})();
 </script>
 </body>
 </html>
