@@ -289,19 +289,63 @@
     color: var(--muted);
   }
 
-  /* Editorial grid placement — Unikate (3 Stücke) */
-  .u1 { grid-column: 1 / span 7; }
-  .u1 .ring__frame { aspect-ratio: 4 / 5; }
-  .u2 { grid-column: 9 / span 4; margin-top: 80px; }
-  .u2 .ring__frame { aspect-ratio: 3 / 4; }
-  .u3 { grid-column: 4 / span 6; margin-top: 10px; }
-  .u3 .ring__frame { aspect-ratio: 3 / 2; }
+  /* ====== Justierte Galerie — gleiche Höhe pro Reihe, kein Beschnitt, keine Lücken ====== */
+  .gallery--just {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .jrow {
+    display: grid;
+    grid-template-columns: var(--cols, 1fr);  /* Spalten ∝ Seitenverhältnis → Reihe füllt exakt 100% */
+    gap: 30px;
+    align-items: start;
+  }
+  .gallery--just .ring {
+    min-width: 0;
+    margin: 0;
+    /* Reveal: gestaffelt einblenden + sanft hochskalieren */
+    transform: translateY(28px) scale(0.965);
+    transition: opacity .9s ease, transform .95s cubic-bezier(.2,.7,.2,1);
+    transition-delay: calc(var(--i, 0) * 85ms);
+  }
+  .gallery--just .ring.in { transform: translateY(0) scale(1); }
 
-  /* Editorial grid placement — Kollektion (2 Stücke) */
-  .c1 { grid-column: 1 / span 6; }
-  .c1 .ring__frame { aspect-ratio: 4 / 5; }
-  .c2 { grid-column: 8 / span 5; margin-top: 70px; }
-  .c2 .ring__frame { aspect-ratio: 4 / 5; }
+  .gallery--just .ring__frame {
+    width: 100%;
+    border-radius: 8px;
+    outline-offset: 8px;
+    will-change: transform;
+    transform-style: preserve-3d;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1),
+                box-shadow .45s ease,
+                outline-color .5s ease, outline-offset .5s ease;
+  }
+  /* Höhe kommt aus dem echten Bildformat (kein CSS-aspect-ratio → Reihe füllt 100% ohne Beschnitt) */
+  .gallery--just .ring__img { height: auto; }
+  .gallery--just .ring__frame::after { z-index: 3; border-radius: 8px; }
+  .gallery--just .ring:hover .ring__frame {
+    outline-offset: 12px;
+    box-shadow: 0 34px 64px -26px rgba(70,52,18,0.38), 0 6px 16px rgba(70,52,18,0.10);
+  }
+
+  /* Glanz-Sweep über das Bild beim Hover */
+  .ring__frame .sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 33%, rgba(255,255,255,0.5) 49%, transparent 65%);
+    transform: translateX(-135%);
+    transition: transform 1.05s cubic-bezier(.2,.7,.2,1);
+  }
+  .ring:hover .ring__frame .sheen { transform: translateX(135%); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery--just .ring { transition: opacity .4s ease; transform: none; }
+    .ring__frame .sheen { display: none; }
+    .gallery--just .ring__frame { transition: box-shadow .3s ease; }
+  }
 
   /* ====== Closing CTA ====== */
   .closing {
@@ -370,13 +414,9 @@
   /* ====== Responsive ====== */
   @media (max-width: 1100px) {
     .gallery { gap: 44px 28px; }
-    .u1 { grid-column: 1 / span 8; }
-    .u2 { grid-column: 9 / span 4; margin-top: 50px; }
-    .u3 { grid-column: 2 / span 10; margin-top: 8px; }
-    .c1 { grid-column: 1 / span 6; }
-    .c2 { grid-column: 7 / span 6; margin-top: 50px; }
-    .ring__frame { outline-offset: 12px; }
-    .ring:hover .ring__frame { outline-offset: 14px; }
+    .gallery--just { gap: 24px; }
+    .gallery--just .ring__frame { outline-offset: 7px; }
+    .gallery--just .ring:hover .ring__frame { outline-offset: 10px; }
   }
   @media (max-width: 760px) {
     .topbar__inner { padding: 14px 18px; }
@@ -387,20 +427,14 @@
     .hero__eyebrow::before, .hero__eyebrow::after { width: 22px; }
     .hero__sub { font-size: 14.5px; }
     .gallery {
-      grid-template-columns: 1fr;
       gap: 50px 0;
       padding: 24px 22px 60px;
     }
+    .gallery--just { gap: 24px; }
+    .jrow { grid-template-columns: 1fr; gap: 24px; }
+    .gallery--just .ring__frame { outline-offset: 9px; }
     .cat-head { padding: 44px 22px 4px; }
     .cat-head + .gallery { padding-top: 18px; }
-    .u1, .u2, .u3, .c1, .c2 {
-      grid-column: 1 / -1;
-      margin-top: 0;
-    }
-    .u1 .ring__frame, .u2 .ring__frame, .u3 .ring__frame,
-    .c1 .ring__frame, .c2 .ring__frame { aspect-ratio: 4 / 5; }
-    .ring__frame { outline-offset: 10px; }
-    .ring:hover .ring__frame { outline-offset: 12px; }
     .ring__name { font-size: 24px; }
     .closing { padding: 60px 22px 100px; }
   }
@@ -439,7 +473,27 @@
   </p>
 </div>
 
-<section class="gallery" aria-label="Unikate"></section>
+<section class="gallery gallery--just" aria-label="Unikate">
+  <div class="jrow" style="--cols: 1.3333fr 1.3333fr">
+    <article class="ring ring--land" style="--ar:1.3333; --i:0">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-1.webp" alt="Unikat — Juwelier Weidmann" loading="eager" /></div>
+    </article>
+    <article class="ring ring--land" style="--ar:1.3333; --i:1">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-6.webp" alt="Unikat — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+  </div>
+  <div class="jrow" style="--cols: 0.75fr 0.8004fr 0.8004fr">
+    <article class="ring ring--port" style="--ar:0.75; --i:2">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-2.webp" alt="Unikat — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+    <article class="ring ring--port" style="--ar:0.8004; --i:3">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-3.webp" alt="Unikat — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+    <article class="ring ring--port" style="--ar:0.8004; --i:4">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-7.webp" alt="Unikat — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+  </div>
+</section>
 
 <!-- ===== Kategorie 2: Stücke aus einer Kollektion ===== -->
 <div class="cat-head">
@@ -451,7 +505,16 @@
   </p>
 </div>
 
-<section class="gallery" aria-label="Stücke aus einer Kollektion"></section>
+<section class="gallery gallery--just" aria-label="Stücke aus einer Kollektion">
+  <div class="jrow" style="--cols: 1.3333fr 0.8004fr">
+    <article class="ring ring--land" style="--ar:1.3333; --i:0">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-4.webp" alt="Kollektion — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+    <article class="ring ring--port" style="--ar:0.8004; --i:1">
+      <div class="ring__frame"><span class="sheen" aria-hidden="true"></span><img class="ring__img" src="/assets/unikate/new-5.webp" alt="Kollektion — Juwelier Weidmann" loading="lazy" /></div>
+    </article>
+  </div>
+</section>
 
 <section class="closing">
   <div class="closing__kicker">Ihr eigenes Unikat</div>
@@ -476,6 +539,23 @@
     }
   }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.ring').forEach(el => io.observe(el));
+
+  // 3D-Tilt: Karte neigt sich sanft zum Cursor (nur Maus, respektiert Reduced-Motion)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.gallery--just .ring').forEach((card) => {
+      const frame = card.querySelector('.ring__frame');
+      if (!frame) return;
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        frame.style.transform =
+          'perspective(1000px) rotateX(' + (-py * 5).toFixed(2) + 'deg) rotateY(' + (px * 7).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('pointerleave', () => { frame.style.transform = ''; });
+    });
+  }
 </script>
 
 </body>
