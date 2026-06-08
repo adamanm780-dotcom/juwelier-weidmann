@@ -400,12 +400,11 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    margin-top: 28px;
+    margin-top: 0;
     margin-bottom: 28px;
     width: 100vw;
     height: 800px;
-    background: linear-gradient(180deg, rgba(200,218,236,0.45) 0%, rgba(178,201,227,0.55) 100%);
-    box-shadow: 0 10px 30px -16px rgba(63,134,196,0.22);
+    background: linear-gradient(180deg in oklab, #d5e2ee 0%, #d5e2ee 14%, #cfdce9 52%, rgba(193,213,232,0.5) 100%);
     z-index: 1;
     overflow: hidden;
   }
@@ -485,7 +484,7 @@
     .wood-text__body { font-size: 14px; }
   }
   @media (max-width: 768px) {
-    .wood-strip { margin-top: 16px; margin-bottom: 16px; height: 240px; }
+    .wood-strip { margin-top: 0; margin-bottom: 16px; height: 240px; }
     .wood-photo-frame { height: 82%; max-width: 50%; left: 12px; border-radius: 10px; }
     .wood-text { display: none; }
   }
@@ -1265,7 +1264,8 @@
   .philosophie-section {
     margin: 0 24px;
     padding: 90px 64px 170px;
-    background: linear-gradient(180deg, #faf7f1 0%, #f4ece1 38%, #f0eee9 60%, #ebeef2 80%, #e7eef5 100%);
+    background: #f3f1ec;
+    background: linear-gradient(180deg in oklab, #faf7f1 0%, #faf7f1 52%, #e7eef5 100%);
     border-radius: 0;
     text-align: center;
     position: relative;
@@ -1427,21 +1427,22 @@
 
   /* ====== UNIKATE (formerly Atelier) ====== */
   .unikate-section {
-    margin: 0 24px 32px;
-    padding: 120px 64px 90px;
-    background: linear-gradient(180deg, #e7eef5 0%, #dde7f1 40%, #d5e2ee 100%);
-    border-radius: 0 0 28px 28px;
+    margin: 0 24px 0;
+    padding: 120px 64px 100px;
+    background: #dfe8f1;
+    background: linear-gradient(180deg in oklab, #e7eef5 0%, #e7eef5 18%, #d5e2ee 100%);
+    border-radius: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
   }
 
   /* WILLKOMMEN — Begrüßung unter der Hero im Hellblau der Website */
   .welcome-section {
     margin: 32px 24px 0;
     padding: clamp(48px, 7vw, 88px) clamp(24px, 6vw, 80px) clamp(64px, 9vw, 120px);
-    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 58%, #faf7f1 100%);
+    background: #f0f1ef;
+    background: linear-gradient(180deg in oklab, #e7eef5 0%, #e7eef5 18%, #faf7f1 92%, #faf7f1 100%);
     border-radius: 28px 28px 0 0;
     text-align: center;
   }
@@ -1821,7 +1822,8 @@
   .jade-feature-frame {
     position: relative;
     display: block;
-    width: 100%;
+    width: 87%;
+    margin: 0 auto;
     box-sizing: border-box;
     padding: clamp(3px, 0.32vw, 5px);      /* schlanke blaue Rahmenleiste */
     border-radius: 8px;
@@ -2263,7 +2265,19 @@
     .history-timeline { grid-template-columns: 90px 1fr; gap: 24px; }
     .timeline-dot { font-size: 22px; }
     .timeline-text { font-size: 13px; line-height: 1.7; }
-    .unikate-section { padding: 60px 32px; margin: 0 16px 24px; }
+    .unikate-section { padding: 60px 32px; margin: 0 16px 0; }
+  }
+
+  /* ====== Dithering-Overlay gegen Color-Banding (saubere Verläufe) ====== */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;                 /* über Inhalt, unter Mobile-Nav (150)/Header (200)/Modals (300) */
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
   }
 
   /* ====== Site Header / Navigation (separate, always visible) ====== */
@@ -2710,6 +2724,9 @@
     Burgstraße 3 · Wiesbaden
   </div>
 </div>
+
+<!-- Feines Dithering gegen Color-Banding — macht alle Verläufe sauber -->
+<div class="grain-overlay" aria-hidden="true"></div>
 
 <div class="page">
 
