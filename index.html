@@ -16,10 +16,11 @@
     --muted: #786e5e;
     --gold: #b08a3e;
     --gold-soft: #c9a25b;
-    --jade: #3a6b96;
-    --jade-dark: #2f5680;
-    --jade-deep: #243f5e;
+    --jade: #b08a3e;
+    --jade-dark: #9a7330;
+    --jade-deep: #7d5d23;
     --line: #e6dcc6;
+    --gutter: clamp(42px, 8.6vw, 148px);   /* Seitenrand: Platz für Gold-Ornamente + breite Striche */
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -72,6 +73,61 @@
     position: relative;
     margin-left: 0;
     z-index: 1;
+  }
+
+  /* ====== Symmetrische goldene Seiten-Ornamente ====== */
+  .edge-ornament {
+    position: fixed;
+    top: 0; bottom: 0;
+    width: clamp(20px, 1.9vw, 28px);
+    background-image: url('assets/ornament.svg');
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: 100% auto;
+    opacity: 0;                          /* nur unterhalb der Hero sichtbar (per JS) */
+    transition: opacity .6s ease;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .edge-ornament--left  { left: 8px; }
+  .edge-ornament--left.is-visible { opacity: 0.6; }
+  @media (max-width: 1100px) { .edge-ornament { display: none; } }
+
+  /* ====== Drei breite goldene Scroll-Striche (rechts, tauchen hinter Sektionen ab) ====== */
+  .gold-rails {
+    position: absolute;
+    right: clamp(5px, 0.7vw, 11px);
+    display: flex;
+    gap: clamp(5px, 0.7vw, 11px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .gold-rails i {
+    display: block;
+    width: clamp(16px, 2.05vw, 36px);
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(180deg,
+      rgba(176,138,62,0) 0%,
+      rgba(201,162,91,1) 4%,
+      #a8801f 50%,
+      rgba(201,162,91,1) 96%,
+      rgba(176,138,62,0) 100%);
+    box-shadow: 0 0 9px rgba(201,162,91,0.55);
+  }
+  @media (max-width: 760px) { .gold-rails { display: none; } }
+
+  /* ====== Plastischer, erhabener Hintergrund-Schimmer ====== */
+  .page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(135% 80% at 50% -12%, rgba(255,251,240,0.6), transparent 56%),
+      radial-gradient(110% 75% at 50% 116%, rgba(120,92,40,0.12), transparent 60%);
+    mix-blend-mode: soft-light;
   }
 
   /* ====== Top nav ====== */
@@ -164,7 +220,7 @@
   /* ====== Hero ====== */
   .hero-wrap {
     position: relative;
-    margin: 12px 24px 28px 24px;
+    margin: 0 0 28px;        /* full-bleed: Hero über die gesamte Breite */
     /* 500vh: 1 Viewport für die Hero selbst (sticky) + 4 Viewports Scroll-Strecke,
        über die sich die 50 Shigma-Frames abspielen. Erst danach scrollt die Seite weiter. */
     height: 500vh;
@@ -174,7 +230,7 @@
     position: sticky;
     top: 0;
     height: 100vh;
-    border-radius: 32px;
+    border-radius: 0;
     overflow: hidden;
     z-index: 1;
     background: #e8e4d4;
@@ -191,18 +247,81 @@
     user-select: none;
     -webkit-user-drag: none;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity .9s cubic-bezier(.4,0,.2,1);
+  }
+  .hero-frame.is-active { opacity: 1; }
+  .hero-frame.is-front { z-index: 1; }
+
+  /* Motiv-Umschalter (zwei Hero-Filme) */
+  .hero-switch {
+    position: absolute;
+    left: clamp(20px, 4vw, 60px);
+    bottom: clamp(26px, 5vh, 56px);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 6px 6px 17px;
+    border-radius: 999px;
+    background: rgba(30,22,13,0.44);
+    -webkit-backdrop-filter: blur(11px);
+            backdrop-filter: blur(11px);
+    box-shadow: inset 0 0 0 1px rgba(201,162,91,0.48), 0 12px 32px -16px rgba(30,20,8,0.8);
+    animation: heroFadeIn 1.1s ease-out 1.2s both;
+  }
+  .hero-switch__label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,246,228,0.72);
+    margin-right: 4px;
+  }
+  .hero-switch__btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    padding: 9px 20px;
+    border-radius: 999px;
+    color: rgba(255,248,234,0.85);
+    background: transparent;
+    transition: background .35s ease, color .35s ease, box-shadow .35s ease;
+  }
+  .hero-switch__btn:hover { color: #fffaf0; background: rgba(201,162,91,0.24); }
+  .hero-switch__btn.is-active {
+    color: #241c10;
+    background: linear-gradient(135deg, #e8c87f 0%, #c49a4a 55%, #a8801f 100%);
+    box-shadow: 0 2px 12px -2px rgba(30,20,8,0.55);
+  }
+  .hero-switch__btn:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 3px; }
+  @media (max-width: 760px) {
+    .hero-switch { left: 16px; bottom: 20px; padding: 5px 5px 5px 13px; }
+    .hero-switch__label { font-size: 9px; letter-spacing: 0.24em; }
+    .hero-switch__btn { padding: 7px 15px; font-size: 13px; }
   }
   /* Das Hero-Bild füllt die Hero immer voll aus (cover, inset:0, kein translate →
      kein leerer Streifen). Auf schmaleren/höheren Desktop-Viewports beschneidet
      cover die Seiten; object-position:center hält den Beschnitt links/rechts
      symmetrisch, damit weder Schriftzug noch Schmuck einseitig wegfallen. */
   .hero-pic { display: contents; }
-  .hero-content { z-index: 1; }
+  .hero-content { z-index: 3; }
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: transparent;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+      rgba(251,246,236,0) 0%,
+      rgba(251,246,236,0) 80%,
+      rgba(251,246,236,0.30) 90%,
+      rgba(251,246,236,0.72) 96.5%,
+      rgba(251,246,236,0.95) 100%);
   }
   .hero-content {
     position: relative;
@@ -403,7 +522,13 @@
     margin-bottom: 28px;
     width: 100vw;
     height: 800px;
-    background: linear-gradient(180deg in oklab, #d5e2ee 0%, #d5e2ee 14%, #cfdce9 52%, rgba(193,213,232,0.5) 100%);
+    background: linear-gradient(180deg,
+      #f4ecd9 0%,
+      #f4ecd9 46%,
+      rgba(244,236,217,0.92) 62%,
+      rgba(244,236,217,0.62) 76%,
+      rgba(244,236,217,0.26) 88%,
+      rgba(244,236,217,0) 100%);
     z-index: 1;
     overflow: hidden;
   }
@@ -416,9 +541,15 @@
     width: auto;
     aspect-ratio: 4 / 3;
     max-width: 42%;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 18px 40px -16px rgba(0,0,0,0.55);
+    border-radius: 12px;
+    padding: clamp(7px, 0.6vw, 11px);            /* goldene Rahmenleiste */
+    background: linear-gradient(135deg, #e6c473 0%, #c39a45 34%, #9c7528 68%, #6f521b 100%);
+    box-shadow:
+      inset 0 2px 1px rgba(255,255,255,0.30),
+      inset 0 -2px 2px rgba(0,0,0,0.30),
+      0 0 0 1px rgba(201,162,91,0.55),           /* feine Gold-Außenlinie */
+      0 24px 50px -18px rgba(70,52,18,0.50),
+      0 8px 18px -12px rgba(70,52,18,0.40);
     z-index: 1;
     isolation: isolate;
   }
@@ -427,6 +558,8 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px #f6f0e2;               /* warmes Creme-Passepartout */
   }
   .wood-text {
     position: absolute;
@@ -445,7 +578,7 @@
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #234d86;
+    color: #a87f2c;
     margin-bottom: 16px;
     font-weight: 600;
   }
@@ -460,7 +593,7 @@
   }
   .wood-text__headline em {
     font-style: italic;
-    color: #234d86;
+    color: #a87f2c;
     font-weight: 400;
   }
   .wood-text__divider {
@@ -618,7 +751,7 @@
   .ring-anim-wrap {
     position: relative;
     height: 260vh;
-    margin: 0 24px;
+    margin: 0 var(--gutter);
     z-index: 60;            /* Ring wandert ÜBER die nachfolgende blaue Sektion */
   }
   .ring-anim-sticky {
@@ -664,7 +797,7 @@
   .prozess-frame {
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 22px 48px -28px rgba(47, 110, 91, 0.45);
+    box-shadow: 0 22px 48px -28px rgba(176,138,62, 0.45);
     background: #fff;
   }
   .prozess-frame > img {
@@ -1014,9 +1147,9 @@
     justify-content: center;
     text-align: center;
     background:
-      linear-gradient(rgba(28,63,114,0.86), rgba(20,50,87,0.92)),
+      linear-gradient(rgba(60,45,18,0.86), rgba(45,33,15,0.92)),
       repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0 18px, transparent 18px 36px),
-      #173b6e;
+      #9c7528;
     color: var(--cream);
   }
   .map-consent__inner { max-width: 360px; padding: 24px; }
@@ -1076,9 +1209,9 @@
 
   /* ====== Footer ====== */
   footer {
-    background: var(--paper);
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 100%);
     padding: 36px 40px 32px;
-    border-top: 1px solid var(--line);
+    border-top: 0;
     display: grid;
     grid-template-columns: 1.3fr 1fr 1fr 1fr;
     gap: 30px;
@@ -1091,42 +1224,63 @@
     position: relative;
     display: grid;
     place-items: center;
-    justify-self: start;
-    margin-left: -40px;
+    justify-self: center;
+    margin-left: 0;
     align-self: center;
-    width: 400px;
-    height: 260px;
-    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    overflow: visible;
+    transform-origin: center center;
+    animation: bonsaiBreath 3.2s ease-in-out infinite;
+    will-change: transform;
   }
   .footer-bonsai::before {
     content: '';
     position: absolute;
-    left: -140px;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
-    width: 440px;
-    height: 440px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 60% 40%, #dce8f4 0%, #b3cce6 70%, #93b6da 100%);
-    box-shadow: inset 0 0 60px rgba(20,40,68,0.10);
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    border-radius: 0;                                  /* eckiger Rahmen */
+    background: linear-gradient(155deg, #f3ead4 0%, #e7dcc0 100%);   /* beige */
+    box-shadow:
+      0 0 0 2px rgba(176,138,62,0.60),                 /* goldener Rand */
+      inset 0 0 46px rgba(70,52,18,0.06),
+      0 20px 44px -24px rgba(70,52,18,0.28);
+    animation: bonsaiGlow 3.2s ease-in-out infinite;
   }
   .footer-bonsai img {
     position: relative;
-    width: 360px;
+    width: 290px;
     height: auto;
     display: block;
-    transform: translate(-40px, -50px);
-    filter: drop-shadow(0 10px 16px rgba(20,40,68,0.18));
+    transform: none;
+    filter: drop-shadow(0 8px 14px rgba(70,52,18,0.16));
     transform-origin: center center;
-    animation: bonsaiBreath 5.5s ease-in-out infinite;
   }
-  /* Sanftes Größer-/Kleinerwerden im Loop (scale-Property kombiniert mit translate) */
+  /* Kraeftiges Atmen: Rahmen + Ring pulsieren gemeinsam, dazu ein Goldschein */
   @keyframes bonsaiBreath {
     0%, 100% { scale: 1; }
-    50% { scale: 1.06; }
+    50%      { scale: 1.13; }
+  }
+  @keyframes bonsaiGlow {
+    0%, 100% {
+      box-shadow:
+        0 0 0 2px rgba(176,138,62,0.60),
+        inset 0 0 46px rgba(70,52,18,0.06),
+        0 20px 44px -24px rgba(70,52,18,0.28);
+    }
+    50% {
+      box-shadow:
+        0 0 0 2px rgba(214,175,102,0.98),
+        inset 0 0 46px rgba(70,52,18,0.06),
+        0 26px 58px -22px rgba(70,52,18,0.42),
+        0 0 38px rgba(201,162,91,0.50);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .footer-bonsai img { animation: none; }
+    .footer-bonsai, .footer-bonsai::before { animation: none; }
   }
   .footer-brand .brand-name { display: block; margin-bottom: 10px; }
   .footer-brand-info {
@@ -1226,9 +1380,9 @@
     .nav { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
     .nav-icons { gap: 14px; }
     .brand-logo { height: 36px; }
-    .hero-wrap { margin: 8px 14px 16px; height: 400vh; }
-    .hero { border-radius: 22px; }
-    .hero::before { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%); }
+    .hero-wrap { margin: 0 0 16px; height: 400vh; }
+    .hero { border-radius: 0; }
+    .hero::before { background: linear-gradient(180deg, rgba(251,246,236,0) 0%, rgba(251,246,236,0) 82%, rgba(251,246,236,0.55) 93%, rgba(251,246,236,0.95) 100%); }
     .hero-content { padding: 32px 22px; max-width: 100%; }
     .hero h1 { font-size: clamp(28px, 8vw, 38px); }
     .hero p { font-size: 14px; }
@@ -1271,8 +1425,8 @@
     .nav-icons { gap: 10px; }
     .brand-logo { height: 30px; }
 
-    .hero-wrap { margin: 6px 10px 12px; height: 400vh; }
-    .hero { border-radius: 18px; }
+    .hero-wrap { margin: 0 0 12px; height: 400vh; }
+    .hero { border-radius: 0; }
     .hero-content { padding: 24px 16px; }
     .hero h1 { font-size: clamp(26px, 9vw, 34px); }
     .hero p { font-size: 13.5px; margin-bottom: 22px; }
@@ -1342,10 +1496,9 @@
   /* ====== Atelier / About ====== */
   /* ====== PHILOSOPHIE ====== */
   .philosophie-section {
-    margin: 0 24px;
+    margin: 0 var(--gutter);
     padding: 90px 64px 170px;
-    background: #f3f1ec;
-    background: linear-gradient(180deg in oklab, #faf7f1 0%, #e7eef5 100%);
+    background: #f4ecd9;
     border-radius: 0;
     text-align: center;
     position: relative;
@@ -1432,7 +1585,7 @@
   }
   .philosophie-principles {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
     margin-top: 48px;
   }
@@ -1507,10 +1660,9 @@
 
   /* ====== UNIKATE (formerly Atelier) ====== */
   .unikate-section {
-    margin: 0 24px 0;
+    margin: 0 var(--gutter) 0;
     padding: 120px 64px 100px;
-    background: #dfe8f1;
-    background: linear-gradient(180deg in oklab, #e7eef5 0%, #d5e2ee 100%);
+    background: #f4ecd9;
     border-radius: 0;
     text-align: center;
     position: relative;
@@ -1519,10 +1671,14 @@
 
   /* WILLKOMMEN — Begrüßung unter der Hero im Hellblau der Website */
   .welcome-section {
-    margin: 32px 24px 0;
+    margin: 32px var(--gutter) 0;
     padding: clamp(48px, 7vw, 88px) clamp(24px, 6vw, 80px) clamp(64px, 9vw, 120px);
-    background: #f0f1ef;
-    background: linear-gradient(180deg in oklab, #e7eef5 0%, #faf7f1 100%);
+    background: linear-gradient(180deg,
+      rgba(244,236,217,0) 0px,
+      rgba(244,236,217,0.45) 46px,
+      rgba(244,236,217,0.86) 96px,
+      #f4ecd9 150px,
+      #f4ecd9 100%);
     border-radius: 28px 28px 0 0;
     text-align: center;
   }
@@ -1553,8 +1709,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(176,138,62, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(176,138,62, 0.08), transparent 55%);
     pointer-events: none;
   }
   .unikate-grid { max-width: 760px; margin: 0 auto; position: relative; }
@@ -1572,13 +1728,19 @@
     font-size: clamp(38px, 5.4vw, 64px);
     line-height: 1.04;
     margin: 0 0 30px;
-    color: var(--ink);
     letter-spacing: -0.012em;
+    color: #b08a3e;                                   /* Fallback-Gold */
+    background: linear-gradient(180deg, #e3c074 0%, #c49a4a 44%, #9c7528 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.40)) drop-shadow(0 3px 5px rgba(70,52,18,0.16));
   }
   .unikate-headline em {
     font-style: italic;
-    color: var(--jade);
-    font-weight: 300;
+    font-weight: 400;
+    color: inherit;
+    -webkit-text-fill-color: transparent;
   }
   .unikate-divider {
     width: 80px;
@@ -1648,20 +1810,20 @@
   .atelier-section {
     margin: 32px 24px;
     padding: 90px 64px;
-    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
+    background: linear-gradient(180deg, #f4ecd9 0%, #e9dcc0 100%);
     border-radius: 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
+    box-shadow: 0 24px 60px -36px rgba(176,138,62, 0.25);
   }
   .atelier-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(176,138,62, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(176,138,62, 0.08), transparent 55%);
     pointer-events: none;
   }
   .atelier-grid { max-width: 760px; margin: 0 auto; position: relative; }
@@ -1728,17 +1890,17 @@
     margin-right: -50vw;
     width: 100vw;
     left: 50%;
-    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
+    background: linear-gradient(180deg, #f4ecd9 0%, #e9dcc0 100%);
     overflow: hidden;
-    box-shadow: 0 -10px 40px -16px rgba(63, 134, 196, 0.18);
+    box-shadow: 0 -10px 40px -16px rgba(176,138,62, 0.18);
   }
   .prozess-block::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(176,138,62, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(176,138,62, 0.08), transparent 55%);
     pointer-events: none;
   }
   .prozess-block-inner {
@@ -1796,11 +1958,11 @@
     overflow: hidden;
     border-radius: 14px;
     background: rgba(255,255,255,0.55);
-    border: 1px solid rgba(63, 134, 196,0.16);
-    box-shadow: 0 12px 28px -16px rgba(63, 134, 196,0.30);
+    border: 1px solid rgba(176,138,62,0.16);
+    box-shadow: 0 12px 28px -16px rgba(176,138,62,0.30);
     transition: box-shadow 0.35s;
   }
-  .prozess-step:hover .prozess-step-img-wrap { box-shadow: 0 20px 40px -18px rgba(63, 134, 196,0.42); }
+  .prozess-step:hover .prozess-step-img-wrap { box-shadow: 0 20px 40px -18px rgba(176,138,62,0.42); }
   .prozess-step-img {
     width: 100%;
     height: 100%;
@@ -1894,7 +2056,7 @@
     font-size: 10.5px;
     letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: #234d86;
+    color: #a87f2c;
     font-weight: 600;
     margin-bottom: 22px;
   }
@@ -1908,15 +2070,15 @@
     padding: clamp(3px, 0.32vw, 5px);      /* schlanke blaue Rahmenleiste */
     border-radius: 8px;
     background:
-      linear-gradient(135deg, #3d6cb0 0%, #244f8d 34%, #173b6e 68%, #0f2c54 100%);
+      linear-gradient(135deg, #e6c473 0%, #c39a45 34%, #9c7528 68%, #6f521b 100%);
     box-shadow:
       inset 0 2px 1px rgba(255,255,255,0.30),     /* Bevel: heller oberer Grat */
       inset 0 -2px 2px rgba(0,0,0,0.32),          /* Bevel: dunkler unterer Grat */
       inset 1px 0 1px rgba(255,255,255,0.12),
       inset -1px 0 1px rgba(0,0,0,0.18),
       0 0 0 1px rgba(201,162,91,0.50),            /* feine Gold-Linie am Außenrand */
-      0 28px 56px -26px rgba(12,34,68,0.55),      /* realistischer Schlagschatten */
-      0 9px 22px -16px rgba(12,34,68,0.45);
+      0 28px 56px -26px rgba(70,52,18,0.55),      /* realistischer Schlagschatten */
+      0 9px 22px -16px rgba(70,52,18,0.45);
     transition: transform 0.55s cubic-bezier(0.2,0.7,0.2,1), box-shadow 0.55s;
   }
   .jade-feature-frame::after {
@@ -1935,8 +2097,8 @@
       inset 1px 0 1px rgba(255,255,255,0.14),
       inset -1px 0 1px rgba(0,0,0,0.20),
       0 0 0 1px rgba(201,162,91,0.70),
-      0 40px 78px -26px rgba(12,34,68,0.62),
-      0 12px 26px -16px rgba(12,34,68,0.5);
+      0 40px 78px -26px rgba(70,52,18,0.62),
+      0 12px 26px -16px rgba(70,52,18,0.5);
   }
   .jade-feature-mat {
     display: block;                               /* schmales warmes Passepartout */
@@ -1965,7 +2127,7 @@
     margin-top: 26px;
     letter-spacing: 0.005em;
   }
-  .jade-feature-caption em { color: #234d86; font-style: normal; }
+  .jade-feature-caption em { color: #a87f2c; font-style: normal; }
   @media (max-width: 580px) {
     .jade-feature { padding: 52px 14px; }
     .jade-feature-img { width: 100%; }
@@ -2052,7 +2214,7 @@
     content: '';
     position: absolute;
     left: 0; right: 0; top: 0; bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(58, 107, 150, 0.05) 50%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(176,138,62, 0.05) 50%, transparent);
     opacity: 0;
     transition: opacity 0.55s ease;
     pointer-events: none;
@@ -2108,20 +2270,20 @@
   .news-section, .partner-section {
     margin: 32px 24px;
     padding: 90px 64px;
-    background: linear-gradient(180deg, #e7eef5 0%, #d5e2ee 100%);
+    background: linear-gradient(180deg, #f4ecd9 0%, #e9dcc0 100%);
     border-radius: 28px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 24px 60px -36px rgba(63, 134, 196, 0.25);
+    box-shadow: 0 24px 60px -36px rgba(176,138,62, 0.25);
   }
   .news-section::before, .partner-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 0%, rgba(63, 134, 196, 0.10), transparent 55%),
-      radial-gradient(circle at 82% 100%, rgba(63, 134, 196, 0.08), transparent 55%);
+      radial-gradient(circle at 18% 0%, rgba(176,138,62, 0.10), transparent 55%),
+      radial-gradient(circle at 82% 100%, rgba(176,138,62, 0.08), transparent 55%);
     pointer-events: none;
   }
   .news-grid, .partner-grid {
@@ -2193,19 +2355,43 @@
   /* ====== Kontakt / Standort ====== */
   .kontakt-section {
     margin: 0;
-    padding: 100px 64px;
-    background: linear-gradient(160deg, #2b1d15 0%, #1a110c 100%);
-    color: #f5efdb;
+    padding: 190px 64px 170px;
+    background: linear-gradient(180deg,
+      rgba(92,70,50,0) 0px,
+      rgba(92,70,50,0.28) 60px,
+      rgba(90,68,48,0.68) 120px,
+      rgba(88,67,47,0.92) 175px,
+      #57422e 240px,
+      #4b3826 55%,
+      #41301f 100%);
+    color: #f7efdb;
     position: relative;
     overflow: hidden;
   }
+  /* Unten weich ins Creme des Footers auslaufen */
+  .kontakt-section::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: clamp(90px, 12vh, 160px);
+    background: linear-gradient(180deg,
+      rgba(251,246,236,0) 0%,
+      rgba(251,246,236,0.30) 46%,
+      rgba(251,246,236,0.74) 76%,
+      var(--paper) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .kontakt-grid { z-index: 1; }
   .kontakt-section::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 90% 10%, rgba(176,138,62,0.10), transparent 50%),
-      radial-gradient(circle at 10% 90%, rgba(63, 134, 196,0.08), transparent 50%);
+      radial-gradient(circle at 90% 22%, rgba(176,138,62,0.10), transparent 50%),
+      radial-gradient(circle at 10% 82%, rgba(176,138,62,0.08), transparent 50%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 210px, #000 calc(100% - 150px), transparent 100%);
+            mask-image: linear-gradient(180deg, transparent 0, #000 210px, #000 calc(100% - 150px), transparent 100%);
     pointer-events: none;
   }
   .kontakt-grid {
@@ -2310,7 +2496,7 @@
       grid-column: 2;
       padding-top: 14px;
     }
-    .kontakt-section { padding: 70px 32px; }
+    .kontakt-section { padding: 150px 32px 130px; }
     .kontakt-grid { grid-template-columns: 1fr; gap: 48px; }
   }
   @media (max-width: 580px) {
@@ -2328,7 +2514,7 @@
     .kollektion-row__body h3 { font-size: 22px; margin-bottom: 8px; }
     .kollektion-row__body p { font-size: 14px; line-height: 1.65; }
     .kollektion-row__meta { font-size: 11px; padding-top: 12px; letter-spacing: 0.12em; }
-    .kontakt-section { padding: 56px 20px; }
+    .kontakt-section { padding: 120px 20px 110px; }
     .kontakt-hours { padding: 28px 22px; }
     .atelier-meta { gap: 24px; font-size: 11px; }
     .atelier-meta span:not(:last-child)::after { right: -16px; }
@@ -2340,6 +2526,7 @@
     .philosophie-headline { font-size: clamp(28px, 4.2vw, 44px); margin: 36px 0 24px; }
     .philosophie-body { font-size: 14px; line-height: 1.7; }
     .philosophie-principles { grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 32px; padding: 0 16px; }
+    .philosophie-principles .principle:last-child { grid-column: 1 / -1; }
     .principle { padding: 16px 12px; }
     .principle-value { font-size: 14px; }
     .history-timeline { grid-template-columns: 90px 1fr; gap: 24px; }
@@ -2725,24 +2912,50 @@
   /* Zwei Panels, die sich beim Verlassen wie ein Schmuckkästchen öffnen */
   .intro__panel {
     position: absolute; left: 0; width: 100%; height: 50%;
-    background:
-      radial-gradient(120% 140% at 50% 100%, rgba(176,138,62,0.10), transparent 60%),
-      linear-gradient(180deg, #14110c 0%, #1f1a14 60%, #14110c 100%);
-    transition: transform 1.05s cubic-bezier(.76,0,.24,1);
+    background: linear-gradient(180deg, #17130c 0%, #241c12 62%, #2b2216 100%);
+    transition: transform 1.2s cubic-bezier(.76,0,.24,1);
     will-change: transform;
   }
-  .intro__panel--top { top: 0; box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
-  .intro__panel--bottom { bottom: 0; }
+  .intro__panel--top { top: 0; }
+  .intro__panel--bottom {
+    bottom: 0;
+    background: linear-gradient(0deg, #17130c 0%, #241c12 62%, #2b2216 100%);
+  }
+  /* Warmer Goldschein, der ruhig atmet */
+  .intro__glow {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(52% 40% at 50% 50%, rgba(201,162,91,0.34), rgba(176,138,62,0.10) 48%, transparent 76%);
+    animation: introGlow 3.8s ease-in-out infinite;
+  }
+  @keyframes introGlow {
+    0%, 100% { opacity: 0.55; transform: scale(0.95); }
+    50%      { opacity: 1;    transform: scale(1.05); }
+  }
+  /* Lichtnaht, die beim Oeffnen aufblitzt */
+  .intro__seam {
+    position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+    z-index: 3; pointer-events: none; opacity: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,246,226,0.95) 50%, transparent);
+    box-shadow: 0 0 22px rgba(201,162,91,0.8);
+  }
+  .intro.is-leaving .intro__seam { animation: introSeam 0.95s cubic-bezier(.4,0,.2,1) forwards; }
+  @keyframes introSeam {
+    0%   { opacity: 0; transform: scaleX(0.15); }
+    30%  { opacity: 1; transform: scaleX(1); }
+    100% { opacity: 0; transform: scaleX(1); }
+  }
   .intro__center {
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; z-index: 2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 26px;
+    gap: 22px;
     transition: opacity 0.6s ease, transform 0.9s cubic-bezier(.76,0,.24,1);
     will-change: opacity, transform;
   }
+  .intro__logo-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
   .intro__logo {
     position: relative;
-    width: min(440px, 62vw);
+    width: min(520px, 68vw);
     height: auto;
     opacity: 0;
     transform: translateY(14px) scale(0.96);
@@ -2752,7 +2965,7 @@
   /* Gold-Schimmer, exakt entlang der Buchstaben (Logo als Maske) */
   .intro__shimmer {
     position: absolute; inset: 0;
-    width: min(440px, 62vw); height: 100%;
+    width: min(520px, 68vw); height: 100%;
     left: 50%; transform: translateX(-50%);
     pointer-events: none;
     background: linear-gradient(115deg,
@@ -2771,11 +2984,23 @@
     opacity: 0;
     animation: introShimmer 1.15s cubic-bezier(.4,0,.2,1) 0.75s forwards;
   }
-  .intro__line {
-    width: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  /* Echter Ladebalken - folgt den vorgeladenen Hero-Frames */
+  .intro__progress {
+    position: relative;
+    width: min(230px, 48vw);
+    height: 1px;
+    margin-top: 4px;
+    background: rgba(201,162,91,0.20);
+    overflow: hidden;
     opacity: 0;
-    animation: introLine 0.9s ease 0.85s forwards;
+    animation: introTagIn 0.7s ease 0.7s forwards;
+  }
+  .intro__progress i {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    display: block; width: 0;
+    background: linear-gradient(90deg, rgba(201,162,91,0.4), #e3c074 55%, #fff6e2);
+    box-shadow: 0 0 12px rgba(201,162,91,0.8);
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
   }
   .intro__tag {
     font-family: 'Cormorant Garamond', serif;
@@ -2795,15 +3020,12 @@
     15%  { opacity: 1; }
     100% { opacity: 1; background-position: -130% 0; }
   }
-  @keyframes introLine {
-    0%   { width: 0; opacity: 0; }
-    100% { width: min(180px, 40vw); opacity: 1; }
-  }
   @keyframes introTagIn {
     to { opacity: 1; }
   }
   /* Exit: Panels öffnen, Logo hebt sanft ab */
-  .intro.is-leaving .intro__center { opacity: 0; transform: translateY(-12px) scale(0.99); }
+  .intro.is-leaving .intro__center { opacity: 0; transform: translateY(-14px) scale(0.985); }
+  .intro.is-leaving .intro__glow { opacity: 0; transition: opacity 0.4s ease; animation: none; }
   .intro.is-leaving .intro__panel--top { transform: translateY(-100%); }
   .intro.is-leaving .intro__panel--bottom { transform: translateY(100%); }
   .intro.is-gone { display: none; }
@@ -2819,13 +3041,15 @@
 <div class="intro" id="intro" role="presentation" aria-hidden="true">
   <div class="intro__panel intro__panel--top"></div>
   <div class="intro__panel intro__panel--bottom"></div>
+  <div class="intro__glow" aria-hidden="true"></div>
+  <div class="intro__seam" aria-hidden="true"></div>
   <div class="intro__center">
-    <div style="position:relative; display:flex; align-items:center; justify-content:center;">
+    <div class="intro__logo-wrap">
       <img src="assets/logo-gold.webp?v=losch" alt="Juwelier Weidmann" class="intro__logo" />
       <span class="intro__shimmer" aria-hidden="true"></span>
     </div>
-    <div class="intro__line" aria-hidden="true"></div>
     <div class="intro__tag">Wiesbaden · seit 1991</div>
+    <div class="intro__progress" aria-hidden="true"><i id="introBar"></i></div>
   </div>
 </div>
 <script>
@@ -2842,22 +3066,43 @@
     }
 
     html.classList.add('intro-lock');
-    var done = false;
+    var bar = document.getElementById('introBar');
+    var start = Date.now();
+    var MIN = 2100;      // Logo-Reveal + Schimmer duerfen immer zu Ende laufen
+    var MAX = 4800;      // hart gedeckelt, egal wie langsam die Leitung ist
+    var done = false, pageLoaded = false;
 
-    function unlock() {
-      html.classList.remove('intro-lock');
-    }
+    function unlock() { html.classList.remove('intro-lock'); }
+
     function leave() {
       if (done) return;
       done = true;
-      intro.classList.add('is-leaving');
-      unlock();
-      // nach der Panel-Transition (~1.05s) komplett entfernen
+      if (bar) bar.style.width = '100%';
       window.setTimeout(function () {
-        intro.classList.add('is-gone');
-        if (intro.parentNode) intro.parentNode.removeChild(intro);
-      }, 1150);
+        intro.classList.add('is-leaving');
+        unlock();
+        window.setTimeout(function () {
+          intro.classList.add('is-gone');
+          if (intro.parentNode) intro.parentNode.removeChild(intro);
+        }, 1300);
+      }, 240);
     }
+
+    // Ladebalken folgt den echten Hero-Frames, nicht einem starren Timer
+    function tick() {
+      if (done) return;
+      var el = Date.now() - start;
+      var hp = window.__heroPreload;
+      var assets = (hp && hp.total) ? (hp.loaded / hp.total) : 0;
+      var timed = Math.min(1, el / 2200) * 0.8;
+      var v = Math.max(timed, assets * 0.95);
+      if (pageLoaded) v = Math.max(v, 0.97);
+      if (bar) bar.style.width = (v * 100).toFixed(1) + '%';
+      if ((el >= MIN && (pageLoaded || assets >= 0.6)) || el >= MAX) { leave(); return; }
+      window.requestAnimationFrame(tick);
+    }
+    window.addEventListener('load', function () { pageLoaded = true; });
+    window.requestAnimationFrame(tick);
 
     // Klick / Tap / Taste überspringt die Intro
     intro.addEventListener('click', leave);
@@ -2865,10 +3110,8 @@
       if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') leave();
     });
 
-    // Reguläre Timeline: Reveal ~2.0s, dann öffnen
-    window.setTimeout(leave, 2200);
     // Sicherheitsnetz, falls irgendetwas hängt
-    window.setTimeout(function () { unlock(); }, 4000);
+    window.setTimeout(function () { unlock(); }, 6500);
   })();
 </script>
 
@@ -2905,7 +3148,7 @@
       <p><strong>Juwelier Weidmann</strong></p>
       <p>Burgstraße 3<br/>65183 Wiesbaden</p>
       <p><strong>Telefon:</strong> <a href="tel:+496113742800">+49 611 374 280</a></p>
-      <p><strong>E-Mail:</strong> <a href="mailto:info@weidmann.de">info@weidmann.de</a></p>
+      <p><strong>E-Mail:</strong> <a href="mailto:info.weidmann@gmail.com">info.weidmann@gmail.com</a></p>
       <p><strong>Öffnungszeiten:</strong></p>
       <dl>
         <dt>Montag–Freitag:</dt><dd>10:00–18:30 Uhr</dd>
@@ -2963,16 +3206,25 @@
 
 <div class="page">
 
+  <!-- Goldenes Seiten-Ornament (nur links, erst unterhalb der Hero sichtbar) -->
+  <div class="edge-ornament edge-ornament--left" aria-hidden="true"></div>
+
   <main>
+
+    <!-- Drei goldene Scroll-Striche (rechts) -->
+    <div class="gold-rails" id="goldRails" aria-hidden="true"><i></i><i></i><i></i></div>
 
     <!-- HERO -->
     <section class="hero-wrap">
       <div class="hero">
-        <picture class="hero-pic">
-          <source srcset="assets/wdm-mobile/frame-001.webp" media="(max-width: 760px)" />
-          <img class="hero-frame is-active" src="assets/wdm/frame-001.webp" alt="" fetchpriority="high" />
-        </picture>
+        <img class="hero-frame is-active is-front" id="heroLayerA" src="assets/hero-a/frame-001.webp" alt="" fetchpriority="high" />
+        <img class="hero-frame" id="heroLayerB" src="" alt="" aria-hidden="true" />
         <div class="hero-content"></div>
+        <div class="hero-switch" id="heroSwitch" role="group" aria-label="Hero-Motiv wechseln">
+          <span class="hero-switch__label">Motiv</span>
+          <button type="button" class="hero-switch__btn is-active" data-set="0" aria-label="Motiv 1" aria-pressed="true">I</button>
+          <button type="button" class="hero-switch__btn" data-set="1" aria-label="Motiv 2" aria-pressed="false">II</button>
+        </div>
       </div>
     </section>
 
@@ -3029,10 +3281,6 @@
             <div class="principle-label">Material</div>
             <div class="principle-value">Erlesene Zutaten</div>
           </div>
-          <div class="principle">
-            <div class="principle-label">Vision</div>
-            <div class="principle-value">Für Generationen</div>
-          </div>
         </div>
 
         <div class="philosophie-portrait reveal delay-8">
@@ -3053,7 +3301,7 @@
       <div class="unikate-grid">
         <div class="unikate-eyebrow reveal">Wiesbaden · Burgstraße 3</div>
         <h2 class="unikate-headline reveal delay-1" id="unikate-heading">
-          Jedes Stück<br/><em>ein Unikat.</em>
+          Schmuck,<br/><em>der bleibt.</em>
         </h2>
         <div class="unikate-divider reveal delay-2"></div>
         <p class="unikate-body reveal delay-3">
@@ -3201,7 +3449,7 @@
         <div class="est">Wiesbaden</div>
       </div>
       <div class="footer-bonsai" aria-hidden="true">
-        <img src="assets/hoz.png" alt="" />
+        <img src="assets/footer-ring.webp" alt="" />
       </div>
       <div class="footer-right">
         <div class="footer-links" style="text-align:right">
@@ -3495,49 +3743,70 @@
 
 (function () {
   var TOTAL = 50;
+  // Zwei Hero-Filme, jeweils als 50 Scroll-Frames (Desktop + Mobile-Fassung)
+  var SETS = [
+    { d: 'assets/hero-a', m: 'assets/hero-a-mobile' },
+    { d: 'assets/hero-b', m: 'assets/hero-b-mobile' }
+  ];
   var heroWrap = document.querySelector('.hero-wrap');
   var hero = heroWrap ? heroWrap.querySelector('.hero') : null;
   if (!heroWrap || !hero) return;
 
+  var layers = [document.getElementById('heroLayerA'), document.getElementById('heroLayerB')];
+  if (!layers[0] || !layers[1]) return;
+
   var mq = window.matchMedia('(max-width: 760px)');
   var pad = function (n) { return ('00' + n).slice(-3); };
-  var folder = mq.matches ? 'assets/wdm-mobile' : 'assets/wdm';
 
-  // Single visible <img> aus dem HTML wiederverwenden — keine 30 gestapelten Layer mehr
-  var heroImg = hero.querySelector('.hero-frame');
-  if (!heroImg) return;
-  // Übrige .hero-frame Elemente (falls altes Markup noch da ist) entfernen
-  var oldExtras = hero.querySelectorAll('.hero-frame');
-  for (var x = 0; x < oldExtras.length; x++) {
-    if (oldExtras[x] !== heroImg) oldExtras[x].parentNode.removeChild(oldExtras[x]);
-  }
+  // Ladefortschritt fuer den Intro-Screen
+  window.__heroPreload = { loaded: 0, total: TOTAL };
 
-  // Frame-URLs pre-cachen via Image()-Objekte (kein DOM-Stack)
-  var frameSrcs = new Array(TOTAL);
-  var preloads = new Array(TOTAL);
-  function buildList(folderPath) {
+  var srcs  = [null, null];
+  var cache = [null, null];
+  var built = [false, false];
+
+  function folderFor(set) { return mq.matches ? SETS[set].m : SETS[set].d; }
+
+  function build(set, eager) {
+    var f = folderFor(set);
+    var list = new Array(TOTAL), ims = new Array(TOTAL);
     for (var i = 0; i < TOTAL; i++) {
-      var src = folderPath + '/frame-' + pad(i + 1) + '.webp';
-      frameSrcs[i] = src;
+      var src = f + '/frame-' + pad(i + 1) + '.webp';
+      list[i] = src;
       var im = new Image();
       im.decoding = 'async';
+      if (!eager) { try { im.fetchPriority = 'low'; } catch (e) {} }
+      if (eager && set === 0) {
+        im.onload = im.onerror = function () {
+          if (window.__heroPreload.loaded < TOTAL) window.__heroPreload.loaded++;
+        };
+      }
       im.src = src;
-      preloads[i] = im;
+      ims[i] = im;
     }
+    srcs[set] = list; cache[set] = ims; built[set] = true;
   }
-  buildList(folder);
 
-  var current = 0;
+  build(0, true);
+
+  var activeSet = 0;
+  var front = 0;          // welcher Layer gerade sichtbar ist
+  var current = -1;
   var ticking = false;
   var doneState = false;
+  var switching = false;
+
+  // Beim Start direkt die passende (Desktop-/Mobile-)Fassung setzen
+  layers[0].src = srcs[0][0];
 
   function onMediaChange() {
-    var newFolder = mq.matches ? 'assets/wdm-mobile' : 'assets/wdm';
-    if (newFolder !== folder) {
-      folder = newFolder;
-      buildList(folder);
-      heroImg.src = frameSrcs[current];
-    }
+    var keep = activeSet;
+    built = [false, false];
+    build(keep, true);
+    current = -1;
+    layers[front].src = srcs[keep][0];
+    update();
+    idlePrefetch(1 - keep);
   }
   if (mq.addEventListener) mq.addEventListener('change', onMediaChange);
   else if (mq.addListener) mq.addListener(onMediaChange);
@@ -3550,20 +3819,17 @@
     var vh = window.innerHeight || document.documentElement.clientHeight;
     var p;
     if (wrapH > heroH + 50) {
-      var stickyTotal = wrapH - heroH;
-      p = -wrapRect.top / stickyTotal;
+      p = -wrapRect.top / (wrapH - heroH);
     } else {
-      var travel = wrapH + vh;
-      p = (vh - wrapRect.top) / travel;
+      p = (vh - wrapRect.top) / (wrapH + vh);
     }
     if (p < 0) p = 0; else if (p > 1) p = 1;
     var idx = Math.min(TOTAL - 1, Math.floor(p * TOTAL));
-    if (idx !== current) {
-      // Nur swappen, wenn das Ziel-Frame schon im Cache geladen ist
-      // (verhindert weißes Flackern). Sonst beim aktuellen Frame bleiben.
-      var pre = preloads[idx];
-      if (pre && pre.complete && pre.naturalWidth > 0) {
-        heroImg.src = frameSrcs[idx];
+    if (idx !== current && !switching) {
+      // Nur swappen, wenn das Ziel-Frame schon geladen ist (kein Flackern)
+      var im = cache[activeSet][idx];
+      if (im && im.complete && im.naturalWidth > 0) {
+        layers[front].src = srcs[activeSet][idx];
         current = idx;
       }
     }
@@ -3574,6 +3840,67 @@
     }
   }
 
+  // Weiches Ueberblenden zwischen den beiden Filmen:
+  // der neue Layer wird ueber dem alten eingeblendet, erst danach wird der alte abgeschaltet.
+  function switchTo(set) {
+    if (set === activeSet || switching) return;
+    if (!built[set]) build(set, true);
+    switching = true;
+    var back = 1 - front;
+    var idx = current < 0 ? 0 : current;
+    var im = cache[set][idx];
+
+    function go() {
+      layers[back].src = srcs[set][idx];
+      layers[back].classList.add('is-front');
+      layers[front].classList.remove('is-front');
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          layers[back].classList.add('is-active');
+          window.setTimeout(function () {
+            layers[front].classList.remove('is-active');
+            front = back;
+            activeSet = set;
+            current = idx;
+            switching = false;
+            update();
+          }, 950);
+        });
+      });
+    }
+    if (im && im.complete && im.naturalWidth > 0) go();
+    else if (im) { im.onload = go; im.onerror = go; }
+    else go();
+  }
+
+  var btns = hero.querySelectorAll('.hero-switch__btn');
+  for (var b = 0; b < btns.length; b++) {
+    (function (btn) {
+      btn.addEventListener('click', function () {
+        var set = parseInt(btn.getAttribute('data-set'), 10) || 0;
+        if (set === activeSet || switching) return;
+        for (var k = 0; k < btns.length; k++) {
+          var on = btns[k] === btn;
+          btns[k].classList.toggle('is-active', on);
+          btns[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+        }
+        switchTo(set);
+      });
+    })(btns[b]);
+  }
+
+  function idlePrefetch(set) {
+    var run = function () { if (!built[set]) build(set, false); };
+    if (window.requestIdleCallback) window.requestIdleCallback(run, { timeout: 7000 });
+    else window.setTimeout(run, 4000);
+  }
+  // Zweiten Film erst im Leerlauf nachladen — der erste bleibt schnell
+  if (document.readyState === 'complete') idlePrefetch(1);
+  else window.addEventListener('load', function () { idlePrefetch(1); });
+  // Beim Hovern des Umschalters spaetestens vorladen
+  var sw = document.getElementById('heroSwitch');
+  if (sw) sw.addEventListener('pointerenter', function () { if (!built[1]) build(1, true); });
+
   function onScroll() {
     if (!ticking) {
       window.requestAnimationFrame(update);
@@ -3583,6 +3910,7 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
+  window.addEventListener('load', onScroll);
   update();
 })();
 
@@ -3803,6 +4131,36 @@
   // Initial
   var saved = get();
   if (!saved) { showBanner(); } else { apply(saved); }
+})();
+</script>
+<script>
+// Goldene Striche (unter Hero bis hinter Kontakt) + linkes Ornament erst unterhalb der Hero einblenden
+(function () {
+  var rails = document.getElementById('goldRails');
+  var ornL = document.querySelector('.edge-ornament--left');
+  var heroWrap = document.querySelector('.hero-wrap');
+  function place() {
+    if (!rails) return;
+    var welcome = document.querySelector('.welcome-section');
+    var kontakt = document.querySelector('.kontakt-section');
+    if (!welcome || !kontakt) return;
+    var top = welcome.offsetTop;
+    var end = kontakt.offsetTop + Math.min(280, kontakt.offsetHeight * 0.45);
+    rails.style.top = top + 'px';
+    rails.style.height = Math.max(0, end - top) + 'px';
+  }
+  function toggleOrn() {
+    if (!ornL || !heroWrap) return;
+    var thr = heroWrap.offsetHeight - window.innerHeight * 1.15;  // erst wenn die Hero wegscrollt
+    if (window.scrollY > thr) ornL.classList.add('is-visible');
+    else ornL.classList.remove('is-visible');
+  }
+  place(); toggleOrn();
+  window.addEventListener('resize', function () { place(); toggleOrn(); }, { passive: true });
+  window.addEventListener('scroll', toggleOrn, { passive: true });
+  window.addEventListener('load', place);
+  setTimeout(place, 500);
+  setTimeout(place, 1600);
 })();
 </script>
 </body>
